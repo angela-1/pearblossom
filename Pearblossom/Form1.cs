@@ -19,13 +19,13 @@ namespace WindowsFormsApp1
             label1.Text = "请拖放或选择PDF文件：";
             label2.Text = "就绪";
             button2.Text = "选择";
-            button1.Text = "生成目录";
+            button1.Text = "导出书签";
             label3.Text = @"资料汇编目录生成工具
 
 1. 用 Acrobat 编辑好 PDF 文件中的书签。
-2. 用此工具导出文本格式目录。
-3. 在 Word 文件中设置各级标题的制表位为右侧页码处，中间使用点分隔。
-4. 复制导出的文本格式目录到 Word 文件中。";
+2. 用此工具导出文件中的书签。
+3. 复制文本格式的目录到 Word 文件中。
+4. 设置各级标题的制表位为右侧页码处，中间使用点分隔。";
         }
 
         private void button2_Click(object sender, EventArgs e)
