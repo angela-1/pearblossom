@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.10
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pearblossom", "Pearblossom\Pearblossom.csproj", "{A5C36AE6-6BE7-4D7F-AC2D-B83A36C588A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pearblossom", "Pearblossom\pearblossom.csproj", "{A5C36AE6-6BE7-4D7F-AC2D-B83A36C588A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5E43FD27-12FA-41F3-B5D0-454FD1EDC9ED}
 	EndGlobalSection
 EndGlobal

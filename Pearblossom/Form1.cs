@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pearblossom;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -48,6 +49,22 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            if (textBox1.Text != "")
+            {
+                WordToc a = new WordToc(textBox1.Text);
+                a.output();
+
+
+            }
+            else
+            {
+                label2.Text = "未输入PDF文件路径。";
+            }
+
+
+
+            return;
             if (textBox1.Text  != "")
             {
                 Toc a = new Toc(textBox1.Text);
