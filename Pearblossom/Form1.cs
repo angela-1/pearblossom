@@ -6,8 +6,11 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using System.util;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
@@ -15,11 +18,17 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         private string src_filepath;
+        private string format;
 
         public Form1()
         {
+
             InitializeComponent();
-            tXTToolStripMenuItem.Checked = true;
+
+
+            this.format = "dOCXToolStripMenuItem";
+            dOCXToolStripMenuItem.Checked = true;
+            dOCXToolStripMenuItem.Image = global::pearblossom.Properties.Resources.dot;
 
             this.show_tip("点击“打开”或拖放带有目录的 PDF 文件。");
 
@@ -58,6 +67,10 @@ namespace WindowsFormsApp1
 
         private void dOCXToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!dOCXToolStripMenuItem.Checked)
+            {
+                this.single_checked(sender);
+            }
             if (src_filepath != null)
             {
                 WordToc a = new WordToc(src_filepath);
@@ -73,6 +86,10 @@ namespace WindowsFormsApp1
 
         private void tXTToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!tXTToolStripMenuItem.Checked)
+            {
+                this.single_checked(sender);
+            }
             if (src_filepath != null)
             {
                 Toc a = new Toc(src_filepath);
@@ -95,7 +112,18 @@ namespace WindowsFormsApp1
 
         private void toolStripSplitButton1_ButtonClick(object sender, EventArgs e)
         {
-            this.dOCXToolStripMenuItem_Click(null, null);
+            switch (this.format)
+            {
+                case "dOCXToolStripMenuItem":
+                    this.dOCXToolStripMenuItem_Click(dOCXToolStripMenuItem, null);
+                    break;
+                case "tXTToolStripMenuItem":
+                    this.tXTToolStripMenuItem_Click(tXTToolStripMenuItem, null);
+                    break;
+                default:
+                    this.dOCXToolStripMenuItem_Click(dOCXToolStripMenuItem, null);
+                    break;
+            }
         }
 
 
@@ -105,6 +133,19 @@ namespace WindowsFormsApp1
             label2.Text = tip;
         }
 
+        private void single_checked(object sender)
+        {
+
+            this.format = ((ToolStripMenuItem)sender).Name;
+
+            dOCXToolStripMenuItem.Checked = false;
+            tXTToolStripMenuItem.Checked = false;
+            dOCXToolStripMenuItem.Image = null;
+            tXTToolStripMenuItem.Image = null;
+
+            ((ToolStripMenuItem)sender).Checked = true;
+            ((ToolStripMenuItem)sender).Image = global::pearblossom.Properties.Resources.dot;
+        }
 
     }
 }

@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="export.png" />
+    <None Include="dot.png" />
     <Content Include="favicon.ico" />
     <None Include="open.png" />
   </ItemGroup>
