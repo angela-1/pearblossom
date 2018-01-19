@@ -108,7 +108,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="export.png" />
     <Content Include="favicon.ico" />
+    <None Include="open.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

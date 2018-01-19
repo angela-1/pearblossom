@@ -73,16 +73,11 @@ namespace pearblossom
             return toc_filepath;
         }
 
-        public void output()
+        public string output()
         {
             Application word = new ApplicationClass();
             word.Visible = false;
             Document doc = word.Documents.Add();
-
-            //word.Selection.ParagraphFormat.LineSpacing = 28f;//设置文档的行间距
-            //word.Selection.ParagraphFormat.FirstLineIndent = 0;//首行缩进的长度
-            //写入普通文本
-            float k = doc.PageSetup.PageWidth - doc.PageSetup.LeftMargin - doc.PageSetup.RightMargin;
 
             doc.PageSetup.TopMargin = word.CentimetersToPoints(3.7F);
             doc.PageSetup.BottomMargin = word.CentimetersToPoints(3.5F);
@@ -116,18 +111,16 @@ namespace pearblossom
                 Alignment: WdHorizontalLineAlignment.wdHorizontalLineAlignLeft,
                 Leader: WdTabLeader.wdTabLeaderDots);
 
-
-
-            object format = WdSaveFormat.wdFormatDocument;// office 2007就是wdFormatDocumentDefault
+            object format = WdSaveFormat.wdFormatDocument; // office 2007就是wdFormatDocumentDefault
             //将wordDoc文档对象的内容保存为DOCX文档
-            doc.SaveAs2(this._get_toc_name());
+            string dst_filepath = this._get_toc_name();
+            doc.SaveAs2(dst_filepath);
 
             doc.Close();
             //关闭wordApp组件对象
             word.Quit();
 
+            return dst_filepath;
         }
-
-
     }
 }

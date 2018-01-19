@@ -14,84 +14,95 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        private string src_filepath;
+
         public Form1()
         {
             InitializeComponent();
-            label1.Text = "请拖放或选择PDF文件：";
-            label2.Text = "就绪";
-            button2.Text = "选择";
-            button1.Text = "导出书签";
-            label3.Text = @"资料汇编目录生成工具
+            tXTToolStripMenuItem.Checked = true;
 
-1. 用 Acrobat 编辑好 PDF 文件中的书签。
-2. 用此工具导出文件中的书签。
-3. 复制文本格式的目录到 Word 文件中。
-4. 设置各级标题的制表位为右侧页码处，中间使用点分隔。";
+            this.show_tip("点击“打开”或拖放带有目录的 PDF 文件。");
+
+
+            //            label3.Text = @"资料汇编目录生成工具
+
+            //1. 用 Acrobat 编辑好 PDF 文件中的书签。
+            //2. 用此工具导出文件中的书签。
+            //3. 复制文本格式的目录到 Word 文件中。
+            //4. 设置各级标题的制表位为右侧页码处，中间使用点分隔。";
         }
 
-        private void button2_Click(object sender, EventArgs e)
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
         {
             // choose file
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = "c:\\";//注意这里写路径时要用c:\\而不是c:\
-            openFileDialog.Filter = "PDF文件|*.pdf|所有文件|*.*";
+            //openFileDialog.InitialDirectory = "c:\\"; // 不设置默认打开桌面
+            openFileDialog.Filter = "PDF 文件|*.pdf";
             openFileDialog.RestoreDirectory = true;
             openFileDialog.FilterIndex = 1;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string fName = openFileDialog.FileName;
-
-                textBox1.Text = fName;
-
-                
+                string path = openFileDialog.FileName;
+                src_filepath = path;
+                this.show_tip("已选：\n" + path + "\n" + "点击“提取”生成目录文件，默认为 docx 格式。");
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            if (textBox1.Text != "")
-            {
-                WordToc a = new WordToc(textBox1.Text);
-                a.output();
-
-
-            }
-            else
-            {
-                label2.Text = "未输入PDF文件路径。";
-            }
-
-
-
-            return;
-            if (textBox1.Text  != "")
-            {
-                Toc a = new Toc(textBox1.Text);
-                if (a.ReadToc())
-                {
-                    a.WriteToc();
-                    label2.Text = "导出目录成功。";
-                } else
-                {
-                    label2.Text = "该文件没有书签。";
-
-                }
-
-
-            } else
-            {
-                label2.Text = "未输入PDF文件路径。";
-            }
-           
-
         }
 
         private void Form1_DragEnter(object sender, DragEventArgs e)
         {
             string path = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
-            textBox1.Text = path;
-            label2.Text = "已选择：" + path;
+            src_filepath = path;
+            this.show_tip("已选：\n" + path + "\n" + "点击“提取”生成目录文件，默认为 docx 格式。");
+        }
+
+        private void dOCXToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (src_filepath != null)
+            {
+                WordToc a = new WordToc(src_filepath);
+                string dst_filepath = a.output();
+                this.show_tip("导出目录成功。\n目标文件：\n" + dst_filepath);
+
+            }
+            else
+            {
+                this.show_tip("未选择 PDF 文件。");
+            }
+        }
+
+        private void tXTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (src_filepath != null)
+            {
+                Toc a = new Toc(src_filepath);
+                if (a.ReadToc())
+                {
+                    string dst_filepath = a.WriteToc();
+                    this.show_tip("导出目录成功。\n目标文件：\n" + dst_filepath);
+                }
+                else
+                {
+                    this.show_tip("该文件没有书签。");
+                }
+            }
+            else
+            {
+                this.show_tip("未选择 PDF 文件。");
+
+            }
+        }
+
+        private void toolStripSplitButton1_ButtonClick(object sender, EventArgs e)
+        {
+            this.dOCXToolStripMenuItem_Click(null, null);
+        }
+
+
+
+        private void show_tip(string tip)
+        {
+            label2.Text = tip;
         }
 
 

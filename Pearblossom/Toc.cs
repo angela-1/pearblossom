@@ -14,7 +14,7 @@ namespace WindowsFormsApp1
             this.filepath = filepath;
         }
 
-        private void _write_toc(string content)
+        private string _write_toc(string content)
         {
             var ind = this.filepath.LastIndexOf('\\');
             var toc_name = System.IO.Path.GetFileNameWithoutExtension(this.filepath);
@@ -25,6 +25,7 @@ namespace WindowsFormsApp1
             sw.Flush();     
             sw.Close();
             fs.Close();
+            return toc_filepath;
         }
 
         private string _show_oneline(Dictionary<string, object> section)
@@ -84,9 +85,9 @@ namespace WindowsFormsApp1
 
         }
 
-        public void WriteToc()
+        public string WriteToc()
         {
-            this._write_toc(this.outline);
+            return this._write_toc(this.outline);
         }
 
         public void write_outline()
