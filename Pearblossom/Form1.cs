@@ -22,23 +22,13 @@ namespace WindowsFormsApp1
 
         public Form1()
         {
-
             InitializeComponent();
-
 
             this.format = "dOCXToolStripMenuItem";
             dOCXToolStripMenuItem.Checked = true;
             dOCXToolStripMenuItem.Image = global::pearblossom.Properties.Resources.dot;
 
             this.show_tip("点击“打开”或拖放带有目录的 PDF 文件。");
-
-
-            //            label3.Text = @"资料汇编目录生成工具
-
-            //1. 用 Acrobat 编辑好 PDF 文件中的书签。
-            //2. 用此工具导出文件中的书签。
-            //3. 复制文本格式的目录到 Word 文件中。
-            //4. 设置各级标题的制表位为右侧页码处，中间使用点分隔。";
         }
 
 
@@ -147,6 +137,21 @@ namespace WindowsFormsApp1
             ((ToolStripMenuItem)sender).Image = global::pearblossom.Properties.Resources.dot;
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+            Form form2 = new Form2();
+            form2.Show();
+        }
+
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string url = "https://github.com/angela-1/pearblossom";
+
+            // Open Internet Explorer to the correct url.
+            System.Diagnostics.Process.Start("IExplore.exe", url);
+
+        }
     }
 }
 
