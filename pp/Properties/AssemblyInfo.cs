@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("梨花（pearblossom）")]
-[assembly: AssemblyDescription("导出PDF书签制作目录的工具。")]
+[assembly: AssemblyTitle("梨花-PDF文件目录书签提取工具")]
+[assembly: AssemblyDescription("提取 PDF 文件目录书签制作目录的工具。")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Angela-1")]
-[assembly: AssemblyProduct("梨花（pearblossom）")]
-[assembly: AssemblyCopyright("Copyright ©  Angela-1 2017")]
+[assembly: AssemblyProduct("")]
+[assembly: AssemblyCopyright("Copyright ©  Angela 2018 <ruoshui_engr@163.com>")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // 可以指定所有值，也可以使用以下所示的 "*" 预置版本号和修订号
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("2.0.0.0")]
+[assembly: AssemblyFileVersion("2.0.0.0")]
