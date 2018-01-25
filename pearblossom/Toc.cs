@@ -1,39 +1,61 @@
-﻿using iTextSharp.text;
+﻿/*
+  Copyright 2018 Angela <ruoshui_engr@163.com>
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
 using iTextSharp.text.pdf;
+using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace WindowsFormsApp1
+namespace pearblossom
 {
-    class Toc
+    abstract class Toc 
     {
-        private string outline;
-        private string filepath;
-        public Toc(string filepath)
-        {
-            this.filepath = filepath;
-        }
+        protected List<string> _outline;
+        protected string _src_file;
 
-        private string _write_toc(string content)
+        protected int _parse_toc()
         {
-            var ind = this.filepath.LastIndexOf('\\');
-            var toc_name = System.IO.Path.GetFileNameWithoutExtension(this.filepath);
-            string toc_filepath = this.filepath.Substring(0, ind+1) + toc_name +"_toc.txt";
-            FileStream fs = new FileStream(toc_filepath, FileMode.Create);
-            StreamWriter sw = new StreamWriter(fs);
-            sw.Write(content);     
-            sw.Flush();     
-            sw.Close();
-            fs.Close();
-            return toc_filepath;
-        }
+            _outline = new List<string>();
+            PdfReader reader = new PdfReader(_src_file);
+            IList<Dictionary<string, object>> outline_list = SimpleBookmark.GetBookmark(reader);
 
-        private string _show_oneline(Dictionary<string, object> section)
-        {
-            string kk = "Page";
-            if (section.ContainsKey(kk))
+            if (outline_list != null)
             {
-                string num_page = (string)section[kk];
+                foreach (var level1 in outline_list)
+                {
+                    string s = _get_bookmark(level1);
+                    _outline.Add(s);
+                }
+                reader.Close();
+                return 0;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        protected string _get_bookmark(Dictionary<string, object> section)
+        {
+            string page = "Page";
+            if (section.ContainsKey(page))
+            {
+                string num_page = (string)section[page];
                 string one_line = section["Title"] + "\t" + num_page.Split(' ')[0];
                 if (section.ContainsKey("Kids"))
                 {
@@ -41,69 +63,19 @@ namespace WindowsFormsApp1
                     foreach (var kid in kids)
                     {
                         one_line += "\n";
-                        one_line += _show_oneline(kid);
+                        one_line += _get_bookmark(kid);
                     }
                 }
                 return one_line;
-
-            } else
+            }
+            else
             {
                 return "书签无Pages";
             }
-
-            
-
-
         }
 
-        public bool ReadToc()
-        {
+        protected abstract string _get_toc_name();
+        public abstract string Output();
 
-            PdfReader reader = new PdfReader(this.filepath);
-            IList<Dictionary<string, object>> outline_list = SimpleBookmark.GetBookmark(reader);
-
-            if (outline_list != null)
-            {
-                foreach (var level1 in outline_list)
-                {
-                    string tt = _show_oneline(level1);
-                    outline += "\n";
-                    outline += tt;
-                    //Debug.WriteLine(tt);
-
-                }
-                return true;
-            } else
-            {
-                return false;
-            }
-
-
-
-  
-
-
-        }
-
-        public string WriteToc()
-        {
-            return this._write_toc(this.outline);
-        }
-
-        public void write_outline()
-        {
-            BaseFont bfchinese = BaseFont.CreateFont(@"c:\windows\fonts\simfang.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-            Font ChFont = new Font(bfchinese, 12);
-            Font ChFont_blue = new Font(bfchinese, 40, Font.NORMAL, new BaseColor(51, 0, 153));
-            Font ChFont_msg = new Font(bfchinese, 12, Font.ITALIC, BaseColor.RED);
-
-            Document document = new Document();
-            PdfWriter.GetInstance(document, new FileStream("Chap0101.pdf", FileMode.Create));
-            document.Open();
-            document.Add(new Paragraph("Hello中文PDF你说 World", ChFont_blue));
-            document.Close();
-
-
-        }
     }
 }

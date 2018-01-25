@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace pearblossom
 {
     partial class Form1
     {
@@ -29,166 +29,190 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.label2 = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
-            this.dOCXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tXTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.getTocToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.docxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pageNumberToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.tiplabel = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.githubToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(15, 76);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 27);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "label2";
             // 
             // toolStrip1
             // 
-            this.toolStrip1.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(48, 48);
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(36, 36);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripSeparator1,
-            this.toolStripSplitButton1});
+            this.openToolStripButton,
+            this.getTocToolStripDropDownButton,
+            this.pageNumberToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.MinimumSize = new System.Drawing.Size(0, 60);
+            this.toolStrip1.MinimumSize = new System.Drawing.Size(0, 48);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(582, 60);
-            this.toolStrip1.TabIndex = 7;
+            this.toolStrip1.Size = new System.Drawing.Size(582, 48);
+            this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripSeparator1
+            // openToolStripButton
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 60);
+            this.openToolStripButton.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
+            this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openToolStripButton.Name = "openToolStripButton";
+            this.openToolStripButton.Size = new System.Drawing.Size(92, 45);
+            this.openToolStripButton.Text = "打开";
+            this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
             // 
-            // linkLabel1
+            // getTocToolStripDropDownButton
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.BackColor = System.Drawing.SystemColors.Control;
-            this.linkLabel1.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.linkLabel1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkLabel1.Location = new System.Drawing.Point(405, 4);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(173, 20);
-            this.linkLabel1.TabIndex = 9;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "angela-1/pearblossom";
-            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.getTocToolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.docxToolStripMenuItem,
+            this.txtToolStripMenuItem});
+            this.getTocToolStripDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("getTocToolStripDropDownButton.Image")));
+            this.getTocToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.getTocToolStripDropDownButton.Name = "getTocToolStripDropDownButton";
+            this.getTocToolStripDropDownButton.Size = new System.Drawing.Size(119, 45);
+            this.getTocToolStripDropDownButton.Text = "提取目录";
             // 
-            // pictureBox1
+            // docxToolStripMenuItem
             // 
-            this.pictureBox1.Image = global::pearblossom.Properties.Resources.mark_github;
-            this.pictureBox1.Location = new System.Drawing.Point(388, 7);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
+            this.docxToolStripMenuItem.Name = "docxToolStripMenuItem";
+            this.docxToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
+            this.docxToolStripMenuItem.Text = "*.docx";
+            this.docxToolStripMenuItem.Click += new System.EventHandler(this.docxToolStripMenuItem_Click);
             // 
-            // label1
+            // txtToolStripMenuItem
             // 
-            this.label1.Image = global::pearblossom.Properties.Resources.help;
-            this.label1.Location = new System.Drawing.Point(531, 76);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 36);
-            this.label1.TabIndex = 8;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.txtToolStripMenuItem.Name = "txtToolStripMenuItem";
+            this.txtToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
+            this.txtToolStripMenuItem.Text = "*.txt";
+            this.txtToolStripMenuItem.Click += new System.EventHandler(this.txtToolStripMenuItem_Click);
             // 
-            // toolStripButton1
+            // pageNumberToolStripButton
             // 
-            this.toolStripButton1.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.toolStripButton1.Image = global::pearblossom.Properties.Resources.open;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(104, 57);
-            this.toolStripButton1.Text = "打开";
-            this.toolStripButton1.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.pageNumberToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("pageNumberToolStripButton.Image")));
+            this.pageNumberToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pageNumberToolStripButton.Name = "pageNumberToolStripButton";
+            this.pageNumberToolStripButton.Size = new System.Drawing.Size(109, 45);
+            this.pageNumberToolStripButton.Text = "添加页码";
+            this.pageNumberToolStripButton.Click += new System.EventHandler(this.pageNumberToolStripButton_Click);
             // 
-            // toolStripSplitButton1
+            // tiplabel
             // 
-            this.toolStripSplitButton1.BackColor = System.Drawing.SystemColors.Menu;
-            this.toolStripSplitButton1.DropDownButtonWidth = 24;
-            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dOCXToolStripMenuItem,
-            this.tXTToolStripMenuItem});
-            this.toolStripSplitButton1.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.toolStripSplitButton1.Image = global::pearblossom.Properties.Resources.export;
-            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(169, 57);
-            this.toolStripSplitButton1.Text = "提取目录";
-            this.toolStripSplitButton1.ButtonClick += new System.EventHandler(this.toolStripSplitButton1_ButtonClick);
+            this.tiplabel.AutoSize = true;
+            this.tiplabel.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tiplabel.Location = new System.Drawing.Point(13, 52);
+            this.tiplabel.Name = "tiplabel";
+            this.tiplabel.Size = new System.Drawing.Size(92, 27);
+            this.tiplabel.TabIndex = 3;
+            this.tiplabel.Text = "提示信息";
             // 
-            // dOCXToolStripMenuItem
+            // statusStrip1
             // 
-            this.dOCXToolStripMenuItem.Name = "dOCXToolStripMenuItem";
-            this.dOCXToolStripMenuItem.Size = new System.Drawing.Size(290, 32);
-            this.dOCXToolStripMenuItem.Text = "Word 格式（*.docx）";
-            this.dOCXToolStripMenuItem.Click += new System.EventHandler(this.dOCXToolStripMenuItem_Click);
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar1,
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel4,
+            this.toolStripStatusLabel2,
+            this.githubToolStripStatusLabel,
+            this.toolStripStatusLabel3});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 150);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(582, 25);
+            this.statusStrip1.TabIndex = 5;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // tXTToolStripMenuItem
+            // toolStripProgressBar1
             // 
-            this.tXTToolStripMenuItem.Name = "tXTToolStripMenuItem";
-            this.tXTToolStripMenuItem.Size = new System.Drawing.Size(290, 32);
-            this.tXTToolStripMenuItem.Text = "文本格式（*.txt）";
-            this.tXTToolStripMenuItem.Click += new System.EventHandler(this.tXTToolStripMenuItem_Click);
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 19);
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(125, 20);
+            this.toolStripStatusLabel1.Spring = true;
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(125, 20);
+            this.toolStripStatusLabel4.Spring = true;
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(125, 20);
+            this.toolStripStatusLabel2.Spring = true;
+            // 
+            // githubToolStripStatusLabel
+            // 
+            this.githubToolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.githubToolStripStatusLabel.Image = global::pearblossom.Properties.Resources.mark_github;
+            this.githubToolStripStatusLabel.IsLink = true;
+            this.githubToolStripStatusLabel.Name = "githubToolStripStatusLabel";
+            this.githubToolStripStatusLabel.Size = new System.Drawing.Size(20, 20);
+            this.githubToolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.githubToolStripStatusLabel.Click += new System.EventHandler(this.githubToolStripStatusLabel_Click);
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.Image = global::pearblossom.Properties.Resources.help;
+            this.toolStripStatusLabel3.Margin = new System.Windows.Forms.Padding(10, 3, 0, 2);
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(20, 20);
+            this.toolStripStatusLabel3.Click += new System.EventHandler(this.toolStripStatusLabel3_Click);
             // 
             // Form1
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ClientSize = new System.Drawing.Size(582, 173);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.linkLabel1);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(582, 175);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.tiplabel);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.label2);
-            this.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
+            this.MinimumSize = new System.Drawing.Size(600, 220);
             this.Name = "Form1";
-            this.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
-            this.Text = "梨花-PDF 文件目录书签提取工具";
+            this.Text = "梨花-材料汇编工具";
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Label label2;
+
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem dOCXToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tXTToolStripMenuItem;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripButton openToolStripButton;
+        private System.Windows.Forms.ToolStripDropDownButton getTocToolStripDropDownButton;
+        private System.Windows.Forms.ToolStripMenuItem docxToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem txtToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton pageNumberToolStripButton;
+        private System.Windows.Forms.Label tiplabel;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.ToolStripStatusLabel githubToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
     }
 }
 

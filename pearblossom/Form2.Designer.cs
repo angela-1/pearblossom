@@ -37,15 +37,16 @@
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(762, 472);
+            this.webBrowser1.Size = new System.Drawing.Size(782, 555);
             this.webBrowser1.TabIndex = 0;
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(762, 472);
+            this.ClientSize = new System.Drawing.Size(782, 555);
             this.Controls.Add(this.webBrowser1);
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "Form2";
             this.Text = "关于";
             this.ResumeLayout(false);

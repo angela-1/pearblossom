@@ -1,8 +1,17 @@
-![](pearblossom/pearblossom.png)
+![pearblossom](./pearblossom.png)
 
 # 梨花 - PDF 目录书签提取工具
 
 代号：pearblossom
+
+版本 2.0 。
+
+## 视觉
+
+标志为一个空心的书签。
+颜色：
+- hex #F66D31
+- rgb 246,109,49
 
 
 ## 使用方法
