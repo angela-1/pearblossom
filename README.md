@@ -1,4 +1,4 @@
-![pearblossom](./pearblossom.png)
+![pearblossom](https://raw.githubusercontent.com/angela-1/pearblossom/master/pearblossom/images/pearblossom.png)
 
 # 梨花 - PDF 目录书签提取工具
 

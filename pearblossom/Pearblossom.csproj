@@ -144,7 +144,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy /y $(ProjectDir)\..\README.html $(TargetDir)
-copy /y $(ProjectDir)\images\pearblossom.png $(TargetDir)</PreBuildEvent>
+    <PreBuildEvent>copy /y $(ProjectDir)\..\README.html $(TargetDir)</PreBuildEvent>
   </PropertyGroup>
 </Project>
