@@ -47,14 +47,17 @@ namespace pearblossom
             PdfStamper stamper = new PdfStamper(reader, dstFile);
 
             int n = stamper.Reader.NumberOfPages;
-            Rectangle rect = stamper.Reader.GetPageSize(1);
-            float xp = rect.Width / 2;
-            float yp = 30.0f;
+            
             //BaseFont bf = BaseFont.CreateFont(@"C:\Windows\Fonts\cour.ttf", BaseFont.IDENTITY_H, false);
             Font courierFont = new Font(Font.FontFamily.COURIER, 20);
 
             for (int i = 1; i <= n; i++)
             {
+                Rectangle rect = stamper.Reader.GetPageSize(i);
+                float xp = rect.Width / 2;
+                float yp = 30.0f;
+                //System.Windows.Forms.MessageBox.Show("x:" + xp.ToString() + "y:" + yp.ToString());
+
                 PdfContentByte canvas = stamper.GetOverContent(i);
                 
                 ColumnText.ShowTextAligned(canvas,

@@ -139,19 +139,19 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(125, 20);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(138, 20);
             this.toolStripStatusLabel1.Spring = true;
             // 
             // toolStripStatusLabel4
             // 
             this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(125, 20);
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(138, 20);
             this.toolStripStatusLabel4.Spring = true;
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(125, 20);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(138, 20);
             this.toolStripStatusLabel2.Spring = true;
             // 
             // githubToolStripStatusLabel
