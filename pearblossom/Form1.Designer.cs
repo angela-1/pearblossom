@@ -157,7 +157,7 @@
             // githubToolStripStatusLabel
             // 
             this.githubToolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.githubToolStripStatusLabel.Image = global::pearblossom.Properties.Resources.mark_github;
+            this.githubToolStripStatusLabel.Image = global::pearblossom.Properties.Resources.github;
             this.githubToolStripStatusLabel.IsLink = true;
             this.githubToolStripStatusLabel.Name = "githubToolStripStatusLabel";
             this.githubToolStripStatusLabel.Size = new System.Drawing.Size(20, 20);
