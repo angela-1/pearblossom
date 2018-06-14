@@ -142,7 +142,6 @@
     <Content Include="favicon.ico" />
     <None Include="images\github.png" />
     <None Include="images\help.png" />
-    <None Include="images\mark-github.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

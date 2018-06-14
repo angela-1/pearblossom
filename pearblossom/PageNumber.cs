@@ -53,10 +53,10 @@ namespace pearblossom
 
             for (int i = 1; i <= n; i++)
             {
-                Rectangle rect = stamper.Reader.GetPageSize(i);
+                Rectangle rect = stamper.Reader.GetPageSizeWithRotation(i);
                 float xp = rect.Width / 2;
                 float yp = 30.0f;
-                //System.Windows.Forms.MessageBox.Show("x:" + xp.ToString() + "y:" + yp.ToString());
+                //System.Windows.Forms.MessageBox.Show("x:" + rect.Width.ToString() + " y:" + rect.Height.ToString());
 
                 PdfContentByte canvas = stamper.GetOverContent(i);
                 
