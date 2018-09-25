@@ -30,11 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.getTocToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.docxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.txtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pageNumberToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.tiplabel = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -43,6 +38,12 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.githubToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.getTocToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.docxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pageNumberToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -53,57 +54,14 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripButton,
             this.getTocToolStripDropDownButton,
-            this.pageNumberToolStripButton});
+            this.pageNumberToolStripButton,
+            this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.MinimumSize = new System.Drawing.Size(0, 48);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(582, 48);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // openToolStripButton
-            // 
-            this.openToolStripButton.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
-            this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openToolStripButton.Name = "openToolStripButton";
-            this.openToolStripButton.Size = new System.Drawing.Size(92, 45);
-            this.openToolStripButton.Text = "打开";
-            this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
-            // 
-            // getTocToolStripDropDownButton
-            // 
-            this.getTocToolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.docxToolStripMenuItem,
-            this.txtToolStripMenuItem});
-            this.getTocToolStripDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("getTocToolStripDropDownButton.Image")));
-            this.getTocToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.getTocToolStripDropDownButton.Name = "getTocToolStripDropDownButton";
-            this.getTocToolStripDropDownButton.Size = new System.Drawing.Size(119, 45);
-            this.getTocToolStripDropDownButton.Text = "提取目录";
-            // 
-            // docxToolStripMenuItem
-            // 
-            this.docxToolStripMenuItem.Name = "docxToolStripMenuItem";
-            this.docxToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
-            this.docxToolStripMenuItem.Text = "*.docx";
-            this.docxToolStripMenuItem.Click += new System.EventHandler(this.docxToolStripMenuItem_Click);
-            // 
-            // txtToolStripMenuItem
-            // 
-            this.txtToolStripMenuItem.Name = "txtToolStripMenuItem";
-            this.txtToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
-            this.txtToolStripMenuItem.Text = "*.txt";
-            this.txtToolStripMenuItem.Click += new System.EventHandler(this.txtToolStripMenuItem_Click);
-            // 
-            // pageNumberToolStripButton
-            // 
-            this.pageNumberToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("pageNumberToolStripButton.Image")));
-            this.pageNumberToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pageNumberToolStripButton.Name = "pageNumberToolStripButton";
-            this.pageNumberToolStripButton.Size = new System.Drawing.Size(109, 45);
-            this.pageNumberToolStripButton.Text = "添加页码";
-            this.pageNumberToolStripButton.Click += new System.EventHandler(this.pageNumberToolStripButton_Click);
             // 
             // tiplabel
             // 
@@ -172,6 +130,59 @@
             this.toolStripStatusLabel3.Size = new System.Drawing.Size(20, 20);
             this.toolStripStatusLabel3.Click += new System.EventHandler(this.toolStripStatusLabel3_Click);
             // 
+            // openToolStripButton
+            // 
+            this.openToolStripButton.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
+            this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openToolStripButton.Name = "openToolStripButton";
+            this.openToolStripButton.Size = new System.Drawing.Size(92, 45);
+            this.openToolStripButton.Text = "打开";
+            this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
+            // 
+            // getTocToolStripDropDownButton
+            // 
+            this.getTocToolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.docxToolStripMenuItem,
+            this.txtToolStripMenuItem});
+            this.getTocToolStripDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("getTocToolStripDropDownButton.Image")));
+            this.getTocToolStripDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.getTocToolStripDropDownButton.Name = "getTocToolStripDropDownButton";
+            this.getTocToolStripDropDownButton.Size = new System.Drawing.Size(119, 45);
+            this.getTocToolStripDropDownButton.Text = "提取目录";
+            // 
+            // docxToolStripMenuItem
+            // 
+            this.docxToolStripMenuItem.Name = "docxToolStripMenuItem";
+            this.docxToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
+            this.docxToolStripMenuItem.Text = "*.docx";
+            this.docxToolStripMenuItem.Click += new System.EventHandler(this.docxToolStripMenuItem_Click);
+            // 
+            // txtToolStripMenuItem
+            // 
+            this.txtToolStripMenuItem.Name = "txtToolStripMenuItem";
+            this.txtToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
+            this.txtToolStripMenuItem.Text = "*.txt";
+            this.txtToolStripMenuItem.Click += new System.EventHandler(this.txtToolStripMenuItem_Click);
+            // 
+            // pageNumberToolStripButton
+            // 
+            this.pageNumberToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("pageNumberToolStripButton.Image")));
+            this.pageNumberToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pageNumberToolStripButton.Name = "pageNumberToolStripButton";
+            this.pageNumberToolStripButton.Size = new System.Drawing.Size(109, 45);
+            this.pageNumberToolStripButton.Text = "添加页码";
+            this.pageNumberToolStripButton.Click += new System.EventHandler(this.pageNumberToolStripButton_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Image = global::pearblossom.Properties.Resources.evenpage;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(109, 45);
+            this.toolStripButton1.Text = "加偶数页";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -213,6 +224,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }
 

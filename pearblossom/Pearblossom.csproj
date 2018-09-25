@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DocxToc.cs" />
+    <Compile Include="EvenPage.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="images\evenpage.png" />
     <None Include="images\github.png" />
     <None Include="images\help.png" />
   </ItemGroup>

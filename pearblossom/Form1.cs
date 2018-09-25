@@ -133,5 +133,19 @@ namespace pearblossom
             // Open Internet Explorer to the correct url.
             System.Diagnostics.Process.Start("IExplore.exe", url);
         }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            if (_src_file != "")
+            {
+                string dst_file = EvenPage.AddEvenPage(_src_file);
+                _show_tip("导出目录成功。\n目标文件：\n" + dst_file);
+            }
+            else
+            {
+                _show_tip("请选择文件。");
+            }
+
+        }
     }
 }
