@@ -47,8 +47,9 @@ namespace pearblossom
             PdfStamper stamper = new PdfStamper(reader, dstFile);
 
             int n = stamper.Reader.NumberOfPages;
-            
-            //BaseFont bf = BaseFont.CreateFont(@"C:\Windows\Fonts\cour.ttf", BaseFont.IDENTITY_H, false);
+
+            //BaseFont bf = BaseFont.CreateFont(@"C:\Windows\Fonts\simsun.ttc", "UTF-8", false);
+            //Font courierFont = new Font(bf);
             Font courierFont = new Font(Font.FontFamily.COURIER, 20);
 
             for (int i = 1; i <= n; i++)
@@ -59,10 +60,12 @@ namespace pearblossom
                 //System.Windows.Forms.MessageBox.Show("x:" + rect.Width.ToString() + " y:" + rect.Height.ToString());
 
                 PdfContentByte canvas = stamper.GetOverContent(i);
-                
+
+                draw(canvas, xp - 30, yp - 10, 40, 40, i);
+
                 ColumnText.ShowTextAligned(canvas,
-                Element.ALIGN_CENTER, new Phrase(i.ToString(), courierFont), xp, yp, 0);
-                //draw(canvas, 20, 20, 40, 40, 10);
+                Element.ALIGN_CENTER, new Phrase("— " + i.ToString() + " —", courierFont), xp, yp, 0);
+
             }
 
             stamper.Close();
@@ -113,26 +116,41 @@ namespace pearblossom
         }
 
         public void draw(PdfContentByte canvas, float llx, float lly,
-            float urx, float ury, float y)
+            float urx, float ury, int y)
         {
-            canvas.SetColorStroke(BaseColor.BLACK);
-            canvas.SetLineWidth(2);
-            canvas.MoveTo(136, 100);
-            canvas.LineTo(180, 30);
-            canvas.Stroke();
+
+
+
+            // add the diagonal
+            canvas.SetColorFill(BaseColor.WHITE);
+            
+            //canvas.SetLineWidth(2);
+            canvas.Rectangle(llx, lly, 60, 40);
+            canvas.Fill();
+            //canvas.MoveTo(100, 700);
+            //canvas.LineTo(200, 800);
+            //canvas.MoveTo(136, 100);
+            //canvas.LineTo(180, 30);
+            // stroke the lines
+            //canvas.Stroke();
+
+
+            canvas.SetColorFill(BaseColor.BLACK);
 
             //canvas.BeginText();
             //BaseFont bf = null;
-            //bf = BaseFont.CreateFont(BaseFont.ZAPFDINGBATS, "", BaseFont.EMBEDDED);
-           
-            //canvas.SetFontAndSize(bf, 12);
+            //bf = BaseFont.CreateFont(@"C:\Windows\Fonts\cour.ttf", BaseFont.IDENTITY_H, false);
 
-            
+            //canvas.SetFontAndSize(bf, 20);
+            //canvas.SetColorStroke(BaseColor.BLACK);
 
-            //// LEFT  
-            //canvas.ShowTextAligned(Element.ALIGN_CENTER, "A", llx - 10, y, 0);
-            //// RIGHT  
-            //canvas.ShowTextAligned(Element.ALIGN_CENTER,"B", urx + 10, y + 8, 180);
+            //canvas.ShowTextAligned(
+            //   Element.ALIGN_CENTER, y.ToString(), llx, lly, 0);
+
+            ////// LEFT  
+            ////canvas.ShowTextAligned(Element.ALIGN_CENTER, "A", llx - 10, y, 0);
+            ////// RIGHT  
+            ////canvas.ShowTextAligned(Element.ALIGN_CENTER,"B", urx + 10, y + 8, 180);
 
             //canvas.EndText();
         }

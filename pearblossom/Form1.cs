@@ -28,37 +28,46 @@ namespace pearblossom
 {
     public partial class Form1 : Form
     {
-        private string _src_file;
+        private string srcFile;
+        private string[] files;
 
         public Form1()
         {
             InitializeComponent();
-            _init();
+            init();
         }
 
-        private void _init()
+        private void init()
         {
-            _src_file = "";
-            _show_tip("点击“打开”或拖放带有目录的 PDF 文件。");
+            srcFile = "";
+            showStatus("选择或拖放 PDF 文件。");
         }
 
-        private void _show_tip(string v)
+        private void showFiles()
         {
-            tiplabel.Text = v;
+            string s = string.Join("\r\n", this.files);
+            textBox1.Text = "文件列表：\r\n" + s;
+        }
+
+        private void showStatus(string v)
+        {
+            toolStripStatusLabel1.Text = v;
         }
 
         private void pageNumberToolStripButton_Click(object sender, EventArgs e)
         {
-            if (_src_file != "")
+            if (srcFile != "")
             {
-                PageNumber pageNumber = new PageNumber(_src_file);
+                PageNumber pageNumber = new PageNumber(srcFile);
                 string dst_file = pageNumber.Add();
-                _show_tip("添加页码成功。\n目标文件：\n" + dst_file);
+
+                showStatus("添加页码成功");
+                showFiles();
 
             }
             else
             {
-                _show_tip("请选择文件。");
+                showStatus("请选择文件");
             }
         }
 
@@ -67,55 +76,61 @@ namespace pearblossom
             OpenFileDialog openFileDialog = new OpenFileDialog();
             //openFileDialog.InitialDirectory = "c:\\"; // 不设置默认打开桌面
             openFileDialog.Filter = "PDF 文件|*.pdf";
+            openFileDialog.Multiselect = true;
             openFileDialog.RestoreDirectory = true;
             openFileDialog.FilterIndex = 1;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string path = openFileDialog.FileName;
-                _src_file = path;
-                _show_tip("已选：\n" + path + "\n" + "点击“提取目录”选择格式生成目录文件。");
+                this.files = openFileDialog.FileNames;
+                srcFile = this.files[0];
+                showStatus("已选文件");
+                showFiles();
             }
         }
 
         private void Form1_DragEnter(object sender, DragEventArgs e)
         {
-            string path = ((System.Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
-            _src_file = path;
-            _show_tip("已选：\n" + path + "\n" + "点击“提取目录”选择格式生成目录文件。");
+            this.files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+            //string path = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
+
+            srcFile = this.files[0];
+            showStatus("已选文件");
+            showFiles();
         }
 
         private void docxToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            if (_src_file != "")
+            if (srcFile != "")
             {
-                DocxToc docxToc = new DocxToc(_src_file);
+                DocxToc docxToc = new DocxToc(srcFile);
                 string dst_file = docxToc.Output();
-                _show_tip("导出目录成功。\n目标文件：\n" + dst_file);
+                showStatus("导出目录成功");
 
             }
             else
             {
-                _show_tip("请选择文件。");
+                showStatus("请选择文件");
             }
 
         }
 
         private void txtToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_src_file != "")
+            if (srcFile != "")
             {
-                TxtToc docxToc = new TxtToc(_src_file);
+                TxtToc docxToc = new TxtToc(srcFile);
                 string dst_file = docxToc.Output();
-                _show_tip("导出目录成功。\n目标文件：\n" + dst_file);
+                showStatus("导出目录成功");
             }
             else
             {
-                _show_tip("请选择文件。");
+                showStatus("请选择文件");
             }
         }
 
-  
+
 
 
 
@@ -136,14 +151,19 @@ namespace pearblossom
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            if (_src_file != "")
+
+            if (this.files.Length > 0)
             {
-                string dst_file = EvenPage.AddEvenPage(_src_file);
-                _show_tip("导出目录成功。\n目标文件：\n" + dst_file);
+                List<string> dst_file = new List<string>();
+                foreach (var f in this.files)
+                {
+                    dst_file.Add(EvenPage.AddEvenPage(f));
+                }
+                showStatus("添加偶数页成功");
             }
             else
             {
-                _show_tip("请选择文件。");
+                showStatus("请选择文件。");
             }
 
         }
