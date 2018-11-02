@@ -28,8 +28,8 @@ namespace pearblossom
 {
     public partial class Form1 : Form
     {
-        private string srcFile;
-        private string[] files;
+        public string srcFile;
+        public string[] files;
 
         public Form1()
         {
@@ -43,32 +43,21 @@ namespace pearblossom
             showStatus("选择或拖放 PDF 文件。");
         }
 
-        private void showFiles()
+        public void showFiles()
         {
             string s = string.Join("\r\n", this.files);
             textBox1.Text = "文件列表：\r\n" + s;
         }
 
-        private void showStatus(string v)
+        public void showStatus(string v)
         {
             toolStripStatusLabel1.Text = v;
         }
 
         private void pageNumberToolStripButton_Click(object sender, EventArgs e)
         {
-            if (srcFile != "")
-            {
-                PageNumber pageNumber = new PageNumber(srcFile);
-                string dst_file = pageNumber.Add();
-
-                showStatus("添加页码成功");
-                showFiles();
-
-            }
-            else
-            {
-                showStatus("请选择文件");
-            }
+            Form form3 = new Form3(this);
+            form3.Show();
         }
 
         private void openToolStripButton_Click(object sender, EventArgs e)
