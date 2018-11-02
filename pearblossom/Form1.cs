@@ -56,8 +56,16 @@ namespace pearblossom
 
         private void pageNumberToolStripButton_Click(object sender, EventArgs e)
         {
-            Form form3 = new Form3(this);
-            form3.Show();
+            if (srcFile != "")
+            {
+                Form form3 = new Form3(this);
+                form3.Show();
+            }
+            else
+            {
+                showStatus("请选择文件");
+            }
+            
         }
 
         private void openToolStripButton_Click(object sender, EventArgs e)
