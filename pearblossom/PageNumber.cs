@@ -77,7 +77,7 @@ namespace pearblossom
 
         private string AddCollectionStylePageNumber(int totalPage, PdfStamper stamper)
         {
-            Font courierFont = new Font(Font.FontFamily.COURIER, 14);
+            Font courierFont = new Font(Font.FontFamily.COURIER, 18);
             for (int i = 1; i <= totalPage; i++)
             {
                 Rectangle rect = stamper.Reader.GetPageSizeWithRotation(i);
