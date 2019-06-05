@@ -223,7 +223,7 @@ namespace pearblossom
             canvas.SetColorFill(BaseColor.WHITE);
 
             //canvas.SetLineWidth(2);
-            canvas.Rectangle(llx, lly, 60, 20);
+            canvas.Rectangle(llx, lly, 60, 30);
             canvas.Fill();
             //canvas.MoveTo(100, 700);
             //canvas.LineTo(200, 800);

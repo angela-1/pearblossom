@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.mergeStripButton = new System.Windows.Forms.ToolStripButton();
             this.getTocToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.docxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +53,7 @@
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(36, 36);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripButton,
+            this.mergeStripButton,
             this.getTocToolStripDropDownButton,
             this.pageNumberToolStripButton,
             this.toolStripButton1});
@@ -72,6 +74,15 @@
             this.openToolStripButton.Text = "打开";
             this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
             // 
+            // mergeStripButton
+            // 
+            this.mergeStripButton.Image = global::pearblossom.Properties.Resources.merge;
+            this.mergeStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.mergeStripButton.Name = "mergeStripButton";
+            this.mergeStripButton.Size = new System.Drawing.Size(109, 45);
+            this.mergeStripButton.Text = "合并文件";
+            this.mergeStripButton.Click += new System.EventHandler(this.MergeStripButton_Click);
+            // 
             // getTocToolStripDropDownButton
             // 
             this.getTocToolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -86,14 +97,14 @@
             // docxToolStripMenuItem
             // 
             this.docxToolStripMenuItem.Name = "docxToolStripMenuItem";
-            this.docxToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
+            this.docxToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
             this.docxToolStripMenuItem.Text = "*.docx";
             this.docxToolStripMenuItem.Click += new System.EventHandler(this.docxToolStripMenuItem_Click);
             // 
             // txtToolStripMenuItem
             // 
             this.txtToolStripMenuItem.Name = "txtToolStripMenuItem";
-            this.txtToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
+            this.txtToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
             this.txtToolStripMenuItem.Text = "*.txt";
             this.txtToolStripMenuItem.Click += new System.EventHandler(this.txtToolStripMenuItem_Click);
             // 
@@ -124,29 +135,29 @@
             this.toolStripStatusLabel2,
             this.githubToolStripStatusLabel,
             this.toolStripStatusLabel3});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 150);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 149);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(582, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(582, 26);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(159, 20);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(172, 20);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // toolStripStatusLabel4
             // 
             this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(159, 20);
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(172, 20);
             this.toolStripStatusLabel4.Spring = true;
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(159, 20);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(172, 20);
             this.toolStripStatusLabel2.Spring = true;
             // 
             // githubToolStripStatusLabel
@@ -164,7 +175,7 @@
             this.toolStripStatusLabel3.Image = global::pearblossom.Properties.Resources.help;
             this.toolStripStatusLabel3.Margin = new System.Windows.Forms.Padding(10, 3, 0, 2);
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(20, 20);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(20, 21);
             this.toolStripStatusLabel3.Click += new System.EventHandler(this.toolStripStatusLabel3_Click);
             // 
             // textBox1
@@ -220,6 +231,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ToolStripButton mergeStripButton;
     }
 }
 

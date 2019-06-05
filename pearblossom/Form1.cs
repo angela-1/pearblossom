@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,7 +66,7 @@ namespace pearblossom
             {
                 showStatus("请选择文件");
             }
-            
+
         }
 
         private void openToolStripButton_Click(object sender, EventArgs e)
@@ -160,9 +161,35 @@ namespace pearblossom
             }
             else
             {
-                showStatus("请选择文件。");
+                showStatus("请选择文件");
             }
 
+        }
+
+        private void MergeStripButton_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            folderBrowser.Description = "请选择要合并文件夹";
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                if (string.IsNullOrEmpty(folderBrowser.SelectedPath))
+                {
+                    MessageBox.Show(this, "文件夹路径不能为空", "提示");
+                    return;
+                }
+
+                Form form4 = new Form4(this, folderBrowser.SelectedPath);
+                form4.Show();
+
+                showStatus("合并文件成功");
+            }
+            ////string[] temArr = { "d:\\a.pdf", "d:\\b.pdf", "d:\\c.docx" };
+            //string[] temArr = { "d:\\a.pdf", "d:\\b.pdf" };
+            //List<string> testList = new List<string>(temArr);
+            //MergeDocumentUtil.MergePdfs(testList, "d:\\cc.pdf");
+
+
+            //MergeDocumentUtil.filterDocx(testList);
         }
     }
 }
