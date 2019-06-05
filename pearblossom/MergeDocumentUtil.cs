@@ -17,6 +17,10 @@ namespace pearblossom
         public static void run(String folderPath, Boolean withBookmark)
         {
             string[] filesList = Directory.GetFiles(folderPath);
+            if (filesList.Count() == 0)
+            {
+                return;
+            }
             List<String> docxFiles = filterDocx(new List<String>(filesList));
             foreach (var docxFile in docxFiles)
             {
