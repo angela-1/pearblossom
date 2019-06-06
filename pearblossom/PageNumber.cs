@@ -27,38 +27,38 @@ namespace pearblossom
 {
     class PageNumber
     {
-        private string _src_file;
-        private string _dst_file;
+        private String _src_file;
+        private String _dst_file;
         private PageNumberStyle _pageNumberStyle;
 
-        public PageNumber(string src_file, PageNumberStyle pageNumberStyle)
+        public PageNumber(String src_file, PageNumberStyle pageNumberStyle)
         {
             _src_file = src_file;
             _pageNumberStyle = pageNumberStyle;
             int ind = _src_file.LastIndexOf('\\');
-            string filename = System.IO.Path.GetFileNameWithoutExtension(_src_file);
+            String filename = System.IO.Path.GetFileNameWithoutExtension(_src_file);
             _dst_file = _src_file.Substring(0, ind + 1) + filename + "_pagenumber.pdf";
         }
 
-        private string getPageNumber(int page, int totalPage)
+        private String getPageNumber(int page, int totalPage)
         {
-            string stringPage = string.Empty;
+            String StringPage = String.Empty;
             switch (_pageNumberStyle)
             {
                 case PageNumberStyle.Normal:
-                    stringPage = page.ToString();
+                    StringPage = page.ToString();
                     break;
                 case PageNumberStyle.Collection:
                     int len = totalPage.ToString().Length;
-                    stringPage = string.Format("{0:D" + len + "}", page);
+                    StringPage = String.Format("{0:D" + len + "}", page);
                     break;
                 default:
                     break;
             }
-            return stringPage;
+            return StringPage;
         }
 
-        private string AddNormalStylePageNumber(int totalPage, PdfStamper stamper)
+        private String AddNormalStylePageNumber(int totalPage, PdfStamper stamper)
         {
             Font timesFont = new Font(Font.FontFamily.TIMES_ROMAN, 14);
             for (int i = 1; i <= totalPage; i++)
@@ -75,7 +75,7 @@ namespace pearblossom
             return _dst_file;
         }
 
-        private string AddCollectionStylePageNumber(int totalPage, PdfStamper stamper)
+        private String AddCollectionStylePageNumber(int totalPage, PdfStamper stamper)
         {
             Font courierFont = new Font(Font.FontFamily.COURIER, 18);
             for (int i = 1; i <= totalPage; i++)
@@ -91,7 +91,7 @@ namespace pearblossom
             return _dst_file;
 
         }
-        public string AddPageNumber()
+        public String AddPageNumber()
         {
             PdfReader reader = new PdfReader(_src_file);
             FileStream dstFile = new FileStream(_dst_file, FileMode.OpenOrCreate);
@@ -120,7 +120,7 @@ namespace pearblossom
             return _dst_file;
         }
 
-        internal string Add()
+        internal String Add()
         {
 
             PdfReader reader = new PdfReader(_src_file);

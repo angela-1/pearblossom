@@ -11,10 +11,10 @@ namespace pearblossom
 {
     class EvenPage
     {
-        public static string AddEvenPage(String src_file)
+        public static String AddEvenPage(String src_file)
         {
             int ind = src_file.LastIndexOf('\\');
-            string filename = System.IO.Path.GetFileNameWithoutExtension(src_file);
+            String filename = System.IO.Path.GetFileNameWithoutExtension(src_file);
             String dst_file = src_file.Substring(0, ind + 1) + filename + "_even.pdf";
 
             PdfReader reader = new PdfReader(src_file);

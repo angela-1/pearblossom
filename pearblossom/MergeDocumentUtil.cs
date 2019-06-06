@@ -14,20 +14,22 @@ namespace pearblossom
 {
     class MergeDocumentUtil
     {
-        public static void run(String folderPath, Boolean withBookmark)
+        public static String run(String folderPath, Boolean withBookmark)
         {
-            string[] filesList = Directory.GetFiles(folderPath);
+            String[] filesList = Directory.GetFiles(folderPath);
             if (filesList.Count() == 0)
             {
-                return;
+                return null;
             }
             List<String> docxFiles = filterDocx(new List<String>(filesList));
+            List<String> tmpPdfFiles = new List<string>();
             foreach (var docxFile in docxFiles)
             {
-                docx2pdf(docxFile);
+                String pdfFile = docx2pdf(docxFile);
+                tmpPdfFiles.Add(pdfFile);
             }
 
-            string[] allFilesList = Directory.GetFiles(folderPath);
+            String[] allFilesList = Directory.GetFiles(folderPath);
             List<String> pdfFiles = filterPdf(new List<String>(allFilesList));
             pdfFiles.Sort((x1, x2) =>
             {
@@ -47,21 +49,22 @@ namespace pearblossom
                 MergePdfs(pdfFiles, target);
             }
 
+            clean(tmpPdfFiles);
 
-            foreach (string item in pdfFiles)
-            {
-                //字符串截取，指定字符串出现‘.’+1的转换小写==“txt”的时候
-                if (item.Substring(item.LastIndexOf('.') + 1).ToLower() == "txt")
-                {
-                    //richbox控件.追加显示文本（数组集合）
-                }
-            }
-
+            return target;
 
         }
-        public static List<String> filterDocx(List<String> filepaths)
+
+        private static void clean(List<String> filepaths)
         {
-            List<String> result = new List<string>();
+            foreach (var item in filepaths)
+            {
+                File.Delete(item);
+            }
+        }
+        private static List<String> filterDocx(List<String> filepaths)
+        {
+            List<String> result = new List<String>();
             foreach (var item in filepaths)
             {
                 String ext = Path.GetExtension(item);
@@ -73,9 +76,9 @@ namespace pearblossom
             return result;
         }
 
-        public static List<String> filterPdf(List<String> filepaths)
+        private static List<String> filterPdf(List<String> filepaths)
         {
-            List<String> result = new List<string>();
+            List<String> result = new List<String>();
             foreach (var item in filepaths)
             {
                 String ext = Path.GetExtension(item);
@@ -86,10 +89,10 @@ namespace pearblossom
             }
             return result;
         }
-        private static string getDestFilename(string filePath)
+        private static String getDestFilename(String filePath)
         {
-            string newFile = Path.GetFileNameWithoutExtension(filePath) + ".pdf";
-            string dest = Path.GetDirectoryName(filePath);
+            String newFile = Path.GetFileNameWithoutExtension(filePath) + ".pdf";
+            String dest = Path.GetDirectoryName(filePath);
             return Path.Combine(dest, newFile);
         }
 
@@ -105,7 +108,7 @@ namespace pearblossom
             app.Visible = false;
 
             MSWord.Document doc = app.Documents.Open(filePath);
-            string dest = getDestFilename(filePath);
+            String dest = getDestFilename(filePath);
             doc.ExportAsFixedFormat(dest, MSWord.WdExportFormat.wdExportFormatPDF,
                         CreateBookmarks: MSWord.WdExportCreateBookmarks.wdExportCreateNoBookmarks);
 
@@ -124,15 +127,15 @@ namespace pearblossom
                 PdfReader reader = null;
                 PdfImportedPage page = null;
 
-                var bookmarks = new List<Dictionary<string, object>>();
-                var rootBookmark = new Dictionary<string, object>();
+                var bookmarks = new List<Dictionary<String, object>>();
+                var rootBookmark = new Dictionary<String, object>();
                 var level1 = Path.GetFileNameWithoutExtension(OutFile);
 
                 rootBookmark.Add("Action", "GoTo");
                 rootBookmark.Add("Title", level1);
                 rootBookmark.Add("Page", "1 FitH 842"); // use height of 1st page
 
-                var kids = new List<Dictionary<string, object>>();
+                var kids = new List<Dictionary<String, object>>();
 
 
 
@@ -144,7 +147,7 @@ namespace pearblossom
                 {
                     var title = Path.GetFileNameWithoutExtension(file);
 
-                    var kk = new Dictionary<string, object>();
+                    var kk = new Dictionary<String, object>();
                     kk.Add("Action", "GoTo");
                     kk.Add("Title", title);
                     kk.Add("Page", pdf.PageNumber + " FitH 842");
@@ -166,7 +169,7 @@ namespace pearblossom
                         pdf.AddPage(PageSize.A4, 0);
                     }
 
-                    IList<Dictionary<string, object>> outline_list = SimpleBookmark.GetBookmark(reader);
+                    IList<Dictionary<String, object>> outline_list = SimpleBookmark.GetBookmark(reader);
 
 
 
@@ -200,15 +203,15 @@ namespace pearblossom
                 PdfReader reader = null;
                 PdfImportedPage page = null;
 
-                var bookmarks = new List<Dictionary<string, object>>();
-                var rootBookmark = new Dictionary<string, object>();
+                var bookmarks = new List<Dictionary<String, object>>();
+                var rootBookmark = new Dictionary<String, object>();
                 var level1 = Path.GetFileNameWithoutExtension(OutFile);
 
                 rootBookmark.Add("Action", "GoTo");
                 rootBookmark.Add("Title", level1);
                 rootBookmark.Add("Page", "1 FitH 842"); // use height of 1st page
 
-                var kids = new List<Dictionary<string, object>>();
+                var kids = new List<Dictionary<String, object>>();
 
                 //fixed typo
                 InFiles.ForEach(file =>
@@ -236,7 +239,7 @@ namespace pearblossom
                         pdf.AddPage(PageSize.A4, 0);
                     }
 
-                    IList<Dictionary<string, object>> outline_list = SimpleBookmark.GetBookmark(reader);
+                    IList<Dictionary<String, object>> outline_list = SimpleBookmark.GetBookmark(reader);
 
 
 

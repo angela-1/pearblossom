@@ -29,8 +29,8 @@ namespace pearblossom
 {
     public partial class Form1 : Form
     {
-        public string srcFile;
-        public string[] files;
+        public String srcFile;
+        public String[] files;
 
         public Form1()
         {
@@ -41,18 +41,24 @@ namespace pearblossom
         private void init()
         {
             srcFile = "";
-            showStatus("选择或拖放 PDF 文件。");
+            showStatus("选择文件或拖放文件到此界面");
+        }
+
+
+        public void showContent(String content)
+        {
+            textBox1.Text = content;
         }
 
         public void showFiles()
         {
-            string s = string.Join("\r\n", this.files);
+            String s = String.Join("\r\n", this.files);
             textBox1.Text = "文件列表：\r\n" + s;
         }
 
-        public void showStatus(string v)
+        public void showStatus(String status)
         {
-            toolStripStatusLabel1.Text = v;
+            toolStripStatusLabel1.Text = status;
         }
 
         private void pageNumberToolStripButton_Click(object sender, EventArgs e)
@@ -73,7 +79,7 @@ namespace pearblossom
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             //openFileDialog.InitialDirectory = "c:\\"; // 不设置默认打开桌面
-            openFileDialog.Filter = "PDF 文件|*.pdf";
+            openFileDialog.Filter = "PDF 文件(*.pdf)|*.pdf|所有文件(*.*)|*.*";
             openFileDialog.Multiselect = true;
             openFileDialog.RestoreDirectory = true;
             openFileDialog.FilterIndex = 1;
@@ -88,9 +94,9 @@ namespace pearblossom
 
         private void Form1_DragEnter(object sender, DragEventArgs e)
         {
-            this.files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            this.files = (String[])e.Data.GetData(DataFormats.FileDrop);
 
-            //string path = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
+            //String path = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
 
             srcFile = this.files[0];
             showStatus("已选文件");
@@ -103,7 +109,7 @@ namespace pearblossom
             if (srcFile != "")
             {
                 DocxToc docxToc = new DocxToc(srcFile);
-                string dst_file = docxToc.Output();
+                String dst_file = docxToc.Output();
                 showStatus("导出目录成功");
 
             }
@@ -119,7 +125,7 @@ namespace pearblossom
             if (srcFile != "")
             {
                 TxtToc docxToc = new TxtToc(srcFile);
-                string dst_file = docxToc.Output();
+                String dst_file = docxToc.Output();
                 showStatus("导出目录成功");
             }
             else
@@ -141,7 +147,7 @@ namespace pearblossom
 
         private void githubToolStripStatusLabel_Click(object sender, EventArgs e)
         {
-            string url = "https://github.com/angela-1/pearblossom";
+            String url = "https://github.com/angela-1/pearblossom";
 
             // Open Internet Explorer to the correct url.
             System.Diagnostics.Process.Start("IExplore.exe", url);
@@ -150,9 +156,9 @@ namespace pearblossom
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
 
-            if (this.files.Length > 0)
+            if (this.srcFile != "")
             {
-                List<string> dst_file = new List<string>();
+                List<String> dst_file = new List<String>();
                 foreach (var f in this.files)
                 {
                     dst_file.Add(EvenPage.AddEvenPage(f));
@@ -168,24 +174,40 @@ namespace pearblossom
 
         private void MergeStripButton_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
-            folderBrowser.Description = "请选择要合并文件夹";
-            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            if (this.srcFile != "")
             {
-                if (string.IsNullOrEmpty(folderBrowser.SelectedPath))
-                {
-                    MessageBox.Show(this, "文件夹路径不能为空", "提示");
-                    return;
-                }
-
-                Form form4 = new Form4(this, folderBrowser.SelectedPath);
+                String folderPath = Path.GetDirectoryName(this.srcFile);
+                this.showContent(@"源文件夹：
+" + folderPath);
+                Form form4 = new Form4(this, folderPath);
                 form4.Show();
 
                 showStatus("合并文件成功");
             }
-            ////string[] temArr = { "d:\\a.pdf", "d:\\b.pdf", "d:\\c.docx" };
-            //string[] temArr = { "d:\\a.pdf", "d:\\b.pdf" };
-            //List<string> testList = new List<string>(temArr);
+            else
+            {
+                showStatus("请选择文件");
+            }
+
+
+            //FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            //folderBrowser.Description = "请选择要合并文件夹";
+            //if (folderBrowser.ShowDialog() == DialogResult.OK)
+            //{
+            //    if (String.IsNullOrEmpty(folderBrowser.SelectedPath))
+            //    {
+            //        MessageBox.Show(this, "文件夹路径不能为空", "提示");
+            //        return;
+            //    }
+
+            //    Form form4 = new Form4(this, folderBrowser.SelectedPath);
+            //    form4.Show();
+
+            //    showStatus("合并文件成功");
+            //}
+            ////String[] temArr = { "d:\\a.pdf", "d:\\b.pdf", "d:\\c.docx" };
+            //String[] temArr = { "d:\\a.pdf", "d:\\b.pdf" };
+            //List<String> testList = new List<String>(temArr);
             //MergeDocumentUtil.MergePdfs(testList, "d:\\cc.pdf");
 
 

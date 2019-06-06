@@ -25,26 +25,26 @@ namespace pearblossom
 {
     class TxtToc:Toc
     {
-        public TxtToc(string filepath)
+        public TxtToc(String filepath)
         {
             _src_file = filepath;
             _parse_toc();
         }
 
-        protected override string _get_toc_name()
+        protected override String _get_toc_name()
         {
             int ind = this._src_file.LastIndexOf('\\');
-            string toc_name = System.IO.Path.GetFileNameWithoutExtension(this._src_file);
-            string toc_filepath = this._src_file.Substring(0, ind + 1) + toc_name + "_toc.txt";
+            String toc_name = System.IO.Path.GetFileNameWithoutExtension(this._src_file);
+            String toc_filepath = this._src_file.Substring(0, ind + 1) + toc_name + "_toc.txt";
             return toc_filepath;
         }
 
-        public override string Output()
+        public override String Output()
         {
-            string dst_filepath = _get_toc_name();
+            String dst_filepath = _get_toc_name();
             FileStream fs = new FileStream(dst_filepath, FileMode.Create);
             StreamWriter sw = new StreamWriter(fs);
-            foreach (string line in _outline)
+            foreach (String line in _outline)
             {
                 sw.WriteLine(line);
             }

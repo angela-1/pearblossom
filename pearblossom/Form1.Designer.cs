@@ -135,7 +135,7 @@
             this.toolStripStatusLabel2,
             this.githubToolStripStatusLabel,
             this.toolStripStatusLabel3});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 149);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 250);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(582, 26);
             this.statusStrip1.TabIndex = 5;
@@ -186,7 +186,7 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(558, 82);
+            this.textBox1.Size = new System.Drawing.Size(558, 183);
             this.textBox1.TabIndex = 6;
             this.textBox1.TabStop = false;
             // 
@@ -197,7 +197,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(582, 175);
+            this.ClientSize = new System.Drawing.Size(582, 276);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);

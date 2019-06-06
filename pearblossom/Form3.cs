@@ -28,7 +28,7 @@ namespace pearblossom
             {
                 return;
             }
-            string sText = string.Empty;
+            String sText = String.Empty;
             
             switch (((RadioButton)sender).Name)
             {
@@ -50,7 +50,7 @@ namespace pearblossom
             if (parentForm.srcFile != "")
             {
                 PageNumber pageNumber = new PageNumber(parentForm.srcFile, pageNumberStyle);
-                string dst_file = pageNumber.AddPageNumber();
+                String dst_file = pageNumber.AddPageNumber();
 
                 parentForm.showStatus("添加页码成功");
                 parentForm.showFiles();

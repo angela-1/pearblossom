@@ -25,20 +25,20 @@ namespace pearblossom
 {
     abstract class Toc 
     {
-        protected List<string> _outline;
-        protected string _src_file;
+        protected List<String> _outline;
+        protected String _src_file;
 
         protected int _parse_toc()
         {
-            _outline = new List<string>();
+            _outline = new List<String>();
             PdfReader reader = new PdfReader(_src_file);
-            IList<Dictionary<string, object>> outline_list = SimpleBookmark.GetBookmark(reader);
+            IList<Dictionary<String, object>> outline_list = SimpleBookmark.GetBookmark(reader);
 
             if (outline_list != null)
             {
                 foreach (var level1 in outline_list)
                 {
-                    string s = _get_bookmark(level1);
+                    String s = _get_bookmark(level1);
                     _outline.Add(s);
                 }
                 reader.Close();
@@ -50,16 +50,16 @@ namespace pearblossom
             }
         }
 
-        protected string _get_bookmark(Dictionary<string, object> section)
+        protected String _get_bookmark(Dictionary<String, object> section)
         {
-            string page = "Page";
+            String page = "Page";
             if (section.ContainsKey(page))
             {
-                string num_page = (string)section[page];
-                string one_line = section["Title"] + "\t" + num_page.Split(' ')[0];
+                String num_page = (String)section[page];
+                String one_line = section["Title"] + "\t" + num_page.Split(' ')[0];
                 if (section.ContainsKey("Kids"))
                 {
-                    List<Dictionary<string, object>> kids = (List<Dictionary<string, object>>)section["Kids"];
+                    List<Dictionary<String, object>> kids = (List<Dictionary<String, object>>)section["Kids"];
                     foreach (var kid in kids)
                     {
                         one_line += "\n";
@@ -74,8 +74,8 @@ namespace pearblossom
             }
         }
 
-        protected abstract string _get_toc_name();
-        public abstract string Output();
+        protected abstract String _get_toc_name();
+        public abstract String Output();
 
     }
 }

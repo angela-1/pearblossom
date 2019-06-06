@@ -38,9 +38,9 @@
             this.withBookmarkCheckBox.AutoSize = true;
             this.withBookmarkCheckBox.Location = new System.Drawing.Point(22, 25);
             this.withBookmarkCheckBox.Name = "withBookmarkCheckBox";
-            this.withBookmarkCheckBox.Size = new System.Drawing.Size(119, 19);
+            this.withBookmarkCheckBox.Size = new System.Drawing.Size(89, 19);
             this.withBookmarkCheckBox.TabIndex = 0;
-            this.withBookmarkCheckBox.Text = "是否保留书签";
+            this.withBookmarkCheckBox.Text = "保留书签";
             this.withBookmarkCheckBox.UseVisualStyleBackColor = true;
             this.withBookmarkCheckBox.CheckedChanged += new System.EventHandler(this.WithBookmarkCheckBox_CheckedChanged);
             // 
