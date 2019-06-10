@@ -25,7 +25,7 @@ namespace pearblossom
             List<String> tmpPdfFiles = new List<string>();
             foreach (var docxFile in docxFiles)
             {
-                String pdfFile = docx2pdf(docxFile);
+                String pdfFile = docx2pdf(docxFile, withBookmark);
                 tmpPdfFiles.Add(pdfFile);
             }
 
@@ -107,7 +107,7 @@ namespace pearblossom
             return Path.Combine(dest, newFile);
         }
 
-        private static String docx2pdf(String filePath)
+        private static String docx2pdf(String filePath, Boolean withBookmark)
         {
             if (!File.Exists(filePath))
             {
@@ -121,7 +121,9 @@ namespace pearblossom
             MSWord.Document doc = app.Documents.Open(filePath);
             String dest = getDestFilename(filePath);
             doc.ExportAsFixedFormat(dest, MSWord.WdExportFormat.wdExportFormatPDF,
-                        CreateBookmarks: MSWord.WdExportCreateBookmarks.wdExportCreateNoBookmarks);
+                        CreateBookmarks: withBookmark ?
+                        MSWord.WdExportCreateBookmarks.wdExportCreateHeadingBookmarks :
+                        MSWord.WdExportCreateBookmarks.wdExportCreateNoBookmarks);
 
             doc.Close();
             app.Quit();
@@ -233,8 +235,10 @@ namespace pearblossom
 
                     var ks = SimpleBookmark.GetBookmark(reader);
                     SimpleBookmark.ShiftPageNumbers(ks, pdf.PageNumber - 1, null);
-                    kids.AddRange(ks);
-
+                    if (ks != null)
+                    {
+                        kids.AddRange(ks);
+                    }
 
                     for (int i = 0; i < reader.NumberOfPages; i++)
                     {
