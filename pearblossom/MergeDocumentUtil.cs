@@ -33,8 +33,18 @@ namespace pearblossom
             List<String> pdfFiles = filterPdf(new List<String>(allFilesList));
             pdfFiles.Sort((x1, x2) =>
             {
-                return int.Parse(Regex.Match(Path.GetFileNameWithoutExtension(x1), @"\d+").Value)
+                Boolean hasNumber = Regex.IsMatch(Path.GetFileNameWithoutExtension(x1), @"\d+")
+                  && Regex.IsMatch(Path.GetFileNameWithoutExtension(x2), @"\d+");
+                if (hasNumber)
+                {
+                    return int.Parse(Regex.Match(Path.GetFileNameWithoutExtension(x1), @"\d+").Value)
                 .CompareTo(int.Parse(Regex.Match(Path.GetFileNameWithoutExtension(x2), @"\d+").Value));
+                }
+                else
+                {
+                    return -1;
+                }
+
             });
 
             String targetFolder = Path.GetDirectoryName(folderPath);
@@ -44,7 +54,8 @@ namespace pearblossom
             if (withBookmark)
             {
                 MergePdfsWithBookmarks(pdfFiles, target);
-            } else
+            }
+            else
             {
                 MergePdfs(pdfFiles, target);
             }
@@ -139,7 +150,7 @@ namespace pearblossom
 
 
 
-                
+
 
 
                 //fixed typo
