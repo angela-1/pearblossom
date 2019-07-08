@@ -27,22 +27,22 @@ namespace pearblossom
 {
     class PageNumber
     {
-        private String _src_file;
-        private String _dst_file;
-        private PageNumberStyle _pageNumberStyle;
+        private readonly string _src_file;
+        private readonly string _dst_file;
+        private readonly PageNumberStyle _pageNumberStyle;
 
-        public PageNumber(String src_file, PageNumberStyle pageNumberStyle)
+        public PageNumber(string src_file, PageNumberStyle pageNumberStyle)
         {
             _src_file = src_file;
             _pageNumberStyle = pageNumberStyle;
             int ind = _src_file.LastIndexOf('\\');
-            String filename = System.IO.Path.GetFileNameWithoutExtension(_src_file);
+            string filename = System.IO.Path.GetFileNameWithoutExtension(_src_file);
             _dst_file = _src_file.Substring(0, ind + 1) + filename + "_pagenumber.pdf";
         }
 
-        private String getPageNumber(int page, int totalPage)
+        private string GetPageNumber(int page, int totalPage)
         {
-            String StringPage = String.Empty;
+            string StringPage = string.Empty;
             switch (_pageNumberStyle)
             {
                 case PageNumberStyle.Normal:
@@ -50,7 +50,7 @@ namespace pearblossom
                     break;
                 case PageNumberStyle.Collection:
                     int len = totalPage.ToString().Length;
-                    StringPage = String.Format("{0:D" + len + "}", page);
+                    StringPage = string.Format("{0:D" + len + "}", page);
                     break;
                 default:
                     break;
@@ -58,7 +58,7 @@ namespace pearblossom
             return StringPage;
         }
 
-        private String AddNormalStylePageNumber(int totalPage, PdfStamper stamper)
+        private string AddNormalStylePageNumber(int totalPage, PdfStamper stamper)
         {
             Font timesFont = new Font(Font.FontFamily.TIMES_ROMAN, 14);
             for (int i = 1; i <= totalPage; i++)
@@ -68,14 +68,14 @@ namespace pearblossom
                 float yp = 40.0f;
 
                 PdfContentByte canvas = stamper.GetOverContent(i);
-                drawWhiteBack(canvas, xp - 30, yp - 10, 40, 40, i);
-                ColumnText.ShowTextAligned(canvas, Element.ALIGN_CENTER, new Phrase(getPageNumber(i, totalPage), timesFont), xp, yp, 0);
+                DrawWhiteBack(canvas, xp - 30, yp - 10, 60, 30);
+                ColumnText.ShowTextAligned(canvas, Element.ALIGN_CENTER, new Phrase(GetPageNumber(i, totalPage), timesFont), xp, yp, 0);
             }
 
             return _dst_file;
         }
 
-        private String AddCollectionStylePageNumber(int totalPage, PdfStamper stamper)
+        private string AddCollectionStylePageNumber(int totalPage, PdfStamper stamper)
         {
             Font courierFont = new Font(Font.FontFamily.COURIER, 18);
             for (int i = 1; i <= totalPage; i++)
@@ -85,13 +85,13 @@ namespace pearblossom
                 float yp = 40.0f;
 
                 PdfContentByte canvas = stamper.GetOverContent(i);
-                drawWhiteBack(canvas, xp - 30, yp - 10, 40, 40, i);
-                ColumnText.ShowTextAligned(canvas, Element.ALIGN_CENTER, new Phrase(getPageNumber(i, totalPage), courierFont), xp, yp, 0);
+                DrawWhiteBack(canvas, xp - 30, yp - 10, 60, 30);
+                ColumnText.ShowTextAligned(canvas, Element.ALIGN_CENTER, new Phrase(GetPageNumber(i, totalPage), courierFont), xp, yp, 0);
             }
             return _dst_file;
 
         }
-        public String AddPageNumber()
+        public string AddPageNumber()
         {
             PdfReader reader = new PdfReader(_src_file);
             FileStream dstFile = new FileStream(_dst_file, FileMode.OpenOrCreate);
@@ -120,7 +120,7 @@ namespace pearblossom
             return _dst_file;
         }
 
-        internal String Add()
+        internal string Add()
         {
 
             PdfReader reader = new PdfReader(_src_file);
@@ -143,7 +143,7 @@ namespace pearblossom
 
                 PdfContentByte canvas = stamper.GetOverContent(i);
 
-                drawWhiteBack(canvas, xp - 30, yp - 10, 40, 40, i);
+                DrawWhiteBack(canvas, xp - 30, yp - 10, 60, 30);
 
                 //ColumnText.ShowTextAligned(canvas,
                 //Element.ALIGN_CENTER, new Phrase("— " + i.ToString() + " —", courierFont), xp, yp, 0);
@@ -213,8 +213,8 @@ namespace pearblossom
 
         }
 
-        public void drawWhiteBack(PdfContentByte canvas, float llx, float lly,
-            float urx, float ury, int y)
+        public void DrawWhiteBack(PdfContentByte canvas, float llx, float lly,
+            float w, float h)
         {
 
 
@@ -223,7 +223,7 @@ namespace pearblossom
             canvas.SetColorFill(BaseColor.WHITE);
 
             //canvas.SetLineWidth(2);
-            canvas.Rectangle(llx, lly, 60, 30);
+            canvas.Rectangle(llx, lly, w, h);
             canvas.Fill();
             //canvas.MoveTo(100, 700);
             //canvas.LineTo(200, 800);
@@ -243,7 +243,7 @@ namespace pearblossom
             //canvas.SetColorStroke(BaseColor.BLACK);
 
             //canvas.ShowTextAligned(
-            //   Element.ALIGN_CENTER, y.ToString(), llx, lly, 0);
+            //   Element.ALIGN_CENTER, y.Tostring(), llx, lly, 0);
 
             ////// LEFT  
             ////canvas.ShowTextAligned(Element.ALIGN_CENTER, "A", llx - 10, y, 0);

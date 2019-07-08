@@ -25,20 +25,20 @@ namespace pearblossom
 {
     abstract class Toc 
     {
-        protected List<String> _outline;
-        protected String _src_file;
+        protected List<string> _outline;
+        protected string _src_file;
 
-        protected int _parse_toc()
+        protected int ParseToc()
         {
-            _outline = new List<String>();
+            _outline = new List<string>();
             PdfReader reader = new PdfReader(_src_file);
-            IList<Dictionary<String, object>> outline_list = SimpleBookmark.GetBookmark(reader);
+            IList<Dictionary<string, object>> outline_list = SimpleBookmark.GetBookmark(reader);
 
             if (outline_list != null)
             {
                 foreach (var level1 in outline_list)
                 {
-                    String s = _get_bookmark(level1);
+                    string s = GetBookmark(level1);
                     _outline.Add(s);
                 }
                 reader.Close();
@@ -50,20 +50,20 @@ namespace pearblossom
             }
         }
 
-        protected String _get_bookmark(Dictionary<String, object> section)
+        protected string GetBookmark(Dictionary<string, object> section)
         {
-            String page = "Page";
+            string page = "Page";
             if (section.ContainsKey(page))
             {
-                String num_page = (String)section[page];
-                String one_line = section["Title"] + "\t" + num_page.Split(' ')[0];
+                string num_page = (string)section[page];
+                string one_line = section["Title"] + "\t" + num_page.Split(' ')[0];
                 if (section.ContainsKey("Kids"))
                 {
-                    List<Dictionary<String, object>> kids = (List<Dictionary<String, object>>)section["Kids"];
+                    List<Dictionary<String, object>> kids = (List<Dictionary<string, object>>)section["Kids"];
                     foreach (var kid in kids)
                     {
                         one_line += "\n";
-                        one_line += _get_bookmark(kid);
+                        one_line += GetBookmark(kid);
                     }
                 }
                 return one_line;
@@ -74,8 +74,8 @@ namespace pearblossom
             }
         }
 
-        protected abstract String _get_toc_name();
-        public abstract String Output();
+        protected abstract string GetTocName();
+        public abstract string Output();
 
     }
 }

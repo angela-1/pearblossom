@@ -71,7 +71,7 @@
             this.openToolStripButton.Name = "openToolStripButton";
             this.openToolStripButton.Size = new System.Drawing.Size(92, 45);
             this.openToolStripButton.Text = "打开";
-            this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
+            this.openToolStripButton.Click += new System.EventHandler(this.OpenToolStripButton_Click);
             // 
             // mergeStripButton
             // 
@@ -98,14 +98,14 @@
             this.docxToolStripMenuItem.Name = "docxToolStripMenuItem";
             this.docxToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
             this.docxToolStripMenuItem.Text = "*.docx";
-            this.docxToolStripMenuItem.Click += new System.EventHandler(this.docxToolStripMenuItem_Click);
+            this.docxToolStripMenuItem.Click += new System.EventHandler(this.DocxToolStripMenuItem_Click);
             // 
             // txtToolStripMenuItem
             // 
             this.txtToolStripMenuItem.Name = "txtToolStripMenuItem";
             this.txtToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
             this.txtToolStripMenuItem.Text = "*.txt";
-            this.txtToolStripMenuItem.Click += new System.EventHandler(this.txtToolStripMenuItem_Click);
+            this.txtToolStripMenuItem.Click += new System.EventHandler(this.TxtToolStripMenuItem_Click);
             // 
             // pageNumberToolStripButton
             // 
@@ -114,7 +114,7 @@
             this.pageNumberToolStripButton.Name = "pageNumberToolStripButton";
             this.pageNumberToolStripButton.Size = new System.Drawing.Size(109, 45);
             this.pageNumberToolStripButton.Text = "添加页码";
-            this.pageNumberToolStripButton.Click += new System.EventHandler(this.pageNumberToolStripButton_Click);
+            this.pageNumberToolStripButton.Click += new System.EventHandler(this.PageNumberToolStripButton_Click);
             // 
             // toolStripButton1
             // 
@@ -123,7 +123,7 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(109, 45);
             this.toolStripButton1.Text = "加偶数页";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.toolStripButton1.Click += new System.EventHandler(this.ToolStripButton1_Click);
             // 
             // statusStrip1
             // 
@@ -160,7 +160,7 @@
             this.githubToolStripStatusLabel.Name = "githubToolStripStatusLabel";
             this.githubToolStripStatusLabel.Size = new System.Drawing.Size(20, 20);
             this.githubToolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.githubToolStripStatusLabel.Click += new System.EventHandler(this.githubToolStripStatusLabel_Click);
+            this.githubToolStripStatusLabel.Click += new System.EventHandler(this.GithubToolStripStatusLabel_Click);
             // 
             // toolStripStatusLabel3
             // 
@@ -168,7 +168,7 @@
             this.toolStripStatusLabel3.Margin = new System.Windows.Forms.Padding(10, 3, 0, 2);
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
             this.toolStripStatusLabel3.Size = new System.Drawing.Size(20, 21);
-            this.toolStripStatusLabel3.Click += new System.EventHandler(this.toolStripStatusLabel3_Click);
+            this.toolStripStatusLabel3.Click += new System.EventHandler(this.ToolStripStatusLabel3_Click);
             // 
             // textBox1
             // 

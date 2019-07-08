@@ -26,21 +26,21 @@ namespace pearblossom
 {
     class DocxToc:Toc
     {
-        public DocxToc(String filepath)
+        public DocxToc(string filepath)
         {
             _src_file = filepath;
-            _parse_toc();
+            ParseToc();
         }
 
-        protected override String _get_toc_name()
+        protected override string GetTocName()
         {
             int ind = this._src_file.LastIndexOf('\\');
-            String toc_name = System.IO.Path.GetFileNameWithoutExtension(this._src_file);
-            String toc_filepath = this._src_file.Substring(0, ind + 1) + toc_name + "_toc.docx";
+            string toc_name = System.IO.Path.GetFileNameWithoutExtension(this._src_file);
+            string toc_filepath = this._src_file.Substring(0, ind + 1) + toc_name + "_toc.docx";
             return toc_filepath;
         }
 
-        public override String Output()
+        public override string Output()
         {
             Application word = new ApplicationClass();
             word.Visible = false;
@@ -54,7 +54,7 @@ namespace pearblossom
 
             doc.Paragraphs.Last.Range.Text = "目  录";
 
-            foreach (String item in this._outline)
+            foreach (string item in this._outline)
             {
                 doc.Paragraphs.Last.Range.Text += item;
             }
@@ -80,7 +80,7 @@ namespace pearblossom
 
             object format = WdSaveFormat.wdFormatDocument; // office 2007就是wdFormatDocumentDefault
             //将wordDoc文档对象的内容保存为DOCX文档
-            String dst_filepath = _get_toc_name();
+            string dst_filepath = GetTocName();
             doc.SaveAs2(dst_filepath);
 
             doc.Close();

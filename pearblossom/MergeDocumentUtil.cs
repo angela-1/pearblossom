@@ -14,23 +14,23 @@ namespace pearblossom
 {
     class MergeDocumentUtil
     {
-        public static String run(String folderPath, Boolean withBookmark)
+        public static string Run(string folderPath, Boolean withBookmark)
         {
-            String[] filesList = Directory.GetFiles(folderPath);
+            string[] filesList = Directory.GetFiles(folderPath);
             if (filesList.Count() == 0)
             {
                 return null;
             }
-            List<String> docxFiles = filterDocx(new List<String>(filesList));
-            List<String> tmpPdfFiles = new List<string>();
+            List<string> docxFiles = FilterDocx(new List<string>(filesList));
+            List<string> tmpPdfFiles = new List<string>();
             foreach (var docxFile in docxFiles)
             {
-                String pdfFile = docx2pdf(docxFile, withBookmark);
+                string pdfFile = DocxToPdf(docxFile, withBookmark);
                 tmpPdfFiles.Add(pdfFile);
             }
 
-            String[] allFilesList = Directory.GetFiles(folderPath);
-            List<String> pdfFiles = filterPdf(new List<String>(allFilesList));
+            string[] allFilesList = Directory.GetFiles(folderPath);
+            List<string> pdfFiles = FilterPdf(new List<string>(allFilesList));
             pdfFiles.Sort((x1, x2) =>
             {
                 Boolean hasNumber = Regex.IsMatch(Path.GetFileNameWithoutExtension(x1), @"\d+")
@@ -47,9 +47,9 @@ namespace pearblossom
 
             });
 
-            String targetFolder = Path.GetDirectoryName(folderPath);
-            String outFile = Path.GetFileName(folderPath);
-            String target = Path.Combine(targetFolder, outFile + ".pdf");
+            string targetFolder = Path.GetDirectoryName(folderPath);
+            string outFile = Path.GetFileName(folderPath);
+            string target = Path.Combine(targetFolder, outFile + ".pdf");
 
             if (withBookmark)
             {
@@ -60,25 +60,25 @@ namespace pearblossom
                 MergePdfs(pdfFiles, target);
             }
 
-            clean(tmpPdfFiles);
+            Clean(tmpPdfFiles);
 
             return target;
 
         }
 
-        private static void clean(List<String> filepaths)
+        private static void Clean(List<string> filepaths)
         {
             foreach (var item in filepaths)
             {
                 File.Delete(item);
             }
         }
-        private static List<String> filterDocx(List<String> filepaths)
+        private static List<string> FilterDocx(List<string> filepaths)
         {
-            List<String> result = new List<String>();
+            List<string> result = new List<string>();
             foreach (var item in filepaths)
             {
-                String ext = Path.GetExtension(item);
+                string ext = Path.GetExtension(item);
                 if (ext == ".docx" || ext == ".doc")
                 {
                     result.Add(item);
@@ -87,12 +87,12 @@ namespace pearblossom
             return result;
         }
 
-        private static List<String> filterPdf(List<String> filepaths)
+        private static List<string> FilterPdf(List<string> filepaths)
         {
-            List<String> result = new List<String>();
+            List<string> result = new List<string>();
             foreach (var item in filepaths)
             {
-                String ext = Path.GetExtension(item);
+                string ext = Path.GetExtension(item);
                 if (ext == ".pdf")
                 {
                     result.Add(item);
@@ -100,14 +100,14 @@ namespace pearblossom
             }
             return result;
         }
-        private static String getDestFilename(String filePath)
+        private static string GetDestFilename(string filePath)
         {
-            String newFile = Path.GetFileNameWithoutExtension(filePath) + ".pdf";
-            String dest = Path.GetDirectoryName(filePath);
+            string newFile = Path.GetFileNameWithoutExtension(filePath) + ".pdf";
+            string dest = Path.GetDirectoryName(filePath);
             return Path.Combine(dest, newFile);
         }
 
-        private static String docx2pdf(String filePath, Boolean withBookmark)
+        private static string DocxToPdf(string filePath, bool withBookmark)
         {
             if (!File.Exists(filePath))
             {
@@ -115,11 +115,13 @@ namespace pearblossom
                 return null;
             }
 
-            MSWord.Application app = new MSWord.Application();
-            app.Visible = false;
+            MSWord.Application app = new MSWord.Application
+            {
+                Visible = false
+            };
 
             MSWord.Document doc = app.Documents.Open(filePath);
-            String dest = getDestFilename(filePath);
+            string dest = GetDestFilename(filePath);
             doc.ExportAsFixedFormat(dest, MSWord.WdExportFormat.wdExportFormatPDF,
                         CreateBookmarks: withBookmark ?
                         MSWord.WdExportCreateBookmarks.wdExportCreateHeadingBookmarks :
@@ -129,7 +131,7 @@ namespace pearblossom
             app.Quit();
             return dest;
         }
-        private static void MergePdfs(List<String> InFiles, String OutFile)
+        private static void MergePdfs(List<string> InFiles, string OutFile)
         {
             using (FileStream stream = new FileStream(OutFile, FileMode.Create))
             using (Document doc = new Document())
@@ -140,15 +142,15 @@ namespace pearblossom
                 PdfReader reader = null;
                 PdfImportedPage page = null;
 
-                var bookmarks = new List<Dictionary<String, object>>();
-                var rootBookmark = new Dictionary<String, object>();
+                var bookmarks = new List<Dictionary<string, object>>();
+                var rootBookmark = new Dictionary<string, object>();
                 var level1 = Path.GetFileNameWithoutExtension(OutFile);
 
                 rootBookmark.Add("Action", "GoTo");
                 rootBookmark.Add("Title", level1);
                 rootBookmark.Add("Page", "1 FitH 842"); // use height of 1st page
 
-                var kids = new List<Dictionary<String, object>>();
+                var kids = new List<Dictionary<string, object>>();
 
 
 
@@ -160,10 +162,12 @@ namespace pearblossom
                 {
                     var title = Path.GetFileNameWithoutExtension(file);
 
-                    var kk = new Dictionary<String, object>();
-                    kk.Add("Action", "GoTo");
-                    kk.Add("Title", title);
-                    kk.Add("Page", pdf.PageNumber + " FitH 842");
+                    var kk = new Dictionary<string, object>
+                    {
+                        { "Action", "GoTo" },
+                        { "Title", title },
+                        { "Page", pdf.PageNumber + " FitH 842" }
+                    };
                     kids.Add(kk);
 
                     reader = new PdfReader(file);
@@ -182,7 +186,7 @@ namespace pearblossom
                         pdf.AddPage(PageSize.A4, 0);
                     }
 
-                    IList<Dictionary<String, object>> outline_list = SimpleBookmark.GetBookmark(reader);
+                    IList<Dictionary<string, object>> outline_list = SimpleBookmark.GetBookmark(reader);
 
 
 
@@ -205,7 +209,7 @@ namespace pearblossom
             }
         }
 
-        private static void MergePdfsWithBookmarks(List<String> InFiles, String OutFile)
+        private static void MergePdfsWithBookmarks(List<string> InFiles, string OutFile)
         {
             using (FileStream stream = new FileStream(OutFile, FileMode.Create))
             using (Document doc = new Document())
@@ -216,15 +220,15 @@ namespace pearblossom
                 PdfReader reader = null;
                 PdfImportedPage page = null;
 
-                var bookmarks = new List<Dictionary<String, object>>();
-                var rootBookmark = new Dictionary<String, object>();
+                var bookmarks = new List<Dictionary<string, object>>();
+                var rootBookmark = new Dictionary<string, object>();
                 var level1 = Path.GetFileNameWithoutExtension(OutFile);
 
                 rootBookmark.Add("Action", "GoTo");
                 rootBookmark.Add("Title", level1);
                 rootBookmark.Add("Page", "1 FitH 842"); // use height of 1st page
 
-                var kids = new List<Dictionary<String, object>>();
+                var kids = new List<Dictionary<string, object>>();
 
                 //fixed typo
                 InFiles.ForEach(file =>
@@ -254,7 +258,7 @@ namespace pearblossom
                         pdf.AddPage(PageSize.A4, 0);
                     }
 
-                    IList<Dictionary<String, object>> outline_list = SimpleBookmark.GetBookmark(reader);
+                    IList<Dictionary<string, object>> outline_list = SimpleBookmark.GetBookmark(reader);
 
 
 
