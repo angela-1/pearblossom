@@ -175,9 +175,9 @@ namespace pearblossom
 
         private void MergeStripButton_Click(object sender, EventArgs e)
         {
-            if (this.srcFile != "")
+            if (srcFile != "" && Directory.Exists(srcFile))
             {
-                string folderPath = Path.GetDirectoryName(this.srcFile);
+                string folderPath = srcFile;
                 this.ShowContent(@"源文件夹：
 " + folderPath);
                 Form form4 = new Form4(this, folderPath);
@@ -187,32 +187,8 @@ namespace pearblossom
             }
             else
             {
-                ShowStatus("请选择文件");
+                ShowStatus("请选择文件夹");
             }
-
-
-            //FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
-            //folderBrowser.Description = "请选择要合并文件夹";
-            //if (folderBrowser.ShowDialog() == DialogResult.OK)
-            //{
-            //    if (string.IsNullOrEmpty(folderBrowser.SelectedPath))
-            //    {
-            //        MessageBox.Show(this, "文件夹路径不能为空", "提示");
-            //        return;
-            //    }
-
-            //    Form form4 = new Form4(this, folderBrowser.SelectedPath);
-            //    form4.Show();
-
-            //    showStatus("合并文件成功");
-            //}
-            ////string[] temArr = { "d:\\a.pdf", "d:\\b.pdf", "d:\\c.docx" };
-            //string[] temArr = { "d:\\a.pdf", "d:\\b.pdf" };
-            //List<string> testList = new List<string>(temArr);
-            //MergeDocumentUtil.MergePdfs(testList, "d:\\cc.pdf");
-
-
-            //MergeDocumentUtil.filterDocx(testList);
         }
     }
 }
