@@ -107,21 +107,21 @@
             // toDocxToolStripMenuItem
             // 
             this.toDocxToolStripMenuItem.Name = "toDocxToolStripMenuItem";
-            this.toDocxToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.toDocxToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
             this.toDocxToolStripMenuItem.Text = ".docx";
             this.toDocxToolStripMenuItem.Click += new System.EventHandler(this.ToDocxToolStripMenuItem_Click);
             // 
             // toPdfToolStripMenuItem
             // 
             this.toPdfToolStripMenuItem.Name = "toPdfToolStripMenuItem";
-            this.toPdfToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.toPdfToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
             this.toPdfToolStripMenuItem.Text = ".pdf";
             this.toPdfToolStripMenuItem.Click += new System.EventHandler(this.ToPdfToolStripMenuItem_Click);
             // 
             // toTxtToolStripMenuItem
             // 
             this.toTxtToolStripMenuItem.Name = "toTxtToolStripMenuItem";
-            this.toTxtToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.toTxtToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
             this.toTxtToolStripMenuItem.Text = ".txt";
             this.toTxtToolStripMenuItem.Click += new System.EventHandler(this.ToTxtToolStripMenuItem_Click);
             // 
@@ -245,7 +245,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(600, 220);
             this.Name = "Form1";
-            this.Text = "梨花-材料汇编工具";
+            this.Text = "梨花-文档处理工具集";
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

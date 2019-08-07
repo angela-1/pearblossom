@@ -66,10 +66,8 @@ namespace pearblossom
         {
             if (srcFile != "")
             {
-                using (Form form3 = new Form3(this))
-                {
-                    form3.Show();
-                }
+                Form form3 = new Form3(this);
+                form3.Show();
             }
             else
             {
@@ -146,11 +144,8 @@ namespace pearblossom
 
         private void ToolStripStatusLabel3_Click(object sender, EventArgs e)
         {
-            using (Form form2 = new Form2())
-            {
-                form2.Show();
-            }
-
+            Form form2 = new Form2();
+            form2.Show();
         }
 
         private void GithubToolStripStatusLabel_Click(object sender, EventArgs e)
@@ -186,10 +181,9 @@ namespace pearblossom
                 string folderPath = srcFile;
                 ShowContent(@"源文件夹：
 " + folderPath);
-                using (Form form4 = new Form4(this, folderPath))
-                {
-                    form4.Show();
-                }
+
+                Form form4 = new Form4(this, folderPath);
+                form4.Show();
 
                 ShowStatus("合并文件成功");
             }
