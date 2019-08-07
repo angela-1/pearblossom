@@ -42,6 +42,7 @@ namespace pearblossom
         {
             srcFile = "";
             ShowStatus("选择文件或拖放文件到此界面");
+            ShowContent("欢迎使用");
         }
 
 
@@ -52,7 +53,7 @@ namespace pearblossom
 
         public void ShowFiles()
         {
-            string s = string.Join("\r\n", this.files);
+            string s = string.Join("\r\n", files);
             textBox1.Text = "文件列表：\r\n" + s;
         }
 
@@ -65,8 +66,10 @@ namespace pearblossom
         {
             if (srcFile != "")
             {
-                Form form3 = new Form3(this);
-                form3.Show();
+                using (Form form3 = new Form3(this))
+                {
+                    form3.Show();
+                }
             }
             else
             {
@@ -80,27 +83,28 @@ namespace pearblossom
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 //openFileDialog.InitialDirectory = "c:\\"; // 不设置默认打开桌面
-                Filter = "PDF 文件(*.pdf)|*.pdf|所有文件(*.*)|*.*",
+                Filter = "PDF 文件(*.pdf)|*.pdf|Word 文件(*.docx)|*.docx|Word 文件(*.doc)|*.doc|所有文件(*.*)|*.*",
                 Multiselect = true,
                 RestoreDirectory = true,
                 FilterIndex = 1
             };
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                this.files = openFileDialog.FileNames;
-                srcFile = this.files[0];
+                files = openFileDialog.FileNames;
+                srcFile = files[0];
                 ShowStatus("已选文件");
                 ShowFiles();
             }
+            openFileDialog.Dispose();
         }
 
         private void Form1_DragEnter(object sender, DragEventArgs e)
         {
-            this.files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
             //string path = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).Tostring();
 
-            srcFile = this.files[0];
+            srcFile = files[0];
             ShowStatus("已选文件");
             ShowFiles();
         }
@@ -142,8 +146,10 @@ namespace pearblossom
 
         private void ToolStripStatusLabel3_Click(object sender, EventArgs e)
         {
-            Form form2 = new Form2();
-            form2.Show();
+            using (Form form2 = new Form2())
+            {
+                form2.Show();
+            }
 
         }
 
@@ -157,10 +163,10 @@ namespace pearblossom
 
         private void ToolStripButton1_Click(object sender, EventArgs e)
         {
-            if (this.srcFile != "")
+            if (srcFile != "")
             {
                 List<string> dst_file = new List<string>();
-                foreach (var f in this.files)
+                foreach (var f in files)
                 {
                     dst_file.Add(EvenPage.AddEvenPage(f));
                 }
@@ -178,10 +184,12 @@ namespace pearblossom
             if (srcFile != "" && Directory.Exists(srcFile))
             {
                 string folderPath = srcFile;
-                this.ShowContent(@"源文件夹：
+                ShowContent(@"源文件夹：
 " + folderPath);
-                Form form4 = new Form4(this, folderPath);
-                form4.Show();
+                using (Form form4 = new Form4(this, folderPath))
+                {
+                    form4.Show();
+                }
 
                 ShowStatus("合并文件成功");
             }
@@ -189,6 +197,46 @@ namespace pearblossom
             {
                 ShowStatus("请选择文件夹");
             }
+        }
+
+
+        private void Convert(string[] fileOrPath, string format)
+        {
+            if (srcFile != "")
+            {
+                string dest = "";
+                ShowStatus("处理中...");
+                foreach (var f in fileOrPath)
+                {
+                    dest = DocumentConverterUtils.Convert(f, format);
+                }
+                if (files.Length > 1)
+                {
+                    dest = Path.GetDirectoryName(dest);
+                }
+                ShowContent(@"结果：
+" + dest);
+                ShowStatus("转换完成");
+            }
+            else
+            {
+                ShowStatus("请选择文件");
+            }
+        }
+
+        private void ToDocxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Convert(files, "docx");
+        }
+
+        private void ToPdfToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Convert(files, "pdf");
+        }
+
+        private void ToTxtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Convert(files, "txt");
         }
     }
 }

@@ -386,7 +386,7 @@ blockquote {
 </head>
 <body>
 <p><img src="https://raw.githubusercontent.com/angela-1/pearblossom/master/pearblossom/images/pearblossom.png" alt="pearblossom"></p>
-<h1 id="%E6%A2%A8%E8%8A%B1---pdf-%E5%B7%A5%E5%85%B7%E9%9B%86">梨花 - PDF 工具集</h1>
+<h1 id="%E6%A2%A8%E8%8A%B1---%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7%E9%9B%86">梨花 - 文档处理工具集</h1>
 <p>代号：pearblossom</p>
 <p>版本 3.0。</p>
 <h2 id="%E8%A7%86%E8%A7%89">视觉</h2>
@@ -398,10 +398,11 @@ blockquote {
 </ul>
 <h2 id="%E5%8A%9F%E8%83%BD">功能</h2>
 <ul>
-<li>合并一个文件夹下的文件 <code>docx/doc/pdf</code> 为一个 <code>pdf</code> 文件</li>
-<li>提取带有书签的 <code>pdf</code> 文件生成目录</li>
-<li>给 <code>pdf</code> 文件添加页码，可选两种页码格式</li>
-<li>给总页数数为奇数页的 <code>pdf</code> 文件添加一个空白页变成偶数页</li>
+<li>转换 <code>*.docx/*.doc</code> 为 <code>*.pdf/*.txt</code> 文件</li>
+<li>合并一个文件夹下的文件 <code>*.docx/*.doc/*.pdf</code> 为一个 <code>*.pdf</code> 文件</li>
+<li>提取带有书签的 <code>*.pdf</code> 文件生成目录</li>
+<li>给 <code>*.pdf</code> 文件添加页码，可选两种页码格式</li>
+<li>给总页数数为奇数页的 <code>*.pdf</code> 文件添加一个空白页变成偶数页</li>
 </ul>
 <h2 id="%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</h2>
 <h3 id="%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6">合并文件</h3>
@@ -410,23 +411,29 @@ blockquote {
 <li>点击“合并文件”按钮，合并文件</li>
 <li>结果存放在文件夹同级目录下</li>
 </ol>
+<h3 id="%E8%BD%AC%E6%8D%A2%E6%A0%BC%E5%BC%8F">转换格式</h3>
+<ol>
+<li>选择要转换的文件所有文件夹或单个文件或多个文件</li>
+<li>点击“转换格式”选择目标文件格式 <code>*.docx/*.pdf/*.txt</code></li>
+<li>结果存放在源文件相同目录下</li>
+</ol>
 <h3 id="%E6%8F%90%E5%8F%96%E7%9B%AE%E5%BD%95">提取目录</h3>
 <ol>
-<li>点击“打开”选择带有目录的 <code>pdf</code> 文件，或者拖动到程序窗口内。提示框显示已选文件的路径。</li>
-<li>点击“提取目录”按钮导出目录，默认为 <code>docx</code> 格式。点击下拉箭头可选择 <code>txt</code> 格式。</li>
+<li>点击“打开”选择带有目录的 <code>*.pdf</code> 文件，或者拖动到程序窗口内。提示框显示已选文件的路径。</li>
+<li>点击“提取目录”按钮导出目录，默认为 <code>*.docx</code> 格式。点击下拉箭头可选择 <code>*.txt</code> 格式。</li>
 <li>导出成功。提示框显示导出目录的路径。</li>
-<li>在 Word 中修改格式以符合要求。（导出为 <code>docx</code> 格式）</li>
+<li>在 Word 中修改格式以符合要求。（导出为 <code>*.docx</code> 格式）</li>
 </ol>
 <h3 id="%E6%B7%BB%E5%8A%A0%E9%A1%B5%E7%A0%81">添加页码</h3>
 <ol>
-<li>点击“打开”选择带有目录的 <code>pdf</code> 文件，或者拖动到程序窗口内。提示框显示已选文件的路径。</li>
-<li>点击“添加页码”，生成一个带有 <code>_pagenumber</code> 后缀的 <code>pdf</code> 文件。</li>
+<li>点击“打开”选择带有目录的 <code>*.pdf</code> 文件，或者拖动到程序窗口内。提示框显示已选文件的路径。</li>
+<li>点击“添加页码”，生成一个带有 <code>_pagenumber</code> 后缀的 <code>*_pagenumber.pdf</code> 文件。</li>
 <li>成功。提示框显示生成文件的路径。</li>
 </ol>
 <h3 id="%E5%8A%A0%E5%81%B6%E6%95%B0%E9%A1%B5">加偶数页</h3>
 <ol>
-<li>点击“打开”选择带有目录的 <code>pdf</code> 文件，或者拖动到程序窗口内。提示框显示已选文件的路径。</li>
-<li>点击“加偶数页”，生成一个带有 <code>_even</code> 后缀的 <code>pdf</code> 文件。</li>
+<li>点击“打开”选择带有目录的 <code>*.pdf</code> 文件，或者拖动到程序窗口内。提示框显示已选文件的路径。</li>
+<li>点击“加偶数页”，生成一个带有 <code>_even</code> 后缀的 <code>*_even.pdf</code> 文件。</li>
 <li>成功。提示框显示生成文件的路径。</li>
 </ol>
 <h2 id="%E5%88%B6%E4%BD%9C%E6%B1%87%E7%BC%96%E6%9D%90%E6%96%99">制作汇编材料</h2>

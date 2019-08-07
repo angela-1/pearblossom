@@ -33,9 +33,9 @@ namespace pearblossom
 
         protected override string GetTocName()
         {
-            int ind = this._src_file.LastIndexOf('\\');
-            string toc_name = System.IO.Path.GetFileNameWithoutExtension(this._src_file);
-            string toc_filepath = this._src_file.Substring(0, ind + 1) + toc_name + "_toc.txt";
+            int ind = _src_file.LastIndexOf('\\');
+            string toc_name = System.IO.Path.GetFileNameWithoutExtension(_src_file);
+            string toc_filepath = _src_file.Substring(0, ind + 1) + toc_name + "_toc.txt";
             return toc_filepath;
         }
 
