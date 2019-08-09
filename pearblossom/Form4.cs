@@ -30,13 +30,14 @@ namespace pearblossom
 
         private async void OkButton_Click(object sender, EventArgs e)
         {
-            Hide();
             parentForm.ShowStatus("处理中");
 
             string target = await MergeTaskAsync();
             parentForm.ShowStatus("完成");
             parentForm.ShowContent(@"目标文件：
 " + target);
+            
+
         }
 
         private async Task<string> MergeTaskAsync()

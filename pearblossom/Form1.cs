@@ -184,7 +184,6 @@ namespace pearblossom
 
                 Form form4 = new Form4(this, filePaths);
                 form4.Show();
-
                 ShowStatus("合并文件成功");
             }
             else
