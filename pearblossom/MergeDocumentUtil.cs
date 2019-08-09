@@ -11,26 +11,27 @@ namespace pearblossom
 {
     class MergeDocumentUtil
     {
-        public static string Run(string folderPath, Boolean withBookmark)
+        public static string Run(string[] filePaths, bool withBookmark)
         {
-            string[] filesList = Directory.GetFiles(folderPath);
+            List<string> filesList = new List<string>(filePaths);
             if (filesList.Count() == 0)
             {
                 return null;
             }
-            List<string> docxFiles = FilterDocx(new List<string>(filesList));
+            List<string> docxFiles = FilterDocx(filesList);
             List<string> tmpPdfFiles = new List<string>();
             foreach (var docxFile in docxFiles)
             {
+                filesList.Remove(docxFile);
                 string pdfFile = DocxToPdf(docxFile, withBookmark);
+                filesList.Add(pdfFile);
                 tmpPdfFiles.Add(pdfFile);
             }
 
-            string[] allFilesList = Directory.GetFiles(folderPath);
-            List<string> pdfFiles = FilterPdf(new List<string>(allFilesList));
+            List<string> pdfFiles = FilterPdf(filesList);
             pdfFiles.Sort((x1, x2) =>
             {
-                Boolean hasNumber = Regex.IsMatch(Path.GetFileNameWithoutExtension(x1), @"\d+")
+                bool hasNumber = Regex.IsMatch(Path.GetFileNameWithoutExtension(x1), @"\d+")
                   && Regex.IsMatch(Path.GetFileNameWithoutExtension(x2), @"\d+");
                 if (hasNumber)
                 {
@@ -44,8 +45,8 @@ namespace pearblossom
 
             });
 
-            string targetFolder = Path.GetDirectoryName(folderPath);
-            string outFile = Path.GetFileName(folderPath);
+            string targetFolder = Path.GetDirectoryName(filePaths[0]);
+            string outFile = Path.GetFileName(targetFolder);
             string target = Path.Combine(targetFolder, outFile + ".pdf");
 
             if (withBookmark)
@@ -61,6 +62,17 @@ namespace pearblossom
 
             return target;
 
+        }
+
+        public static string Run(string folderPath, bool withBookmark)
+        {
+            string[] filesList = Directory.GetFiles(folderPath);
+            if (filesList.Count() == 0)
+            {
+                return null;
+            }
+            string target = Run(filesList, withBookmark);
+            return target;
         }
 
         private static void Clean(List<string> filepaths)

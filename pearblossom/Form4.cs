@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,13 +14,13 @@ namespace pearblossom
     public partial class Form4 : Form
     {
         private Boolean withBookmark = false;
-        private readonly string folderPath;
+        private readonly string[] filePaths;
 
         private readonly Form1 parentForm;
-        public Form4(Form1 form, string path)
+        public Form4(Form1 form, string[] paths)
         {
             parentForm = form;
-            folderPath = path;
+            filePaths = paths;
             InitializeComponent();
         }
         private void WithBookmarkCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -47,7 +48,15 @@ namespace pearblossom
         {
             var task = Task.Run(() =>
             {
-                string target = MergeDocumentUtil.Run(folderPath, withBookmark);
+                string target = null;
+                if (Directory.Exists(filePaths[0])) // is folder
+                {
+                    target = MergeDocumentUtil.Run(filePaths[0], withBookmark);
+                } else // is files 
+                {
+                    target = MergeDocumentUtil.Run(filePaths, withBookmark);
+                }
+                
                 return target;
             });
 

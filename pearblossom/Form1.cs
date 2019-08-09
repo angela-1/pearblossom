@@ -176,13 +176,13 @@ namespace pearblossom
 
         private void MergeStripButton_Click(object sender, EventArgs e)
         {
-            if (srcFile != "" && Directory.Exists(srcFile))
+            if (srcFile != "")
             {
-                string folderPath = srcFile;
-                ShowContent(@"源文件夹：
-" + folderPath);
 
-                Form form4 = new Form4(this, folderPath);
+                string[] filePaths = files;
+                ShowFiles();
+
+                Form form4 = new Form4(this, filePaths);
                 form4.Show();
 
                 ShowStatus("合并文件成功");
