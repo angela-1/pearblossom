@@ -60,13 +60,13 @@ namespace pearblossom
             {
                 parentForm.ShowStatus("请选择文件");
             }
-            Hide();
+            Close();
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Hide();
+            Close();
         }
     }
 }
