@@ -22,28 +22,30 @@ namespace pearblossom
             List<string> tmpPdfFiles = new List<string>();
             foreach (var docxFile in docxFiles)
             {
-                filesList.Remove(docxFile);
+                //filesList.Remove(docxFile);
+                int ind = filesList.FindIndex(f => f == docxFile);
                 string pdfFile = DocxToPdf(docxFile, withBookmark);
-                filesList.Add(pdfFile);
+                filesList[ind] = pdfFile;
+                //filesList.Add(pdfFile);
                 tmpPdfFiles.Add(pdfFile);
             }
 
             List<string> pdfFiles = FilterPdf(filesList);
-            pdfFiles.Sort((x1, x2) =>
-            {
-                bool hasNumber = Regex.IsMatch(Path.GetFileNameWithoutExtension(x1), @"\d+")
-                  && Regex.IsMatch(Path.GetFileNameWithoutExtension(x2), @"\d+");
-                if (hasNumber)
-                {
-                    return int.Parse(Regex.Match(Path.GetFileNameWithoutExtension(x1), @"\d+").Value)
-                .CompareTo(int.Parse(Regex.Match(Path.GetFileNameWithoutExtension(x2), @"\d+").Value));
-                }
-                else
-                {
-                    return -1;
-                }
+            //pdfFiles.Sort((x1, x2) =>
+            //{
+            //    bool hasNumber = Regex.IsMatch(Path.GetFileNameWithoutExtension(x1), @"\d+")
+            //      && Regex.IsMatch(Path.GetFileNameWithoutExtension(x2), @"\d+");
+            //    if (hasNumber)
+            //    {
+            //        return int.Parse(Regex.Match(Path.GetFileNameWithoutExtension(x1), @"\d+").Value)
+            //    .CompareTo(int.Parse(Regex.Match(Path.GetFileNameWithoutExtension(x2), @"\d+").Value));
+            //    }
+            //    else
+            //    {
+            //        return -1;
+            //    }
 
-            });
+            //});
 
             string targetFolder = Path.GetDirectoryName(filePaths[0]);
             string outFile = Path.GetFileName(targetFolder);
