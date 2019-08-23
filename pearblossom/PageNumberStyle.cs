@@ -4,6 +4,7 @@
     enum PageNumberStyle
     {
         Normal,
-        Collection
+        Collection,
+        Total
     }
 }

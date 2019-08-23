@@ -28,7 +28,6 @@ namespace pearblossom
             {
                 return;
             }
-            string sText = String.Empty;
             
             switch (((RadioButton)sender).Name)
             {
@@ -37,6 +36,9 @@ namespace pearblossom
                     break;
                 case "collectionStyle":
                     pageNumberStyle = PageNumberStyle.Collection;
+                    break;
+                case "totalStyle":
+                    pageNumberStyle = PageNumberStyle.Total;
                     break;
                 default:
                     pageNumberStyle = PageNumberStyle.Normal;
@@ -50,7 +52,7 @@ namespace pearblossom
             if (parentForm.srcFile != "")
             {
                 PageNumber pageNumber = new PageNumber(parentForm.srcFile, pageNumberStyle);
-                string dst_file = pageNumber.AddPageNumber();
+                pageNumber.AddPageNumber();
 
                 parentForm.ShowStatus("添加页码成功");
                 parentForm.ShowFiles();

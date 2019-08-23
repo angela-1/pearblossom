@@ -47,8 +47,8 @@ namespace pearblossom
 
             //});
 
-            string targetFolder = Path.GetDirectoryName(filePaths[0]);
-            string outFile = Path.GetFileName(targetFolder);
+            string targetFolder = Path.GetDirectoryName(Path.GetDirectoryName(filePaths[0]));
+            string outFile = Path.GetFileNameWithoutExtension(filePaths[0]);
             string target = Path.Combine(targetFolder, outFile + ".pdf");
 
             if (withBookmark)
@@ -118,6 +118,13 @@ namespace pearblossom
             return Path.Combine(dest, newFile);
         }
 
+        private static string GetRandomDestFilename(string filePath)
+        {
+            string newFile = Path.GetRandomFileName() + ".pdf";
+            string dest = Path.GetDirectoryName(filePath);
+            return Path.Combine(dest, newFile);
+        }
+
         private static string DocxToPdf(string filePath, bool withBookmark)
         {
             if (!File.Exists(filePath))
@@ -162,10 +169,6 @@ namespace pearblossom
                 rootBookmark.Add("Page", "1 FitH 842"); // use height of 1st page
 
                 var kids = new List<Dictionary<string, object>>();
-
-
-
-
 
 
                 //fixed typo
@@ -213,9 +216,6 @@ namespace pearblossom
 
 
                 pdf.Outlines = bookmarks;
-
-
-
 
             }
         }

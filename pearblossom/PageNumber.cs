@@ -32,7 +32,7 @@ namespace pearblossom
             _pageNumberStyle = pageNumberStyle;
             int ind = _src_file.LastIndexOf('\\');
             string filename = System.IO.Path.GetFileNameWithoutExtension(_src_file);
-            _dst_file = _src_file.Substring(0, ind + 1) + filename + "_pagenumber.pdf";
+            _dst_file = _src_file.Substring(0, ind + 1) + filename + "_" + _pageNumberStyle.ToString() + "_pagenumber.pdf";
         }
 
         private string GetPageNumber(int page, int totalPage)
@@ -47,45 +47,41 @@ namespace pearblossom
                     int len = totalPage.ToString().Length;
                     StringPage = string.Format("{0:D" + len + "}", page);
                     break;
+                case PageNumberStyle.Total:
+                    StringPage = page + "/" + totalPage;
+                    break;
                 default:
                     break;
             }
             return StringPage;
         }
 
-        private string AddNormalStylePageNumber(int totalPage, PdfStamper stamper)
+        private string AddFormatedNumber(int totalPage, PdfStamper stamper, Font font)
         {
-            Font timesFont = new Font(Font.FontFamily.TIMES_ROMAN, 14);
             for (int i = 1; i <= totalPage; i++)
             {
                 Rectangle rect = stamper.Reader.GetPageSizeWithRotation(i);
                 float xp = rect.Width / 2;
-                float yp = 40.0f;
+                float yp = 30.0f;
+                float white_width = 100;
+                float white_height = 30;
+                float white_x = xp - white_width / 2;
+                float white_y = yp - white_height / 2;
 
                 PdfContentByte canvas = stamper.GetOverContent(i);
-                DrawWhiteBack(canvas, xp - 30, yp - 10, 60, 30);
-                ColumnText.ShowTextAligned(canvas, Element.ALIGN_CENTER, new Phrase(GetPageNumber(i, totalPage), timesFont), xp, yp, 0);
+
+                // 画白色背景，遮住原来的内容
+                DrawWhiteBack(canvas, white_x, white_y, white_width, white_height); 
+
+                // 打页码
+                ColumnText.ShowTextAligned(canvas, Element.ALIGN_CENTER,
+                    new Phrase(GetPageNumber(i, totalPage), font), xp, yp, 0);
             }
 
             return _dst_file;
         }
 
-        private string AddCollectionStylePageNumber(int totalPage, PdfStamper stamper)
-        {
-            Font courierFont = new Font(Font.FontFamily.COURIER, 18);
-            for (int i = 1; i <= totalPage; i++)
-            {
-                Rectangle rect = stamper.Reader.GetPageSizeWithRotation(i);
-                float xp = rect.Width / 2;
-                float yp = 40.0f;
 
-                PdfContentByte canvas = stamper.GetOverContent(i);
-                DrawWhiteBack(canvas, xp - 30, yp - 10, 60, 30);
-                ColumnText.ShowTextAligned(canvas, Element.ALIGN_CENTER, new Phrase(GetPageNumber(i, totalPage), courierFont), xp, yp, 0);
-            }
-            return _dst_file;
-
-        }
         public string AddPageNumber()
         {
             PdfReader reader = new PdfReader(_src_file);
@@ -94,18 +90,24 @@ namespace pearblossom
             PdfStamper stamper = new PdfStamper(reader, dstFile);
 
             int totalPage = stamper.Reader.NumberOfPages;
-
+            Font numberFont;
             switch (_pageNumberStyle)
             {
                 case PageNumberStyle.Normal:
-                    AddNormalStylePageNumber(totalPage, stamper);
+                    numberFont = new Font(Font.FontFamily.TIMES_ROMAN, 14);
                     break;
                 case PageNumberStyle.Collection:
-                    AddCollectionStylePageNumber(totalPage, stamper);
+                    numberFont = new Font(Font.FontFamily.COURIER, 18);
+                    break;
+                case PageNumberStyle.Total:
+                    numberFont = new Font(Font.FontFamily.COURIER, 18);
                     break;
                 default:
+                    numberFont = new Font(Font.FontFamily.TIMES_ROMAN, 14);
                     break;
             }
+
+            AddFormatedNumber(totalPage, stamper, numberFont);
 
             stamper.Close();
 
