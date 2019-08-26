@@ -48,7 +48,8 @@ namespace pearblossom
             //});
 
             string targetFolder = Path.GetDirectoryName(Path.GetDirectoryName(filePaths[0]));
-            string outFile = Path.GetFileNameWithoutExtension(filePaths[0]);
+
+            string outFile = Path.GetFileName(Path.GetDirectoryName(filePaths[0]));
             string target = Path.Combine(targetFolder, outFile + ".pdf");
 
             if (withBookmark)
