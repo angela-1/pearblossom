@@ -119,13 +119,6 @@ namespace pearblossom
             return Path.Combine(dest, newFile);
         }
 
-        private static string GetRandomDestFilename(string filePath)
-        {
-            string newFile = Path.GetRandomFileName() + ".pdf";
-            string dest = Path.GetDirectoryName(filePath);
-            return Path.Combine(dest, newFile);
-        }
-
         private static string DocxToPdf(string filePath, bool withBookmark)
         {
             if (!File.Exists(filePath))
@@ -284,10 +277,7 @@ namespace pearblossom
 
                 bookmarks.Add(rootBookmark);
 
-                pdf.Outlines = kids;
-
-
-
+                pdf.Outlines = bookmarks;
 
             }
         }

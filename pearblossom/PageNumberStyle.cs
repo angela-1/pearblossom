@@ -7,4 +7,10 @@
         Collection,
         Total
     }
+
+    enum PageNumberPos
+    {
+        Center,
+        Corner
+    }
 }

@@ -25,6 +25,7 @@ namespace pearblossom
         private readonly string _src_file;
         private readonly string _dst_file;
         private readonly PageNumberStyle _pageNumberStyle;
+        private readonly PageNumberPos _pageNumberPos;
 
         public PageNumber(string src_file, PageNumberStyle pageNumberStyle)
         {
@@ -32,7 +33,19 @@ namespace pearblossom
             _pageNumberStyle = pageNumberStyle;
             int ind = _src_file.LastIndexOf('\\');
             string filename = System.IO.Path.GetFileNameWithoutExtension(_src_file);
-            _dst_file = _src_file.Substring(0, ind + 1) + filename + "_" + _pageNumberStyle.ToString() + "_pagenumber.pdf";
+            _dst_file = _src_file.Substring(0, ind + 1) + filename + "_" + _pageNumberStyle.ToString()
+                + "_" + _pageNumberPos.ToString() + "_pagenumber.pdf";
+        }
+
+        public PageNumber(string src_file, PageNumberStyle pageNumberStyle, PageNumberPos pageNumberPos)
+        {
+            _src_file = src_file;
+            _pageNumberStyle = pageNumberStyle;
+            _pageNumberPos = pageNumberPos;
+            int ind = _src_file.LastIndexOf('\\');
+            string filename = Path.GetFileNameWithoutExtension(_src_file);
+            _dst_file = _src_file.Substring(0, ind + 1) + filename + "_" + _pageNumberStyle.ToString()
+                + "_" + _pageNumberPos.ToString() + "_pagenumber.pdf";
         }
 
         private string GetPageNumber(int page, int totalPage)
@@ -56,13 +69,37 @@ namespace pearblossom
             return StringPage;
         }
 
-        private string AddFormatedNumber(int totalPage, PdfStamper stamper, Font font)
+        private string AddFormatedNumber(int totalPage, PdfStamper stamper, Font font, PageNumberPos pos = PageNumberPos.Corner)
         {
+
             for (int i = 1; i <= totalPage; i++)
             {
                 Rectangle rect = stamper.Reader.GetPageSizeWithRotation(i);
-                float xp = rect.Width / 2;
+
+                float xp;
                 float yp = 30.0f;
+                switch (pos)
+                {
+                    case PageNumberPos.Center:
+                        xp = rect.Width / 2;
+                        break;
+                    case PageNumberPos.Corner:
+                        if (i % 2 == 0)
+                        {
+                            xp = rect.Width * 0.1f;
+                        }
+                        else
+                        {
+                            xp = rect.Width * 0.9f;
+                        }
+                        break;
+                    default:
+                        xp = rect.Width / 2;
+                        break;
+                }
+
+                //float xp = rect.Width / 2;
+                //float yp = 30.0f;
                 float white_width = 100;
                 float white_height = 30;
                 float white_x = xp - white_width / 2;
@@ -71,7 +108,7 @@ namespace pearblossom
                 PdfContentByte canvas = stamper.GetOverContent(i);
 
                 // 画白色背景，遮住原来的内容
-                DrawWhiteBack(canvas, white_x, white_y, white_width, white_height); 
+                DrawWhiteBack(canvas, white_x, white_y, white_width, white_height);
 
                 // 打页码
                 ColumnText.ShowTextAligned(canvas, Element.ALIGN_CENTER,
@@ -107,7 +144,7 @@ namespace pearblossom
                     break;
             }
 
-            AddFormatedNumber(totalPage, stamper, numberFont);
+            AddFormatedNumber(totalPage, stamper, numberFont, _pageNumberPos);
 
             stamper.Close();
 

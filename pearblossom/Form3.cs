@@ -13,6 +13,7 @@ namespace pearblossom
     public partial class Form3 : Form
     {
         private PageNumberStyle pageNumberStyle = PageNumberStyle.Normal;
+        private PageNumberPos pageNumberPos = PageNumberPos.Center;
         private Form1 parentForm;
 
         public Form3(Form1 form)
@@ -22,7 +23,29 @@ namespace pearblossom
         }
 
 
-        public void AllRadio_CheckedChanged(object sender, EventArgs e)
+        public void PagePosRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!((RadioButton)sender).Checked)
+            {
+                return;
+            }
+
+            switch (((RadioButton)sender).Name)
+            {
+                case "posCenter":
+                    pageNumberPos = PageNumberPos.Center;
+                    break;
+                case "posCorner":
+                    pageNumberPos = PageNumberPos.Corner;
+                    break;
+                default:
+                    pageNumberPos = PageNumberPos.Center;
+                    break;
+            }
+        }
+
+
+        public void PageStyleRadio_CheckedChanged(object sender, EventArgs e)
         {
             if (!((RadioButton)sender).Checked)
             {
@@ -51,7 +74,7 @@ namespace pearblossom
             Console.WriteLine("style" + this.pageNumberStyle);
             if (parentForm.srcFile != "")
             {
-                PageNumber pageNumber = new PageNumber(parentForm.srcFile, pageNumberStyle);
+                PageNumber pageNumber = new PageNumber(parentForm.srcFile, pageNumberStyle, pageNumberPos);
                 pageNumber.AddPageNumber();
 
                 parentForm.ShowStatus("添加页码成功");
