@@ -14,7 +14,6 @@
   limitations under the License.
  */
 
-using iText.IO.Font;
 using iText.IO.Font.Constants;
 using iText.Kernel.Colors;
 using iText.Kernel.Font;
@@ -24,7 +23,6 @@ using iText.Kernel.Pdf.Canvas;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
-using System.IO;
 
 namespace pearblossom
 {
@@ -110,8 +108,8 @@ namespace pearblossom
                         break;
                 }
 
-                float whiteWidth = 100;
-                float whiteHeight = 30;
+                float whiteWidth = 80f;
+                float whiteHeight = 30f;
                 float whiteX = pointX - whiteWidth / 2;
                 float whiteY = pointY - whiteHeight / 2;
 
@@ -122,7 +120,7 @@ namespace pearblossom
                 canvas.SetFillColor(ColorConstants.BLACK);
 
                 doc.ShowTextAligned(new Paragraph(GetPageNumber(i, totalPage)).SetFont(font).SetFontSize(18f),
-                        pointX, pointY, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
+                        pointX, pointY, i, TextAlignment.CENTER, VerticalAlignment.MIDDLE, 0);
             }
             doc.Close();
 
@@ -131,7 +129,7 @@ namespace pearblossom
 
         private void DrawWhiteBack(PdfCanvas canvas, float whiteX, float whiteY, float whiteWidth, float whiteHeight)
         {
-            canvas.SetFillColor(ColorConstants.ORANGE);
+            canvas.SetFillColor(ColorConstants.WHITE);
             canvas.Rectangle(whiteX, whiteY, whiteWidth, whiteHeight);
             canvas.Fill();
         }
