@@ -14,7 +14,7 @@ namespace pearblossom
     {
         private PageNumberStyle pageNumberStyle = PageNumberStyle.Normal;
         private PageNumberPos pageNumberPos = PageNumberPos.Center;
-        private Form1 parentForm;
+        private readonly Form1 parentForm;
 
         public Form3(Form1 form)
         {
@@ -69,7 +69,7 @@ namespace pearblossom
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             Console.WriteLine("style" + this.pageNumberStyle);
             if (parentForm.srcFile != "")
@@ -89,7 +89,7 @@ namespace pearblossom
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             Close();
         }

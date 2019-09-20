@@ -18,7 +18,7 @@ using System.IO;
 
 namespace pearblossom
 {
-    class TxtToc:Toc
+    class TxtToc : Toc
     {
         public TxtToc(string filepath)
         {
@@ -26,24 +26,16 @@ namespace pearblossom
             ParseToc();
         }
 
-        protected override string GetTocName()
-        {
-            int ind = _src_file.LastIndexOf('\\');
-            string toc_name = System.IO.Path.GetFileNameWithoutExtension(_src_file);
-            string toc_filepath = _src_file.Substring(0, ind + 1) + toc_name + "_toc.txt";
-            return toc_filepath;
-        }
-
         public override string Output()
         {
-            string dst_filepath = GetTocName();
+            string dst_filepath = GetTocName("txt");
             FileStream fs = new FileStream(dst_filepath, FileMode.Create);
             StreamWriter sw = new StreamWriter(fs);
             foreach (string line in _outline)
             {
                 sw.WriteLine(line);
             }
-            
+
             sw.Flush();
             sw.Close();
             fs.Close();

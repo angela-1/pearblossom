@@ -17,10 +17,11 @@
 using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace pearblossom
 {
-    abstract class Toc 
+    abstract class Toc
     {
         protected List<string> _outline;
         protected string _src_file;
@@ -71,7 +72,13 @@ namespace pearblossom
             }
         }
 
-        protected abstract string GetTocName();
+        protected string GetTocName(string ext)
+        {
+            int ind = _src_file.LastIndexOf('\\');
+            string toc_name = Path.GetFileNameWithoutExtension(_src_file);
+            string toc_filepath = _src_file.Substring(0, ind + 1) + toc_name + "_toc." + ext;
+            return toc_filepath;
+        }
         public abstract string Output();
 
     }

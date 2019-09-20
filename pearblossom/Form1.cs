@@ -16,13 +16,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace pearblossom
@@ -140,6 +134,19 @@ namespace pearblossom
 
 
 
+        private void XlsxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (srcFile != "")
+            {
+                XlsxToc docxToc = new XlsxToc(srcFile);
+                docxToc.Output();
+                ShowStatus("导出目录成功");
+            }
+            else
+            {
+                ShowStatus("请选择文件");
+            }
+        }
 
 
         private void ToolStripStatusLabel3_Click(object sender, EventArgs e)
@@ -245,5 +252,7 @@ namespace pearblossom
         {
             Convert(files, "txt");
         }
+
+
     }
 }

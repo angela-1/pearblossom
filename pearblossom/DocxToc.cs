@@ -26,21 +26,13 @@ namespace pearblossom
             ParseToc();
         }
 
-        protected override string GetTocName()
-        {
-            int ind = _src_file.LastIndexOf('\\');
-            string toc_name = System.IO.Path.GetFileNameWithoutExtension(_src_file);
-            string toc_filepath = _src_file.Substring(0, ind + 1) + toc_name + "_toc.docx";
-            return toc_filepath;
-        }
-
         public override string Output()
         {
             Application word = new ApplicationClass
             {
                 Visible = false
             };
-            Microsoft.Office.Interop.Word.Document doc = word.Documents.Add();
+            Document doc = word.Documents.Add();
 
             doc.PageSetup.TopMargin = word.CentimetersToPoints(3.7F);
             doc.PageSetup.BottomMargin = word.CentimetersToPoints(3.5F);
@@ -75,7 +67,7 @@ namespace pearblossom
                 Leader: WdTabLeader.wdTabLeaderDots);
 
             //将wordDoc文档对象的内容保存为DOCX文档
-            string dst_filepath = GetTocName();
+            string dst_filepath = GetTocName("docx");
             doc.SaveAs2(dst_filepath);
 
             doc.Close();
