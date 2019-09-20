@@ -53,10 +53,10 @@ namespace pearblossom
                 string target = null;
                 if (Directory.Exists(filePaths[0])) // is folder
                 {
-                    target = MergeDocumentUtil.Run(filePaths[0], withBookmark);
+                    //target = MergeDocumentUtil.Run(filePaths[0], withBookmark);
                 } else // is files 
                 {
-                    target = MergeDocumentUtil.Run(filePaths, withBookmark);
+                    //target = MergeDocumentUtil.Run(filePaths, withBookmark);
                 }
                 
                 return target;

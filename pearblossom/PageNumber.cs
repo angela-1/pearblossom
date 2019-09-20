@@ -14,9 +14,16 @@
   limitations under the License.
  */
 
-
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+using iText.IO.Font;
+using iText.IO.Font.Constants;
+using iText.Kernel.Colors;
+using iText.Kernel.Font;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
 using System.IO;
 
 namespace pearblossom
@@ -44,7 +51,7 @@ namespace pearblossom
             _pageNumberStyle = pageNumberStyle;
             _pageNumberPos = pageNumberPos;
             int ind = _src_file.LastIndexOf('\\');
-            string filename = Path.GetFileNameWithoutExtension(_src_file);
+            string filename = System.IO.Path.GetFileNameWithoutExtension(_src_file);
             _dst_file = _src_file.Substring(0, ind + 1) + filename + "_" + _pageNumberStyle.ToString()
                 + "_" + _pageNumberPos.ToString() + "_pagenumber.pdf";
         }
@@ -70,222 +77,96 @@ namespace pearblossom
             return StringPage;
         }
 
-        private string AddFormatedNumber(int totalPage, PdfStamper stamper, Font font, PageNumberPos pos = PageNumberPos.Corner)
+
+
+        public void AddFormatedNumber(int totalPage, Document doc, PdfFont font, PageNumberPos pos = PageNumberPos.Corner)
         {
 
             for (int i = 1; i <= totalPage; i++)
             {
-                Rectangle rect = stamper.Reader.GetPageSizeWithRotation(i);
+                PageSize pageSize = doc.GetPdfDocument().GetDefaultPageSize();
+                float pageWidth = pageSize.GetWidth();
 
-                float xp;
-                float yp = 30.0f;
+                float pointX;
+                float pointY = 30.0f;
+
                 switch (pos)
                 {
                     case PageNumberPos.Center:
-                        xp = rect.Width / 2;
+                        pointX = pageWidth / 2;
                         break;
                     case PageNumberPos.Corner:
                         if (i % 2 == 0)
                         {
-                            xp = rect.Width * 0.1f;
+                            pointX = pageWidth * 0.1f;
                         }
                         else
                         {
-                            xp = rect.Width * 0.9f;
+                            pointX = pageWidth * 0.9f;
                         }
                         break;
                     default:
-                        xp = rect.Width / 2;
+                        pointX = pageWidth / 2;
                         break;
                 }
 
-                //float xp = rect.Width / 2;
-                //float yp = 30.0f;
-                float white_width = 100;
-                float white_height = 30;
-                float white_x = xp - white_width / 2;
-                float white_y = yp - white_height / 2;
-
-                PdfContentByte canvas = stamper.GetOverContent(i);
+                float whiteWidth = 100;
+                float whiteHeight = 30;
+                float whiteX = pointX - whiteWidth / 2;
+                float whiteY = pointY - whiteHeight / 2;
 
                 // 画白色背景，遮住原来的内容
-                DrawWhiteBack(canvas, white_x, white_y, white_width, white_height);
+                PdfCanvas canvas = new PdfCanvas(doc.GetPdfDocument().GetPage(i));
+                DrawWhiteBack(canvas, whiteX, whiteY, whiteWidth, whiteHeight);
 
-                // 打页码
-                ColumnText.ShowTextAligned(canvas, Element.ALIGN_CENTER,
-                    new Phrase(GetPageNumber(i, totalPage), font), xp, yp, 0);
+                canvas.SetFillColor(ColorConstants.BLACK);
+
+                doc.ShowTextAligned(new Paragraph(GetPageNumber(i, totalPage)).SetFont(font).SetFontSize(18f),
+                        pointX, pointY, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
             }
+            doc.Close();
 
-            return _dst_file;
         }
+
+
+        private void DrawWhiteBack(PdfCanvas canvas, float whiteX, float whiteY, float whiteWidth, float whiteHeight)
+        {
+            canvas.SetFillColor(ColorConstants.ORANGE);
+            canvas.Rectangle(whiteX, whiteY, whiteWidth, whiteHeight);
+            canvas.Fill();
+        }
+
+
+
 
 
         public string AddPageNumber()
         {
-            PdfReader reader = new PdfReader(_src_file);
-            FileStream dstFile = new FileStream(_dst_file, FileMode.OpenOrCreate);
 
-            PdfStamper stamper = new PdfStamper(reader, dstFile);
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(_src_file), new PdfWriter(_dst_file));
+            Document doc = new Document(pdfDoc);
+            int totalPage = pdfDoc.GetNumberOfPages();
 
-            int totalPage = stamper.Reader.NumberOfPages;
-            Font numberFont;
+            PdfFont numberFont;
             switch (_pageNumberStyle)
             {
                 case PageNumberStyle.Normal:
-                    numberFont = new Font(Font.FontFamily.TIMES_ROMAN, 14);
+                    numberFont = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
                     break;
                 case PageNumberStyle.Collection:
-                    numberFont = new Font(Font.FontFamily.COURIER, 18);
-                    break;
                 case PageNumberStyle.Total:
-                    numberFont = new Font(Font.FontFamily.COURIER, 18);
+                    numberFont = PdfFontFactory.CreateFont(StandardFonts.COURIER);
                     break;
                 default:
-                    numberFont = new Font(Font.FontFamily.TIMES_ROMAN, 14);
+                    numberFont = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
                     break;
             }
 
-            AddFormatedNumber(totalPage, stamper, numberFont, _pageNumberPos);
-
-            stamper.Close();
-
-            reader.Close();
-            dstFile.Close();
+            AddFormatedNumber(totalPage, doc, numberFont, _pageNumberPos);
 
             return _dst_file;
         }
 
-        internal string Add()
-        {
 
-            PdfReader reader = new PdfReader(_src_file);
-            FileStream dstFile = new FileStream(_dst_file, FileMode.OpenOrCreate);
-
-            PdfStamper stamper = new PdfStamper(reader, dstFile);
-
-            int n = stamper.Reader.NumberOfPages;
-
-            //BaseFont bf = BaseFont.CreateFont(@"C:\Windows\Fonts\simsun.ttc", "UTF-8", false);
-            //Font courierFont = new Font(bf);
-            Font courierFont = new Font(Font.FontFamily.TIMES_ROMAN, 14);
-
-            for (int i = 1; i <= n; i++)
-            {
-                Rectangle rect = stamper.Reader.GetPageSizeWithRotation(i);
-                float xp = rect.Width / 2;
-                float yp = 40.0f;
-                //System.Windows.Forms.MessageBox.Show("x:" + rect.Width.ToString() + " y:" + rect.Height.ToString());
-
-                PdfContentByte canvas = stamper.GetOverContent(i);
-
-                DrawWhiteBack(canvas, xp - 30, yp - 10, 60, 30);
-
-                //ColumnText.ShowTextAligned(canvas,
-                //Element.ALIGN_CENTER, new Phrase("— " + i.ToString() + " —", courierFont), xp, yp, 0);
-
-                ColumnText.ShowTextAligned(canvas, Element.ALIGN_CENTER, new Phrase(i.ToString(), courierFont), xp, yp, 0);
-
-                //float even = rect.Width - 60;
-                //float odd = 60;
-
-                //if (i % 2 == 0)
-                //{
-                //    ColumnText.ShowTextAligned(canvas, Element.ALIGN_CENTER, new Phrase(i.ToString(), courierFont), odd, yp, 0);
-                //} else
-                //{
-                //    ColumnText.ShowTextAligned(canvas, Element.ALIGN_CENTER, new Phrase(i.ToString(), courierFont), even, yp, 0);
-                //}
-
-
-
-
-            }
-
-            stamper.Close();
-
-            reader.Close();
-            dstFile.Close();
-
-            return _dst_file;
-
-            //    PdfReader reader = new PdfReader(_src_file);
-
-            //    // 创建文件流用来保存填充模板后的文件
-            //    FileStream dstFile = new FileStream(_dst_file, FileMode.OpenOrCreate);
-            //    PdfWriter writer = new PdfWriter(dstFile);
-
-            //    PdfDocument pdfDoc = new PdfDocument(reader, writer);
-            //    Document document = new Document(pdfDoc);
-
-            //    Rectangle pageSize;
-            //    PdfCanvas canvas;
-            //    int n = pdfDoc.GetNumberOfPages();
-            //    for (int i = 1; i <= n; i++)
-            //    {
-            //        PdfPage page = pdfDoc.GetPage(i);
-            //        pageSize = page.GetPageSize();
-            //        canvas = new PdfCanvas(page);
-
-            //        canvas.SetStrokeColor(iText.Kernel.Colors.ColorConstants.BLACK)
-            //.SetLineWidth(.2f)
-            //.MoveTo(pageSize.GetWidth() / 2 - 30, 60)
-            //.LineTo(pageSize.GetWidth() / 2 + 30, 60).Stroke();
-
-            //        canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.COURIER_BOLD), 12)
-            //.MoveText(pageSize.GetWidth() / 2 - 20, 40)
-            //.ShowText(i.ToString())
-            //.ShowText(" of ")
-            //.ShowText(n.ToString())
-            //.EndText();
-
-            //        // add new content
-
-            //    }
-
-            //    // add content
-            //    pdfDoc.Close();
-
-
-        }
-
-        public void DrawWhiteBack(PdfContentByte canvas, float llx, float lly,
-            float w, float h)
-        {
-
-
-
-            // add the diagonal
-            canvas.SetColorFill(BaseColor.WHITE);
-
-            //canvas.SetLineWidth(2);
-            canvas.Rectangle(llx, lly, w, h);
-            canvas.Fill();
-            //canvas.MoveTo(100, 700);
-            //canvas.LineTo(200, 800);
-            //canvas.MoveTo(136, 100);
-            //canvas.LineTo(180, 30);
-            // stroke the lines
-            //canvas.Stroke();
-
-
-            canvas.SetColorFill(BaseColor.BLACK);
-
-            //canvas.BeginText();
-            //BaseFont bf = null;
-            //bf = BaseFont.CreateFont(@"C:\Windows\Fonts\cour.ttf", BaseFont.IDENTITY_H, false);
-
-            //canvas.SetFontAndSize(bf, 20);
-            //canvas.SetColorStroke(BaseColor.BLACK);
-
-            //canvas.ShowTextAligned(
-            //   Element.ALIGN_CENTER, y.Tostring(), llx, lly, 0);
-
-            ////// LEFT  
-            ////canvas.ShowTextAligned(Element.ALIGN_CENTER, "A", llx - 10, y, 0);
-            ////// RIGHT  
-            ////canvas.ShowTextAligned(Element.ALIGN_CENTER,"B", urx + 10, y + 8, 180);
-
-            //canvas.EndText();
-        }
     }
 }

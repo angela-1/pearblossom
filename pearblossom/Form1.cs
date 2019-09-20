@@ -104,48 +104,48 @@ namespace pearblossom
         private void DocxToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            if (srcFile != "")
-            {
-                DocxToc docxToc = new DocxToc(srcFile);
-                docxToc.Output();
-                ShowStatus("导出目录成功");
+            //if (srcFile != "")
+            //{
+            //    DocxToc docxToc = new DocxToc(srcFile);
+            //    docxToc.Output();
+            //    ShowStatus("导出目录成功");
 
-            }
-            else
-            {
-                ShowStatus("请选择文件");
-            }
+            //}
+            //else
+            //{
+            //    ShowStatus("请选择文件");
+            //}
 
         }
 
         private void TxtToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (srcFile != "")
-            {
-                TxtToc docxToc = new TxtToc(srcFile);
-                docxToc.Output();
-                ShowStatus("导出目录成功");
-            }
-            else
-            {
-                ShowStatus("请选择文件");
-            }
+            //if (srcFile != "")
+            //{
+            //    TxtToc docxToc = new TxtToc(srcFile);
+            //    docxToc.Output();
+            //    ShowStatus("导出目录成功");
+            //}
+            //else
+            //{
+            //    ShowStatus("请选择文件");
+            //}
         }
 
 
 
         private void XlsxToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (srcFile != "")
-            {
-                XlsxToc docxToc = new XlsxToc(srcFile);
-                docxToc.Output();
-                ShowStatus("导出目录成功");
-            }
-            else
-            {
-                ShowStatus("请选择文件");
-            }
+            //if (srcFile != "")
+            //{
+            //    XlsxToc docxToc = new XlsxToc(srcFile);
+            //    docxToc.Output();
+            //    ShowStatus("导出目录成功");
+            //}
+            //else
+            //{
+            //    ShowStatus("请选择文件");
+            //}
         }
 
 
@@ -183,34 +183,21 @@ namespace pearblossom
 
         private void MergeStripButton_Click(object sender, EventArgs e)
         {
-            bool isFolder = Directory.Exists(srcFile);
-            if (isFolder || files.Length > 1)
-            {
-                string[] filePaths = files;
-                ShowFiles();
-                Form form4 = new Form4(this, filePaths);
-                form4.Show();
-                ShowStatus("合并文件成功");
-            }
-            else
-            {
-                MessageBox.Show("只支持文件夹或多个文件。若要转换格式请使用转换格式功能。");
-                ShowStatus("请选择文件夹或多个文件");
-            }
-            //if (srcFile != "")
+            //bool isFolder = Directory.Exists(srcFile);
+            //if (isFolder || files.Length > 1)
             //{
-
             //    string[] filePaths = files;
             //    ShowFiles();
-
             //    Form form4 = new Form4(this, filePaths);
             //    form4.Show();
             //    ShowStatus("合并文件成功");
             //}
             //else
             //{
-            //    ShowStatus("请选择文件夹");
+            //    MessageBox.Show("只支持文件夹或多个文件。若要转换格式请使用转换格式功能。");
+            //    ShowStatus("请选择文件夹或多个文件");
             //}
+            
         }
 
 
