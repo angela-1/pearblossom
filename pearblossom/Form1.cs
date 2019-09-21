@@ -104,48 +104,48 @@ namespace pearblossom
         private void DocxToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            //if (srcFile != "")
-            //{
-            //    DocxToc docxToc = new DocxToc(srcFile);
-            //    docxToc.Output();
-            //    ShowStatus("导出目录成功");
+            if (srcFile != "")
+            {
+                DocxToc docxToc = new DocxToc(srcFile);
+                docxToc.Output();
+                ShowStatus("导出目录成功");
 
-            //}
-            //else
-            //{
-            //    ShowStatus("请选择文件");
-            //}
+            }
+            else
+            {
+                ShowStatus("请选择文件");
+            }
 
         }
 
         private void TxtToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //if (srcFile != "")
-            //{
-            //    TxtToc docxToc = new TxtToc(srcFile);
-            //    docxToc.Output();
-            //    ShowStatus("导出目录成功");
-            //}
-            //else
-            //{
-            //    ShowStatus("请选择文件");
-            //}
+            if (srcFile != "")
+            {
+                TxtToc docxToc = new TxtToc(srcFile);
+                docxToc.Output();
+                ShowStatus("导出目录成功");
+            }
+            else
+            {
+                ShowStatus("请选择文件");
+            }
         }
 
 
 
         private void XlsxToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //if (srcFile != "")
-            //{
-            //    XlsxToc docxToc = new XlsxToc(srcFile);
-            //    docxToc.Output();
-            //    ShowStatus("导出目录成功");
-            //}
-            //else
-            //{
-            //    ShowStatus("请选择文件");
-            //}
+            if (srcFile != "")
+            {
+                XlsxToc docxToc = new XlsxToc(srcFile);
+                docxToc.Output();
+                ShowStatus("导出目录成功");
+            }
+            else
+            {
+                ShowStatus("请选择文件");
+            }
         }
 
 

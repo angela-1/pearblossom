@@ -15,7 +15,7 @@ namespace pearblossom
             ParseToc();
         }
 
-        private ExcelWorksheet AddSheet(ExcelWorksheet sheet, List<string> lines, string[] items)
+        private ExcelWorksheet AddSheet(ExcelWorksheet sheet, List<BookItem> lines, string[] items)
         {
             int colWidth = items.Length; // 标题行
 
@@ -39,16 +39,19 @@ namespace pearblossom
             }
 
             int row = titleRowNumber + 1;
-            foreach (var l in lines)
+            foreach (var line in lines)
             {
-                string[] oneLine = l.Split("\t.".ToCharArray());
-                if (oneLine.Length == 3)
+                string[] oneLine = line.title.Split('.');
+                if (oneLine.Length > 1)
                 {
                     sheet.Cells[row, 1].Value = int.Parse(oneLine[0]);
                     sheet.Cells[row, 2].Value = oneLine[1];
-                    sheet.Cells[row, 3].Value = int.Parse(oneLine[2]);
-                    ++row;
+                } else
+                {
+                    sheet.Cells[row, 2].Value = line.title;
                 }
+                sheet.Cells[row, 3].Value = int.Parse(line.page);
+                ++row;
             }
 
 
@@ -63,7 +66,7 @@ namespace pearblossom
             sheet.Column(2).Width = 60;
             sheet.Column(3).Width = 10;
 
-            for (i = titleRowNumber; i < lines.Count + 1; i++)
+            for (i = titleRowNumber; i < lines.Count + 3; i++)
             {
                 sheet.Row(i).Height = 50;
                 for (int j = 1; j < colWidth + 1; j++)
@@ -103,8 +106,8 @@ namespace pearblossom
             sheet.PrinterSettings.PaperSize = ePaperSize.A4;
 
             string[] items = { "序号", "资料名称", "页码" };
-            List<string> lines = _outline[0].Split('\n').ToList<string>();
-            AddSheet(sheet, lines, items);
+  
+            AddSheet(sheet, _outline, items);
             package.Save();
             package.Dispose();
             fs.Close();
