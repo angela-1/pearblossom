@@ -13,7 +13,7 @@ namespace pearblossom
 {
     public partial class Form4 : Form
     {
-        private Boolean withBookmark = false;
+        private bool withBookmark = false;
         private readonly string[] filePaths;
 
         private readonly Form1 parentForm;
@@ -53,10 +53,10 @@ namespace pearblossom
                 string target = null;
                 if (Directory.Exists(filePaths[0])) // is folder
                 {
-                    //target = MergeDocumentUtil.Run(filePaths[0], withBookmark);
+                    target = MergeDocumentUtil.Run(filePaths[0], withBookmark);
                 } else // is files 
                 {
-                    //target = MergeDocumentUtil.Run(filePaths, withBookmark);
+                    target = MergeDocumentUtil.Run(filePaths, withBookmark);
                 }
                 
                 return target;

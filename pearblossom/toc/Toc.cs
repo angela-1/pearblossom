@@ -30,7 +30,7 @@ namespace pearblossom
         public string page;
     }
 
-    abstract class Toc
+    abstract class BaseToc
     {
         protected List<BookItem> _outline;
         protected string _src_file;
@@ -40,7 +40,7 @@ namespace pearblossom
             _outline = new List<BookItem>();
             PdfDocument pdfDoc = new PdfDocument(new PdfReader(_src_file));
 
-            PdfOutline pdfOutline = pdfDoc.GetOutlines(true);
+            PdfOutline pdfOutline = pdfDoc.GetOutlines(false);
 
             PdfNameTree destsTree = pdfDoc.GetCatalog().GetNameTree(PdfName.Dests);
 
@@ -57,7 +57,9 @@ namespace pearblossom
             {
                 BookItem bookItem;
                 bookItem.title = outline.GetTitle();
-                bookItem.page = pdfDoc.GetPageNumber((PdfDictionary)outline.GetDestination().GetDestinationPage(names)).ToString();
+                PdfObject pageNumber = outline.GetDestination()
+                    .GetDestinationPage(names);
+                bookItem.page = pdfDoc.GetPageNumber(pdfDoc.GetPage((PdfDictionary)pageNumber)).ToString();
                 _outline.Add(bookItem);
             }
 

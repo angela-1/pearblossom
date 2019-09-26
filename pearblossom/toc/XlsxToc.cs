@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace pearblossom
 {
-    class XlsxToc : Toc
+    class XlsxToc : BaseToc
     {
         public XlsxToc(string filepath)
         {

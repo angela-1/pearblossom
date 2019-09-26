@@ -63,7 +63,7 @@ namespace pearblossom
                     StringPage = page.ToString();
                     break;
                 case PageNumberStyle.Collection:
-                    int len = totalPage.ToString().Length;
+                    int len = Larger(totalPage.ToString().Length, 2);
                     StringPage = string.Format("{0:D" + len + "}", page);
                     break;
                 case PageNumberStyle.Total:
@@ -75,6 +75,10 @@ namespace pearblossom
             return StringPage;
         }
 
+        private static int Larger(int number1, int number2)
+        {
+            return number1 > number2 ? number1 : number2;
+        }
 
 
         public void AddFormatedNumber(int totalPage, Document doc, PdfFont font, PageNumberPos pos = PageNumberPos.Corner)

@@ -18,7 +18,7 @@ using Microsoft.Office.Interop.Word;
 
 namespace pearblossom
 {
-    class DocxToc:Toc
+    class DocxToc:BaseToc
     {
         public DocxToc(string filepath)
         {

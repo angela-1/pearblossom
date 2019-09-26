@@ -18,7 +18,7 @@ using System.IO;
 
 namespace pearblossom
 {
-    class TxtToc : Toc
+    class TxtToc : BaseToc
     {
         public TxtToc(string filepath)
         {

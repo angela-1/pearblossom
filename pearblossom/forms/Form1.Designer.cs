@@ -40,8 +40,8 @@
             this.getTocToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.docxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.xlsxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pageNumberToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -49,7 +49,6 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.xlsxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -62,8 +61,7 @@
             this.mergeStripButton,
             this.toolStripDropDownButton1,
             this.getTocToolStripDropDownButton,
-            this.pageNumberToolStripButton,
-            this.toolStripButton1});
+            this.pageNumberToolStripButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.MinimumSize = new System.Drawing.Size(0, 48);
             this.toolStrip1.Name = "toolStrip1";
@@ -108,21 +106,21 @@
             // toDocxToolStripMenuItem
             // 
             this.toDocxToolStripMenuItem.Name = "toDocxToolStripMenuItem";
-            this.toDocxToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
+            this.toDocxToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.toDocxToolStripMenuItem.Text = ".docx";
             this.toDocxToolStripMenuItem.Click += new System.EventHandler(this.ToDocxToolStripMenuItem_Click);
             // 
             // toPdfToolStripMenuItem
             // 
             this.toPdfToolStripMenuItem.Name = "toPdfToolStripMenuItem";
-            this.toPdfToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
+            this.toPdfToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.toPdfToolStripMenuItem.Text = ".pdf";
             this.toPdfToolStripMenuItem.Click += new System.EventHandler(this.ToPdfToolStripMenuItem_Click);
             // 
             // toTxtToolStripMenuItem
             // 
             this.toTxtToolStripMenuItem.Name = "toTxtToolStripMenuItem";
-            this.toTxtToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
+            this.toTxtToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.toTxtToolStripMenuItem.Text = ".txt";
             this.toTxtToolStripMenuItem.Click += new System.EventHandler(this.ToTxtToolStripMenuItem_Click);
             // 
@@ -152,6 +150,13 @@
             this.txtToolStripMenuItem.Text = "*.txt";
             this.txtToolStripMenuItem.Click += new System.EventHandler(this.TxtToolStripMenuItem_Click);
             // 
+            // xlsxToolStripMenuItem
+            // 
+            this.xlsxToolStripMenuItem.Name = "xlsxToolStripMenuItem";
+            this.xlsxToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.xlsxToolStripMenuItem.Text = "*.xlsx";
+            this.xlsxToolStripMenuItem.Click += new System.EventHandler(this.XlsxToolStripMenuItem_Click);
+            // 
             // pageNumberToolStripButton
             // 
             this.pageNumberToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("pageNumberToolStripButton.Image")));
@@ -160,16 +165,6 @@
             this.pageNumberToolStripButton.Size = new System.Drawing.Size(109, 45);
             this.pageNumberToolStripButton.Text = "添加页码";
             this.pageNumberToolStripButton.Click += new System.EventHandler(this.PageNumberToolStripButton_Click);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.Image = global::pearblossom.Properties.Resources.evenpage;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(109, 45);
-            this.toolStripButton1.Text = "加偶数页";
-            this.toolStripButton1.ToolTipText = "给文件加成偶数页";
-            this.toolStripButton1.Click += new System.EventHandler(this.ToolStripButton1_Click);
             // 
             // statusStrip1
             // 
@@ -233,13 +228,6 @@
             this.textBox1.TabIndex = 6;
             this.textBox1.TabStop = false;
             // 
-            // xlsxToolStripMenuItem
-            // 
-            this.xlsxToolStripMenuItem.Name = "xlsxToolStripMenuItem";
-            this.xlsxToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.xlsxToolStripMenuItem.Text = "*.xlsx";
-            this.xlsxToolStripMenuItem.Click += new System.EventHandler(this.XlsxToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -278,7 +266,6 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ToolStripButton mergeStripButton;
         private System.Windows.Forms.ToolTip toolTip1;
