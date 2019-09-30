@@ -88,10 +88,9 @@ namespace pearblossom
             {
                 //PageSize pageSize = doc.GetPdfDocument().GetDefaultPageSize();
                 PdfPage page = doc.GetPdfDocument().GetPage(i);
-                int a = page.GetRotation();
                 //page.SetRotation(0);
                 //Rectangle bb = page.GetPageSize();
-                Rectangle pageRec = page.GetPageSize();
+                Rectangle pageRec = page.GetPageSizeWithRotation();
                 page.SetMediaBox(pageRec);
 
                 float pageWidth = pageRec.GetWidth();

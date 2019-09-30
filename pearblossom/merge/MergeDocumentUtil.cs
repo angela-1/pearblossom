@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using MSWord = Microsoft.Office.Interop.Word;
+using iText.Pdfa;
 
 namespace pearblossom
 {
@@ -162,25 +163,42 @@ namespace pearblossom
             //parent.AddAction(PdfAction.CreateGoTo(
             //        PdfExplicitRemoteGoToDestination.CreateFit(1)));
 
-          
 
 
-            int pageNumber = 1;
+
+            int pageNumber = 0;
             InFiles.ForEach(srcFile =>
             {
                 string title = Path.GetFileNameWithoutExtension(srcFile);
 
                 PdfDocument firstSourcePdf = new PdfDocument(new PdfReader(srcFile));
+
+                int pageCount = firstSourcePdf.GetNumberOfPages();
+                for (int i = 1; i < pageCount + 1; i++)
+                {
+                    var page = firstSourcePdf.GetPage(i);
+                    int pageRotate = page.GetRotation();
+                    if (pageRotate != 0)
+                    {
+                        page.SetRotation(0);
+                    }
+                }
+
                 merger.Merge(firstSourcePdf, 1, firstSourcePdf.GetNumberOfPages());
 
-                PdfExplicitDestination dd = PdfExplicitDestination.CreateFit(pdfDoc.GetPage(pageNumber));
+                
+
+                //firstSourcePdf.CopyPagesTo(1, firstSourcePdf.GetNumberOfPages(), pdfDoc);
+                //int all = pdfDoc.GetNumberOfPages();
+
+                PdfExplicitDestination dd = PdfExplicitDestination.CreateFit(pdfDoc.GetPage(1));
                 string tt = Guid.NewGuid().ToString();
                 pdfDoc.AddNamedDestination(tt, dd.GetPdfObject());
 
                 PdfOutline kid = parent.AddOutline(title);
                 kid.AddAction(PdfAction.CreateGoTo(new PdfStringDestination(tt)));
                 //kid.AddAction(PdfAction.CreateGoTo(
-                    //PdfExplicitRemoteGoToDestination.CreateFit(pageNumber)));
+                //PdfExplicitRemoteGoToDestination.CreateFit(pageNumber)));
 
                 pageNumber += firstSourcePdf.GetNumberOfPages();
                 firstSourcePdf.Close();
@@ -206,8 +224,8 @@ namespace pearblossom
 
             PdfMerger merger = new PdfMerger(pdfDoc, true, true);
 
-          
-          
+
+
 
             List<PdfOutline> listItem = new List<PdfOutline>();
 
