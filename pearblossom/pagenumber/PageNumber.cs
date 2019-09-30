@@ -16,6 +16,7 @@
 
 using iText.IO.Font.Constants;
 using iText.Kernel.Colors;
+using iText.Kernel.Events;
 using iText.Kernel.Font;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -83,11 +84,17 @@ namespace pearblossom
 
         public void AddFormatedNumber(int totalPage, Document doc, PdfFont font, PageNumberPos pos = PageNumberPos.Corner)
         {
-
             for (int i = 1; i <= totalPage; i++)
             {
-                PageSize pageSize = doc.GetPdfDocument().GetDefaultPageSize();
-                float pageWidth = pageSize.GetWidth();
+                //PageSize pageSize = doc.GetPdfDocument().GetDefaultPageSize();
+                PdfPage page = doc.GetPdfDocument().GetPage(i);
+                int a = page.GetRotation();
+                //page.SetRotation(0);
+                //Rectangle bb = page.GetPageSize();
+                Rectangle pageRec = page.GetPageSize();
+                page.SetMediaBox(pageRec);
+
+                float pageWidth = pageRec.GetWidth();
 
                 float pointX;
                 float pointY = 30.0f;
@@ -118,7 +125,7 @@ namespace pearblossom
                 float whiteY = pointY - whiteHeight / 2;
 
                 // 画白色背景，遮住原来的内容
-                PdfCanvas canvas = new PdfCanvas(doc.GetPdfDocument().GetPage(i));
+                PdfCanvas canvas = new PdfCanvas(page);
                 DrawWhiteBack(canvas, whiteX, whiteY, whiteWidth, whiteHeight);
 
                 canvas.SetFillColor(ColorConstants.BLACK);
@@ -133,14 +140,10 @@ namespace pearblossom
 
         private void DrawWhiteBack(PdfCanvas canvas, float whiteX, float whiteY, float whiteWidth, float whiteHeight)
         {
-            canvas.SetFillColor(ColorConstants.WHITE);
+            canvas.SetFillColor(ColorConstants.ORANGE);
             canvas.Rectangle(whiteX, whiteY, whiteWidth, whiteHeight);
             canvas.Fill();
         }
-
-
-
-
 
         public string AddPageNumber()
         {
