@@ -49,7 +49,6 @@
             this.collectionStyle.Name = "collectionStyle";
             this.collectionStyle.Size = new System.Drawing.Size(199, 24);
             this.collectionStyle.TabIndex = 1;
-            this.collectionStyle.TabStop = true;
             this.collectionStyle.Text = "汇编样式 001,002,003,...";
             this.collectionStyle.UseVisualStyleBackColor = true;
             this.collectionStyle.CheckedChanged += new System.EventHandler(this.PageStyleRadio_CheckedChanged);
@@ -77,7 +76,6 @@
             this.totalStyle.Name = "totalStyle";
             this.totalStyle.Size = new System.Drawing.Size(217, 24);
             this.totalStyle.TabIndex = 2;
-            this.totalStyle.TabStop = true;
             this.totalStyle.Text = "总数样式 1/20,2/20,3/20,...";
             this.totalStyle.UseVisualStyleBackColor = true;
             this.totalStyle.CheckedChanged += new System.EventHandler(this.PageStyleRadio_CheckedChanged);
@@ -85,6 +83,7 @@
             // normalStyle
             // 
             this.normalStyle.AutoSize = true;
+            this.normalStyle.Checked = true;
             this.normalStyle.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.normalStyle.Location = new System.Drawing.Point(30, 35);
             this.normalStyle.Name = "normalStyle";
@@ -140,7 +139,6 @@
             this.posCorner.Name = "posCorner";
             this.posCorner.Size = new System.Drawing.Size(135, 24);
             this.posCorner.TabIndex = 1;
-            this.posCorner.TabStop = true;
             this.posCorner.Text = "奇偶页左右角落";
             this.posCorner.UseVisualStyleBackColor = true;
             this.posCorner.CheckedChanged += new System.EventHandler(this.PagePosRadio_CheckedChanged);
@@ -148,6 +146,7 @@
             // posCenter
             // 
             this.posCenter.AutoSize = true;
+            this.posCenter.Checked = true;
             this.posCenter.Location = new System.Drawing.Point(30, 36);
             this.posCenter.Name = "posCenter";
             this.posCenter.Size = new System.Drawing.Size(90, 24);

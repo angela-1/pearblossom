@@ -13,7 +13,7 @@ namespace pearblossom
 {
     public partial class Form4 : Form
     {
-        private Boolean withBookmark = false;
+        private bool withBookmark = false;
         private readonly string[] filePaths;
 
         private readonly Form1 parentForm;

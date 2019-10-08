@@ -18,7 +18,7 @@ using Microsoft.Office.Interop.Word;
 
 namespace pearblossom
 {
-    class DocxToc:Toc
+    class DocxToc:BaseToc
     {
         public DocxToc(string filepath)
         {
@@ -42,9 +42,9 @@ namespace pearblossom
 
             doc.Paragraphs.Last.Range.Text = "目  录";
 
-            foreach (string item in _outline)
+            foreach (var item in _outline)
             {
-                doc.Paragraphs.Last.Range.Text += item;
+                doc.Paragraphs.Last.Range.Text += item.title + '\t' + item.page;
             }
 
 

@@ -18,7 +18,7 @@ using System.IO;
 
 namespace pearblossom
 {
-    class TxtToc : Toc
+    class TxtToc : BaseToc
     {
         public TxtToc(string filepath)
         {
@@ -31,9 +31,9 @@ namespace pearblossom
             string dst_filepath = GetTocName("txt");
             FileStream fs = new FileStream(dst_filepath, FileMode.Create);
             StreamWriter sw = new StreamWriter(fs);
-            foreach (string line in _outline)
+            foreach (var line in _outline)
             {
-                sw.WriteLine(line);
+                sw.WriteLine(line.title + '\t' + line.page);
             }
 
             sw.Flush();

@@ -1,11 +1,16 @@
-﻿using iTextSharp.text;
-using iTextSharp.text.pdf;
+﻿using iTextPageSize = iText.Kernel.Geom.PageSize;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Action;
+using iText.Kernel.Pdf.Navigation;
+using iText.Kernel.Utils;
+using iText.Layout;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using MSWord = Microsoft.Office.Interop.Word;
+using iText.Pdfa;
 
 namespace pearblossom
 {
@@ -114,7 +119,7 @@ namespace pearblossom
         }
         private static string GetDestFilename(string filePath)
         {
-            string newFile = Path.GetFileNameWithoutExtension(filePath) + ".pdf";
+            string newFile = System.IO.Path.GetFileNameWithoutExtension(filePath) + ".pdf";
             string dest = Path.GetDirectoryName(filePath);
             return Path.Combine(dest, newFile);
         }
@@ -145,141 +150,120 @@ namespace pearblossom
         }
         private static void MergePdfs(List<string> InFiles, string OutFile)
         {
-            using (FileStream stream = new FileStream(OutFile, FileMode.Create))
-            using (Document doc = new Document())
-            using (PdfCopy pdf = new PdfSmartCopy(doc, stream))
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(OutFile));
+            pdfDoc.InitializeOutlines();
+
+            PdfMerger merger = new PdfMerger(pdfDoc);
+
+            PdfOutline rootOutline = pdfDoc.GetOutlines(false);
+            string parentTitle = Path.GetFileNameWithoutExtension(OutFile);
+            PdfOutline parent = rootOutline.AddOutline(parentTitle);
+
+
+            //parent.AddAction(PdfAction.CreateGoTo(
+            //        PdfExplicitRemoteGoToDestination.CreateFit(1)));
+
+
+
+
+            int pageNumber = 0;
+            InFiles.ForEach(srcFile =>
             {
-                doc.Open();
+                string title = Path.GetFileNameWithoutExtension(srcFile);
 
-                PdfReader reader = null;
-                PdfImportedPage page = null;
+                PdfDocument firstSourcePdf = new PdfDocument(new PdfReader(srcFile));
 
-                var bookmarks = new List<Dictionary<string, object>>();
-                var rootBookmark = new Dictionary<string, object>();
-                var level1 = Path.GetFileNameWithoutExtension(OutFile);
-
-                rootBookmark.Add("Action", "GoTo");
-                rootBookmark.Add("Title", level1);
-                rootBookmark.Add("Page", "1 FitH 842"); // use height of 1st page
-
-                var kids = new List<Dictionary<string, object>>();
-
-
-                //fixed typo
-                InFiles.ForEach(file =>
+                int pageCount = firstSourcePdf.GetNumberOfPages();
+                for (int i = 1; i < pageCount + 1; i++)
                 {
-                    var title = Path.GetFileNameWithoutExtension(file);
-
-                    var kk = new Dictionary<string, object>
+                    var page = firstSourcePdf.GetPage(i);
+                    int pageRotate = page.GetRotation();
+                    if (pageRotate != 0)
                     {
-                        { "Action", "GoTo" },
-                        { "Title", title },
-                        { "Page", pdf.PageNumber + " FitH 842" }
-                    };
-                    kids.Add(kk);
-
-                    reader = new PdfReader(file);
-
-                    for (int i = 0; i < reader.NumberOfPages; i++)
-                    {
-                        page = pdf.GetImportedPage(reader, i + 1);
-                        pdf.AddPage(page);
-
+                        page.SetRotation(0);
                     }
+                }
 
+                merger.Merge(firstSourcePdf, 1, firstSourcePdf.GetNumberOfPages());
 
-                    int pages = reader.NumberOfPages;
-                    if (pages % 2 == 1)
-                    {
-                        pdf.AddPage(PageSize.A4, 0);
-                    }
+                
 
-                    IList<Dictionary<string, object>> outline_list = SimpleBookmark.GetBookmark(reader);
+                //firstSourcePdf.CopyPagesTo(1, firstSourcePdf.GetNumberOfPages(), pdfDoc);
+                //int all = pdfDoc.GetNumberOfPages();
 
+                PdfExplicitDestination dd = PdfExplicitDestination.CreateFit(pdfDoc.GetPage(1));
+                string tt = Guid.NewGuid().ToString();
+                pdfDoc.AddNamedDestination(tt, dd.GetPdfObject());
 
+                PdfOutline kid = parent.AddOutline(title);
+                kid.AddAction(PdfAction.CreateGoTo(new PdfStringDestination(tt)));
+                //kid.AddAction(PdfAction.CreateGoTo(
+                //PdfExplicitRemoteGoToDestination.CreateFit(pageNumber)));
 
+                pageNumber += firstSourcePdf.GetNumberOfPages();
+                firstSourcePdf.Close();
+            });
 
-                    pdf.FreeReader(reader);
-                    reader.Close();
-                });
+            PdfExplicitDestination destToPage3 = PdfExplicitDestination.CreateFit(pdfDoc.GetFirstPage());
+            string stringDest = Guid.NewGuid().ToString();
+            pdfDoc.AddNamedDestination(stringDest, destToPage3.GetPdfObject());
+            parent.AddAction(PdfAction.CreateGoTo(new PdfStringDestination(stringDest)));
 
-
-                rootBookmark.Add("Kids", kids);
-
-                bookmarks.Add(rootBookmark);
-
-
-                pdf.Outlines = bookmarks;
-
+            if (pdfDoc.GetNumberOfPages() % 2 == 1)
+            {
+                pdfDoc.AddNewPage(pageNumber, iTextPageSize.A4);
             }
+
+            pdfDoc.Close();
         }
 
         private static void MergePdfsWithBookmarks(List<string> InFiles, string OutFile)
         {
-            using (FileStream stream = new FileStream(OutFile, FileMode.Create))
-            using (Document doc = new Document())
-            using (PdfCopy pdf = new PdfSmartCopy(doc, stream))
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(OutFile));
+            pdfDoc.InitializeOutlines();
+
+            PdfMerger merger = new PdfMerger(pdfDoc, true, true);
+
+
+
+
+            List<PdfOutline> listItem = new List<PdfOutline>();
+
+            InFiles.ForEach(srcFile =>
             {
-                doc.Open();
+                PdfDocument firstSourcePdf = new PdfDocument(new PdfReader(srcFile));
+                merger.Merge(firstSourcePdf, 1, firstSourcePdf.GetNumberOfPages());
 
-                PdfReader reader = null;
-                PdfImportedPage page = null;
+                firstSourcePdf.GetOutlines(false).GetDestination();
+                firstSourcePdf.Close();
+            });
 
-                var bookmarks = new List<Dictionary<string, object>>();
-                var rootBookmark = new Dictionary<string, object>();
-                var level1 = Path.GetFileNameWithoutExtension(OutFile);
+            PdfOutline rootOutline = pdfDoc.GetOutlines(false);
 
-                rootBookmark.Add("Action", "GoTo");
-                rootBookmark.Add("Title", level1);
-                rootBookmark.Add("Page", "1 FitH 842"); // use height of 1st page
+            listItem.AddRange(rootOutline.GetAllChildren());
 
-                var kids = new List<Dictionary<string, object>>();
+            rootOutline.GetAllChildren().Clear();
 
-                //fixed typo
-                InFiles.ForEach(file =>
-                {
-                    var title = Path.GetFileNameWithoutExtension(file);
+            string parentTitle = Path.GetFileNameWithoutExtension(OutFile);
+            PdfOutline parent = rootOutline.AddOutline(parentTitle);
 
-                    reader = new PdfReader(file);
-
-                    var ks = SimpleBookmark.GetBookmark(reader);
-                    SimpleBookmark.ShiftPageNumbers(ks, pdf.PageNumber - 1, null);
-                    if (ks != null)
-                    {
-                        kids.AddRange(ks);
-                    }
-
-                    for (int i = 0; i < reader.NumberOfPages; i++)
-                    {
-                        page = pdf.GetImportedPage(reader, i + 1);
-                        pdf.AddPage(page);
-
-                    }
-
-
-                    int pages = reader.NumberOfPages;
-                    if (pages % 2 == 1)
-                    {
-                        pdf.AddPage(PageSize.A4, 0);
-                    }
-
-                    IList<Dictionary<string, object>> outline_list = SimpleBookmark.GetBookmark(reader);
-
-
-
-
-                    pdf.FreeReader(reader);
-                    reader.Close();
-                });
-
-
-                rootBookmark.Add("Kids", kids);
-
-                bookmarks.Add(rootBookmark);
-
-                pdf.Outlines = bookmarks;
-
+            foreach (var item in listItem)
+            {
+                parent.AddOutline(item);
             }
+
+            PdfExplicitDestination destToPage3 = PdfExplicitDestination.CreateFit(pdfDoc.GetFirstPage());
+            string stringDest = Guid.NewGuid().ToString();
+            pdfDoc.AddNamedDestination(stringDest, destToPage3.GetPdfObject());
+            parent.AddAction(PdfAction.CreateGoTo(new PdfStringDestination(stringDest)));
+
+            int pageNumber = pdfDoc.GetNumberOfPages();
+            if (pdfDoc.GetNumberOfPages() % 2 == 1)
+            {
+                pdfDoc.AddNewPage(pageNumber, iTextPageSize.A4);
+            }
+
+            pdfDoc.Close();
         }
     }
 }

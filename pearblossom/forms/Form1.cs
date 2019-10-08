@@ -197,20 +197,6 @@ namespace pearblossom
                 MessageBox.Show("只支持文件夹或多个文件。若要转换格式请使用转换格式功能。");
                 ShowStatus("请选择文件夹或多个文件");
             }
-            //if (srcFile != "")
-            //{
-
-            //    string[] filePaths = files;
-            //    ShowFiles();
-
-            //    Form form4 = new Form4(this, filePaths);
-            //    form4.Show();
-            //    ShowStatus("合并文件成功");
-            //}
-            //else
-            //{
-            //    ShowStatus("请选择文件夹");
-            //}
         }
 
 
