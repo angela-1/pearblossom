@@ -121,32 +121,35 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="merge\DocumentConverterUtils.cs" />
+    <Compile Include="merge\MergedDocument.cs" />
     <Compile Include="merge\MergeDocumentUtil.cs" />
+    <Compile Include="MyAsyncTask.cs" />
+    <Compile Include="pagenumber\PagenumberDocument.cs" />
     <Compile Include="toc\DocxToc.cs" />
     <Compile Include="merge\EvenPage.cs" />
-    <Compile Include="forms\Form1.cs">
+    <Compile Include="forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="forms\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="forms\Form2.cs">
+    <Compile Include="forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="forms\Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <Compile Include="forms\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="forms\Form3.cs">
+    <Compile Include="forms\PagenumberForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="forms\Form3.Designer.cs">
-      <DependentUpon>Form3.cs</DependentUpon>
+    <Compile Include="forms\PagenumberForm.Designer.cs">
+      <DependentUpon>PagenumberForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="forms\Form4.cs">
+    <Compile Include="forms\KeepBookmarkForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="forms\Form4.Designer.cs">
-      <DependentUpon>Form4.cs</DependentUpon>
+    <Compile Include="forms\KeepBookmarkForm.Designer.cs">
+      <DependentUpon>KeepBookmarkForm.cs</DependentUpon>
     </Compile>
     <Compile Include="merge\OutputFormat.cs" />
     <Compile Include="pagenumber\PageNumber.cs" />
@@ -156,17 +159,17 @@
     <Compile Include="toc\Toc.cs" />
     <Compile Include="toc\TxtToc.cs" />
     <Compile Include="toc\XlsxToc.cs" />
-    <EmbeddedResource Include="forms\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="forms\Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <EmbeddedResource Include="forms\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="forms\Form3.resx">
-      <DependentUpon>Form3.cs</DependentUpon>
+    <EmbeddedResource Include="forms\PagenumberForm.resx">
+      <DependentUpon>PagenumberForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="forms\Form4.resx">
-      <DependentUpon>Form4.cs</DependentUpon>
+    <EmbeddedResource Include="forms\KeepBookmarkForm.resx">
+      <DependentUpon>KeepBookmarkForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
