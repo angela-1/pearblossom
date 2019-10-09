@@ -33,9 +33,12 @@ namespace pearblossom
         {
             Hide();
             parentForm.ShowStatus("处理中...");
+            parentForm.ShowProgress(true);
             MergedDocument mergedDocument = new MergedDocument(withBookmark, filePaths);
             string target = await mergedDocument.Run();
             parentForm.ShowStatus("完成");
+            parentForm.ShowProgress(false);
+
             parentForm.ShowContent(@"目标文件：
 " + target);
         }

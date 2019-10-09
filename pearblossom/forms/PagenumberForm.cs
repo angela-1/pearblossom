@@ -77,10 +77,13 @@ namespace pearblossom
             {
                 Hide();
                 parentForm.ShowStatus("处理中...");
+                parentForm.ShowProgress(true);
                 PagenumberDocument pagenumberDocument = new PagenumberDocument(parentForm.srcFile, pageNumberStyle, pageNumberPos);
                 await pagenumberDocument.Run();
                 parentForm.ShowStatus("完成");
-                parentForm.ShowFiles();
+                parentForm.ShowProgress(false);
+                parentForm.ShowContent("结果", parentForm.AssembleFilesString());
+
             }
             else
             {

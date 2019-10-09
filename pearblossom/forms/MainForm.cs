@@ -39,16 +39,26 @@ namespace pearblossom
             ShowContent("欢迎使用");
         }
 
-
-        public void ShowContent(string content)
+        public void ShowProgress(bool show)
         {
-            textBox1.Text = content;
+            toolStripProgressBar1.Visible = show;
+            toolStripProgressBar1.Style = show ?
+                ProgressBarStyle.Marquee : ProgressBarStyle.Blocks;
+        }
+        public void ShowContent(string title, string content = null)
+        {
+            string str = string.Concat(title, "\r\n", content);
+            textBox1.Text = str;
         }
 
-        public void ShowFiles()
+        public string AssembleFilesString()
         {
-            string s = string.Join("\r\n", files);
-            textBox1.Text = "文件列表：\r\n" + s;
+            string s = "";
+            for (int i = 0; i < files.Length; i++)
+            {
+                s += (i + 1).ToString() + ". " + files[i] + "\r\n";
+            }
+            return s;
         }
 
         public void ShowStatus(string status)
@@ -85,8 +95,8 @@ namespace pearblossom
             {
                 files = openFileDialog.FileNames;
                 srcFile = files[0];
-                ShowStatus("已选文件");
-                ShowFiles();
+                ShowStatus("就绪");
+                ShowContent("源文件", AssembleFilesString());
             }
             openFileDialog.Dispose();
         }
@@ -94,17 +104,14 @@ namespace pearblossom
         private void Form1_DragEnter(object sender, DragEventArgs e)
         {
             files = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-            //string path = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).Tostring();
-
             srcFile = files[0];
             ShowStatus("已选文件");
-            ShowFiles();
+            ShowContent("源文件", AssembleFilesString());
         }
 
         private void ExportTocToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
             if (srcFile != "")
             {
                 string name = ((ToolStripMenuItem)sender).Name;
@@ -137,7 +144,8 @@ namespace pearblossom
         private void ToolStripStatusLabel3_Click(object sender, EventArgs e)
         {
             Form form2 = new Form2();
-            form2.Show();
+            form2.ShowDialog();
+            form2.Dispose();
         }
 
         private void GithubToolStripStatusLabel_Click(object sender, EventArgs e)
@@ -174,7 +182,7 @@ namespace pearblossom
                 if (isFolder || files.Length > 1)
                 {
                     string[] filePaths = files;
-                    ShowFiles();
+                    ShowContent("结果", AssembleFilesString());
                     Form form4 = new KeepBookmarkForm(this, filePaths);
                     form4.ShowDialog();
                     form4.Dispose();
@@ -199,6 +207,7 @@ namespace pearblossom
             {
                 string dest = "";
                 ShowStatus("处理中...");
+                ShowProgress(true);
                 foreach (var f in fileOrPath)
                 {
                     dest = DocumentConverterUtils.Convert(f, format);
@@ -209,7 +218,8 @@ namespace pearblossom
                 }
                 ShowContent(@"结果：
 " + dest);
-                ShowStatus("转换完成");
+                ShowProgress(false);
+                ShowStatus("完成");
             }
             else
             {
@@ -217,21 +227,36 @@ namespace pearblossom
             }
         }
 
-        private void ToDocxToolStripMenuItem_Click(object sender, EventArgs e)
+
+
+        private void ConvertToToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Convert(files, "docx");
+            if (srcFile != "")
+            {
+                string name = ((ToolStripMenuItem)sender).Name;
+                switch (name)
+                {
+                    case "toDocxToolStripMenuItem":
+                        Convert(files, "docx");
+                        break;
+                    case "toPdfToolStripMenuItem":
+                        Convert(files, "pdf");
+                        break;
+                    case "toTxtToolStripMenuItem":
+                        Convert(files, "txt");
+                        break;
+                    default:
+                        break;
+                }
+                ShowStatus("转换成功");
+            }
+            else
+            {
+                ShowStatus("请选择文件");
+            }
+
         }
 
-        private void ToPdfToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Convert(files, "pdf");
-        }
-
-        private void ToTxtToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Convert(files, "txt");
-        }
-
-
+       
     }
 }
