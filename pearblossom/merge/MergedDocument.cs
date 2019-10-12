@@ -18,25 +18,19 @@ namespace pearblossom.merge
             this.filePaths = filePaths;
         }
 
-        protected override Task<string> MyTask()
+        protected override string MyTask()
         {
-
-            var task = Task.Run(() =>
+            string target;
+            if (Directory.Exists(filePaths[0])) // is folder
             {
-                string target = null;
-                if (Directory.Exists(filePaths[0])) // is folder
-                {
-                    target = MergeDocumentUtil.Run(filePaths[0], withBookmark);
-                }
-                else // is files 
-                {
-                    target = MergeDocumentUtil.Run(filePaths, withBookmark);
-                }
+                target = MergeDocumentUtil.Run(filePaths[0], withBookmark);
+            }
+            else // is files 
+            {
+                target = MergeDocumentUtil.Run(filePaths, withBookmark);
+            }
 
-                return target;
-            });
-
-            return task;
+            return target;
         }
     }
 }

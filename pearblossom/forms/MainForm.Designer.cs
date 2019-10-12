@@ -97,21 +97,21 @@
             // toDocxToolStripMenuItem
             // 
             this.toDocxToolStripMenuItem.Name = "toDocxToolStripMenuItem";
-            this.toDocxToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.toDocxToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
             this.toDocxToolStripMenuItem.Text = ".docx";
             this.toDocxToolStripMenuItem.Click += new System.EventHandler(this.ConvertToToolStripMenuItem_Click);
             // 
             // toPdfToolStripMenuItem
             // 
             this.toPdfToolStripMenuItem.Name = "toPdfToolStripMenuItem";
-            this.toPdfToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.toPdfToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
             this.toPdfToolStripMenuItem.Text = ".pdf";
             this.toPdfToolStripMenuItem.Click += new System.EventHandler(this.ConvertToToolStripMenuItem_Click);
             // 
             // toTxtToolStripMenuItem
             // 
             this.toTxtToolStripMenuItem.Name = "toTxtToolStripMenuItem";
-            this.toTxtToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.toTxtToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
             this.toTxtToolStripMenuItem.Text = ".txt";
             this.toTxtToolStripMenuItem.Click += new System.EventHandler(this.ConvertToToolStripMenuItem_Click);
             // 
@@ -186,6 +186,7 @@
             // 
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 18);
+            this.toolStripProgressBar1.Visible = false;
             // 
             // toolStripStatusLabel1
             // 

@@ -86,7 +86,7 @@ namespace pearblossom
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 //openFileDialog.InitialDirectory = "c:\\"; // 不设置默认打开桌面
-                Filter = "PDF 文件(*.pdf)|*.pdf|Word 文件(*.docx)|*.docx|Word 文件(*.doc)|*.doc|所有文件(*.*)|*.*",
+                Filter = "所有文件(*.*)|*.*|PDF 文件(*.pdf)|*.pdf|Word 文件(*.docx)|*.docx|Word 文件(*.doc)|*.doc",
                 Multiselect = true,
                 RestoreDirectory = true,
                 FilterIndex = 1

@@ -19,16 +19,11 @@ namespace pearblossom.pagenumber
             this.pageNumberPos = pageNumberPos;
         }
 
-        protected override Task<string> MyTask()
+        protected override string MyTask()
         {
-            var task = Task.Run(() =>
-            {
-                string target = null;
-                PageNumber pageNumber = new PageNumber(srcFile, pageNumberStyle, pageNumberPos);
-                target = pageNumber.AddPageNumber();
-                return target;
-            });
-            return task;
+            PageNumber pageNumber = new PageNumber(srcFile, pageNumberStyle, pageNumberPos);
+            string target = pageNumber.AddPageNumber();
+            return target;
         }
     }
 }

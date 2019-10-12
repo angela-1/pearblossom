@@ -139,7 +139,7 @@ namespace pearblossom
 
         private void DrawWhiteBack(PdfCanvas canvas, float whiteX, float whiteY, float whiteWidth, float whiteHeight)
         {
-            canvas.SetFillColor(ColorConstants.ORANGE);
+            canvas.SetFillColor(ColorConstants.WHITE);
             canvas.Rectangle(whiteX, whiteY, whiteWidth, whiteHeight);
             canvas.Fill();
         }

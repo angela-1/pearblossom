@@ -10,9 +10,14 @@ namespace pearblossom
     {
         public async Task<string> Run()
         {
-            return await MyTask();
+            return await RunTask(MyTask);
         }
 
-        protected abstract Task<string> MyTask();
+        protected async Task<string> RunTask(Func<string> task)
+        {
+            string result = await Task.Run(task);
+            return result;
+        }
+        protected abstract string MyTask();
     }
 }
