@@ -13,7 +13,7 @@ namespace pearblossom
             return await RunTask(MyTask);
         }
 
-        protected async Task<string> RunTask(Func<string> task)
+        private async Task<string> RunTask(Func<string> task)
         {
             string result = await Task.Run(task);
             return result;

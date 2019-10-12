@@ -125,6 +125,7 @@
     <Compile Include="merge\MergeDocumentUtil.cs" />
     <Compile Include="MyAsyncTask.cs" />
     <Compile Include="pagenumber\PagenumberDocument.cs" />
+    <Compile Include="pagenumber\PagenumberTask.cs" />
     <Compile Include="toc\DocxToc.cs" />
     <Compile Include="merge\EvenPage.cs" />
     <Compile Include="forms\MainForm.cs">
