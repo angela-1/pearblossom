@@ -4,6 +4,7 @@
     {
         Normal,
         Collection,
-        Total
+        Total,
+        Decorate
     }
 }

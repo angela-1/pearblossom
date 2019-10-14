@@ -132,6 +132,7 @@
     <Compile Include="MyAsyncTask.cs" />
     <Compile Include="pagenumber\CenterPos.cs" />
     <Compile Include="pagenumber\CollectionPagenumber.cs" />
+    <Compile Include="pagenumber\DecorateNumber.cs" />
     <Compile Include="pagenumber\IPagenumberPos.cs" />
     <Compile Include="pagenumber\IPagenumberStyle.cs" />
     <Compile Include="pagenumber\NormalPagenumber.cs" />

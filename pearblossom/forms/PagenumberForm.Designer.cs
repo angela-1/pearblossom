@@ -37,6 +37,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.posCorner = new System.Windows.Forms.RadioButton();
             this.posCenter = new System.Windows.Forms.RadioButton();
+            this.decorateStyle = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -47,9 +48,9 @@
             this.collectionStyle.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.collectionStyle.Location = new System.Drawing.Point(271, 35);
             this.collectionStyle.Name = "collectionStyle";
-            this.collectionStyle.Size = new System.Drawing.Size(199, 24);
+            this.collectionStyle.Size = new System.Drawing.Size(179, 24);
             this.collectionStyle.TabIndex = 1;
-            this.collectionStyle.Text = "汇编样式 001,002,003,...";
+            this.collectionStyle.Text = "汇编（001,002,003）";
             this.collectionStyle.UseVisualStyleBackColor = true;
             this.collectionStyle.CheckedChanged += new System.EventHandler(this.PageStyleRadio_CheckedChanged);
             // 
@@ -57,6 +58,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.decorateStyle);
             this.groupBox1.Controls.Add(this.totalStyle);
             this.groupBox1.Controls.Add(this.normalStyle);
             this.groupBox1.Controls.Add(this.collectionStyle);
@@ -74,9 +76,9 @@
             this.totalStyle.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.totalStyle.Location = new System.Drawing.Point(30, 77);
             this.totalStyle.Name = "totalStyle";
-            this.totalStyle.Size = new System.Drawing.Size(217, 24);
+            this.totalStyle.Size = new System.Drawing.Size(197, 24);
             this.totalStyle.TabIndex = 2;
-            this.totalStyle.Text = "总数样式 1/20,2/20,3/20,...";
+            this.totalStyle.Text = "总数（1/20,2/20,3/20）";
             this.totalStyle.UseVisualStyleBackColor = true;
             this.totalStyle.CheckedChanged += new System.EventHandler(this.PageStyleRadio_CheckedChanged);
             // 
@@ -87,10 +89,10 @@
             this.normalStyle.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.normalStyle.Location = new System.Drawing.Point(30, 35);
             this.normalStyle.Name = "normalStyle";
-            this.normalStyle.Size = new System.Drawing.Size(145, 24);
+            this.normalStyle.Size = new System.Drawing.Size(125, 24);
             this.normalStyle.TabIndex = 0;
             this.normalStyle.TabStop = true;
-            this.normalStyle.Text = "普通样式 1,2,3,...";
+            this.normalStyle.Text = "普通（1,2,3）";
             this.normalStyle.UseVisualStyleBackColor = true;
             this.normalStyle.CheckedChanged += new System.EventHandler(this.PageStyleRadio_CheckedChanged);
             // 
@@ -156,7 +158,19 @@
             this.posCenter.UseVisualStyleBackColor = true;
             this.posCenter.CheckedChanged += new System.EventHandler(this.PagePosRadio_CheckedChanged);
             // 
-            // Form3
+            // decorateStyle
+            // 
+            this.decorateStyle.AutoSize = true;
+            this.decorateStyle.Location = new System.Drawing.Point(271, 77);
+            this.decorateStyle.Name = "decorateStyle";
+            this.decorateStyle.Size = new System.Drawing.Size(253, 24);
+            this.decorateStyle.TabIndex = 3;
+            this.decorateStyle.TabStop = true;
+            this.decorateStyle.Text = "装饰（— 1 —, — 2 —, — 3 —）";
+            this.decorateStyle.UseVisualStyleBackColor = true;
+            this.decorateStyle.CheckedChanged += new System.EventHandler(this.PageStyleRadio_CheckedChanged);
+            // 
+            // PagenumberForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -165,7 +179,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Form3";
+            this.Name = "PagenumberForm";
             this.Text = "Form3";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -186,5 +200,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton posCorner;
         private System.Windows.Forms.RadioButton posCenter;
+        private System.Windows.Forms.RadioButton decorateStyle;
     }
 }

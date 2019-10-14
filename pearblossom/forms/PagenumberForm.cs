@@ -72,6 +72,7 @@ namespace pearblossom
                 "normalStyle" => PagenumberStyle.Normal,
                 "collectionStyle" => PagenumberStyle.Collection,
                 "totalStyle" => PagenumberStyle.Total,
+                "decorateStyle" => PagenumberStyle.Decorate,
                 _ => PagenumberStyle.Normal,
             };
         }
@@ -83,6 +84,7 @@ namespace pearblossom
                 PagenumberStyle.Normal => new NormalPagenumber(),
                 PagenumberStyle.Collection => new CollectionPagenumber(),
                 PagenumberStyle.Total => new TotalPagenumber(),
+                PagenumberStyle.Decorate => new DecorateNumber(),
                 _ => new NormalPagenumber()
 
             };
