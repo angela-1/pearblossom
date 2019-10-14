@@ -1,4 +1,6 @@
-﻿using pearblossom.pagenumber;
+﻿using iText.IO.Font.Constants;
+using iText.Kernel.Font;
+using pearblossom.pagenumber;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,8 +15,8 @@ namespace pearblossom
 {
     public partial class PagenumberForm : Form
     {
-        private PageNumberStyle pageNumberStyle = PageNumberStyle.Normal;
-        private PageNumberPos pageNumberPos = PageNumberPos.Center;
+        private PagenumberStyle pageNumberStyle = PagenumberStyle.Normal;
+        private PagenumberPos pageNumberPos = PagenumberPos.Center;
         private readonly MainForm parentForm;
 
         public PagenumberForm(MainForm form)
@@ -31,20 +33,32 @@ namespace pearblossom
                 return;
             }
 
-            switch (((RadioButton)sender).Name)
+            pageNumberPos = ((RadioButton)sender).Name switch
             {
-                case "posCenter":
-                    pageNumberPos = PageNumberPos.Center;
-                    break;
-                case "posCorner":
-                    pageNumberPos = PageNumberPos.Corner;
-                    break;
-                default:
-                    pageNumberPos = PageNumberPos.Center;
-                    break;
-            }
+                "posCenter" => PagenumberPos.Center,
+                "posCorner" => PagenumberPos.Corner,
+                _ => PagenumberPos.Center,
+            };
         }
 
+        private PdfFont GetFont()
+        {
+            PdfFont numberFont;
+            switch (pageNumberStyle)
+            {
+                case PagenumberStyle.Normal:
+                    numberFont = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
+                    break;
+                case PagenumberStyle.Collection:
+                case PagenumberStyle.Total:
+                    numberFont = PdfFontFactory.CreateFont(StandardFonts.COURIER);
+                    break;
+                default:
+                    numberFont = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
+                    break;
+            }
+            return numberFont;
+        }
 
         public void PageStyleRadio_CheckedChanged(object sender, EventArgs e)
         {
@@ -52,24 +66,40 @@ namespace pearblossom
             {
                 return;
             }
-            
-            switch (((RadioButton)sender).Name)
+
+            pageNumberStyle = ((RadioButton)sender).Name switch
             {
-                case "normalStyle":
-                    pageNumberStyle = PageNumberStyle.Normal;
-                    break;
-                case "collectionStyle":
-                    pageNumberStyle = PageNumberStyle.Collection;
-                    break;
-                case "totalStyle":
-                    pageNumberStyle = PageNumberStyle.Total;
-                    break;
-                default:
-                    pageNumberStyle = PageNumberStyle.Normal;
-                    break;
-            }
+                "normalStyle" => PagenumberStyle.Normal,
+                "collectionStyle" => PagenumberStyle.Collection,
+                "totalStyle" => PagenumberStyle.Total,
+                _ => PagenumberStyle.Normal,
+            };
         }
 
+        private IPagenumberStyle GetPagenumberStyle()
+        {
+            IPagenumberStyle pagenumberStyle = pageNumberStyle switch
+            {
+                PagenumberStyle.Normal => new NormalPagenumber(),
+                PagenumberStyle.Collection => new CollectionPagenumber(),
+                PagenumberStyle.Total => new TotalPagenumber(),
+                _ => new NormalPagenumber()
+
+            };
+            return pagenumberStyle;
+        }
+
+        private IPagenumberPos GetPos()
+        {
+            IPagenumberPos pagenumberPos = pageNumberPos switch
+            {
+                PagenumberPos.Center => new CenterPos(),
+                PagenumberPos.Corner => new CornerPos(),
+                _ => new CenterPos()
+
+            };
+            return pagenumberPos;
+        }
         private async void Button2_Click(object sender, EventArgs e)
         {
 
@@ -78,8 +108,11 @@ namespace pearblossom
                 Hide();
                 parentForm.ShowStatus("处理中...");
                 parentForm.ShowProgress(true);
-                PagenumberDocument pagenumberDocument = new PagenumberDocument(parentForm.srcFile, pageNumberStyle, pageNumberPos);
-                await pagenumberDocument.Run();
+                IPagenumberPos pos = GetPos();
+                IPagenumberStyle style = GetPagenumberStyle();
+                PdfFont font = GetFont();
+                PagenumberTask task = new PagenumberTask(parentForm.srcFile, style, pos, font);
+                await task.Run();
                 parentForm.ShowStatus("完成");
                 parentForm.ShowProgress(false);
                 parentForm.ShowContent("结果", parentForm.AssembleFilesString());

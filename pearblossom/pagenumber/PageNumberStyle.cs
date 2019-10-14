@@ -1,16 +1,9 @@
-﻿namespace pearblossom
+﻿namespace pearblossom.pagenumber
 {
-
-    enum PageNumberStyle
+    enum PagenumberStyle
     {
         Normal,
         Collection,
         Total
-    }
-
-    enum PageNumberPos
-    {
-        Center,
-        Corner
     }
 }

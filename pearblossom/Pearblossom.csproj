@@ -64,6 +64,12 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>pearblossom.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>..\packages\Portable.BouncyCastle.1.8.5\lib\net40\BouncyCastle.Crypto.dll</HintPath>
@@ -124,8 +130,16 @@
     <Compile Include="merge\MergedDocument.cs" />
     <Compile Include="merge\MergeDocumentUtil.cs" />
     <Compile Include="MyAsyncTask.cs" />
-    <Compile Include="pagenumber\PagenumberDocument.cs" />
+    <Compile Include="pagenumber\CenterPos.cs" />
+    <Compile Include="pagenumber\CollectionPagenumber.cs" />
+    <Compile Include="pagenumber\IPagenumberPos.cs" />
+    <Compile Include="pagenumber\IPagenumberStyle.cs" />
+    <Compile Include="pagenumber\NormalPagenumber.cs" />
+    <Compile Include="pagenumber\PagenumberPos.cs" />
+    <Compile Include="pagenumber\PagenumberStyle.cs" />
     <Compile Include="pagenumber\PagenumberTask.cs" />
+    <Compile Include="pagenumber\CornerPos.cs" />
+    <Compile Include="pagenumber\TotalPagenumber.cs" />
     <Compile Include="toc\DocxToc.cs" />
     <Compile Include="merge\EvenPage.cs" />
     <Compile Include="forms\MainForm.cs">
@@ -153,8 +167,6 @@
       <DependentUpon>KeepBookmarkForm.cs</DependentUpon>
     </Compile>
     <Compile Include="merge\OutputFormat.cs" />
-    <Compile Include="pagenumber\PageNumber.cs" />
-    <Compile Include="pagenumber\PageNumberStyle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="toc\Toc.cs" />
