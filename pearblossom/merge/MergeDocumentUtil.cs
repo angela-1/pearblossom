@@ -156,7 +156,6 @@ namespace pearblossom
             //PdfMerger merger = new PdfMerger(pdfDoc, false, false);
 
             PdfOutline rootOutline = pdfDoc.GetOutlines(true);
-            var aa = rootOutline.GetAllChildren();
             string parentTitle = Path.GetFileNameWithoutExtension(OutFile);
             PdfOutline parent = rootOutline.AddOutline(parentTitle);
 
