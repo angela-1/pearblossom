@@ -119,7 +119,7 @@ namespace pearblossom
         }
         private static string GetDestFilename(string filePath)
         {
-            string newFile = System.IO.Path.GetFileNameWithoutExtension(filePath) + ".pdf";
+            string newFile = Path.GetFileNameWithoutExtension(filePath) + ".pdf";
             string dest = Path.GetDirectoryName(filePath);
             return Path.Combine(dest, newFile);
         }
@@ -153,9 +153,10 @@ namespace pearblossom
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(OutFile));
             pdfDoc.InitializeOutlines();
 
-            PdfMerger merger = new PdfMerger(pdfDoc);
+            //PdfMerger merger = new PdfMerger(pdfDoc, false, false);
 
-            PdfOutline rootOutline = pdfDoc.GetOutlines(false);
+            PdfOutline rootOutline = pdfDoc.GetOutlines(true);
+            var aa = rootOutline.GetAllChildren();
             string parentTitle = Path.GetFileNameWithoutExtension(OutFile);
             PdfOutline parent = rootOutline.AddOutline(parentTitle);
 
@@ -166,8 +167,10 @@ namespace pearblossom
 
 
 
+
             int pageNumber = 0;
-            InFiles.ForEach(srcFile =>
+
+            foreach (var srcFile in InFiles)
             {
                 string title = Path.GetFileNameWithoutExtension(srcFile);
 
@@ -182,16 +185,16 @@ namespace pearblossom
                     {
                         page.SetRotation(0);
                     }
+                    PdfPage newPage = firstSourcePdf.GetPage(i).CopyTo(pdfDoc);
+                    pdfDoc.AddPage(newPage);
                 }
 
-                merger.Merge(firstSourcePdf, 1, firstSourcePdf.GetNumberOfPages());
-
-                
+                //merger.Merge(firstSourcePdf, 1, firstSourcePdf.GetNumberOfPages());
 
                 //firstSourcePdf.CopyPagesTo(1, firstSourcePdf.GetNumberOfPages(), pdfDoc);
                 //int all = pdfDoc.GetNumberOfPages();
 
-                PdfExplicitDestination dd = PdfExplicitDestination.CreateFit(pdfDoc.GetPage(1));
+                PdfExplicitDestination dd = PdfExplicitDestination.CreateFit(pdfDoc.GetPage(pageNumber + 1));
                 string tt = Guid.NewGuid().ToString();
                 pdfDoc.AddNamedDestination(tt, dd.GetPdfObject());
 
@@ -200,9 +203,13 @@ namespace pearblossom
                 //kid.AddAction(PdfAction.CreateGoTo(
                 //PdfExplicitRemoteGoToDestination.CreateFit(pageNumber)));
 
+                var bb = parent.GetAllChildren();
+
                 pageNumber += firstSourcePdf.GetNumberOfPages();
                 firstSourcePdf.Close();
-            });
+            }
+
+
 
             PdfExplicitDestination destToPage3 = PdfExplicitDestination.CreateFit(pdfDoc.GetFirstPage());
             string stringDest = Guid.NewGuid().ToString();
