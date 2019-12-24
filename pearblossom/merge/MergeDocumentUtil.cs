@@ -38,6 +38,7 @@ namespace pearblossom
             }
 
             List<string> imgFiles = Filters(filesList, ".jpg");
+
             foreach (var img in imgFiles)
             {
                 int ind = filesList.FindIndex(f => f == img);
@@ -46,22 +47,31 @@ namespace pearblossom
                 tmpPdfFiles.Add(pdfFile);
             }
 
-            List<string> pdfFiles = FilterPdf(filesList);
-            //pdfFiles.Sort((x1, x2) =>
-            //{
-            //    bool hasNumber = Regex.IsMatch(Path.GetFileNameWithoutExtension(x1), @"\d+")
-            //      && Regex.IsMatch(Path.GetFileNameWithoutExtension(x2), @"\d+");
-            //    if (hasNumber)
-            //    {
-            //        return int.Parse(Regex.Match(Path.GetFileNameWithoutExtension(x1), @"\d+").Value)
-            //    .CompareTo(int.Parse(Regex.Match(Path.GetFileNameWithoutExtension(x2), @"\d+").Value));
-            //    }
-            //    else
-            //    {
-            //        return -1;
-            //    }
+            List<string> imgFiles1 = Filters(filesList, ".png");
+            foreach (var img in imgFiles1)
+            {
+                int ind = filesList.FindIndex(f => f == img);
+                string pdfFile = ImgToPdf(img);
+                filesList[ind] = pdfFile;
+                tmpPdfFiles.Add(pdfFile);
+            }
 
-            //});
+            List<string> pdfFiles = FilterPdf(filesList);
+            pdfFiles.Sort((x1, x2) =>
+            {
+                bool hasNumber = Regex.IsMatch(Path.GetFileNameWithoutExtension(x1), @"\d+")
+                  && Regex.IsMatch(Path.GetFileNameWithoutExtension(x2), @"\d+");
+                if (hasNumber)
+                {
+                    return int.Parse(Regex.Match(Path.GetFileNameWithoutExtension(x1), @"\d+").Value)
+                .CompareTo(int.Parse(Regex.Match(Path.GetFileNameWithoutExtension(x2), @"\d+").Value));
+                }
+                else
+                {
+                    return -1;
+                }
+
+            });
 
             string targetFolder = Path.GetDirectoryName(Path.GetDirectoryName(filePaths[0]));
 
@@ -77,7 +87,7 @@ namespace pearblossom
                 MergePdfs(pdfFiles, target);
             }
 
-            //Clean(tmpPdfFiles);
+            Clean(tmpPdfFiles);
 
             return target;
 
@@ -136,7 +146,7 @@ namespace pearblossom
             foreach (var item in filepaths)
             {
                 string ext = Path.GetExtension(item);
-                if (ext == ".pdf" || ext == ".jpg")
+                if (ext == ".pdf")
                 {
                     result.Add(item);
                 }
@@ -149,6 +159,25 @@ namespace pearblossom
             string dest = Path.GetDirectoryName(filePath);
             return Path.Combine(dest, newFile);
         }
+
+        //private static string RandNumber(int n)
+        //{
+        //    string result = "";
+        //    var v = new Random();
+        //    for (int i = 0; i < n; i++)
+        //    {
+        //        var seed = v.Next(0, 9);
+        //        result += seed.ToString();
+        //    }
+        //    return result;
+        //}
+
+        //private static string GetTmpFilename(string filePath)
+        //{
+        //    string newFile = RandNumber(8) + ".pdf";
+        //    string dest = Path.GetDirectoryName(filePath);
+        //    return Path.Combine(dest, newFile);
+        //}
 
 
         private static string ImgToPdf(string filePath)
@@ -194,6 +223,7 @@ namespace pearblossom
 
             doc.Close();
             app.Quit();
+
             return dest;
         }
         private static void MergePdfs(List<string> InFiles, string OutFile)
@@ -224,6 +254,7 @@ namespace pearblossom
                 PdfDocument firstSourcePdf = new PdfDocument(new PdfReader(srcFile));
 
                 int pageCount = firstSourcePdf.GetNumberOfPages();
+
                 for (int i = 1; i < pageCount + 1; i++)
                 {
                     var page = firstSourcePdf.GetPage(i);
@@ -252,8 +283,14 @@ namespace pearblossom
 
                 var bb = parent.GetAllChildren();
 
-                pageNumber += firstSourcePdf.GetNumberOfPages();
+                pageNumber += pageCount;
                 firstSourcePdf.Close();
+
+                if (pageCount % 2 == 1)
+                {
+                    pdfDoc.AddNewPage(iTextPageSize.A4);
+                    pageNumber += 1;
+                }
             }
 
 
@@ -286,10 +323,16 @@ namespace pearblossom
             InFiles.ForEach(srcFile =>
             {
                 PdfDocument firstSourcePdf = new PdfDocument(new PdfReader(srcFile));
-                merger.Merge(firstSourcePdf, 1, firstSourcePdf.GetNumberOfPages());
+                int pageCount = firstSourcePdf.GetNumberOfPages();
+                merger.Merge(firstSourcePdf, 1, pageCount);
 
                 firstSourcePdf.GetOutlines(false).GetDestination();
                 firstSourcePdf.Close();
+
+                if (pageCount % 2 == 1)
+                {
+                    pdfDoc.AddNewPage(iTextPageSize.A4);
+                }
             });
 
             PdfOutline rootOutline = pdfDoc.GetOutlines(false);
@@ -311,10 +354,9 @@ namespace pearblossom
             pdfDoc.AddNamedDestination(stringDest, destToPage3.GetPdfObject());
             parent.AddAction(PdfAction.CreateGoTo(new PdfStringDestination(stringDest)));
 
-            int pageNumber = pdfDoc.GetNumberOfPages();
             if (pdfDoc.GetNumberOfPages() % 2 == 1)
             {
-                pdfDoc.AddNewPage(pageNumber, iTextPageSize.A4);
+                pdfDoc.AddNewPage(iTextPageSize.A4);
             }
 
             pdfDoc.Close();

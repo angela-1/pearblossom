@@ -178,20 +178,11 @@ namespace pearblossom
         {
             if (srcFile != "")
             {
-                bool isFolder = Directory.Exists(srcFile);
-                if (isFolder || files.Length > 1)
-                {
-                    string[] filePaths = files;
-                    ShowContent("结果", AssembleFilesString());
-                    Form form4 = new KeepBookmarkForm(this, filePaths);
-                    form4.ShowDialog();
-                    form4.Dispose();
-                }
-                else
-                {
-                    MessageBox.Show("只支持文件夹或多个文件。若要转换格式请使用转换格式功能。");
-                    ShowStatus("请选择文件夹或多个文件");
-                }
+                string[] filePaths = files;
+                ShowContent("结果", AssembleFilesString());
+                Form form4 = new KeepBookmarkForm(this, filePaths);
+                form4.ShowDialog();
+                form4.Dispose();
             }
             else
             {
