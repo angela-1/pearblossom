@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using MSWord = Microsoft.Office.Interop.Word;
 using iText.Pdfa;
+using iText.IO.Image;
+using iText.Layout.Element;
 
 namespace pearblossom
 {
@@ -32,6 +34,15 @@ namespace pearblossom
                 string pdfFile = DocxToPdf(docxFile, withBookmark);
                 filesList[ind] = pdfFile;
                 //filesList.Add(pdfFile);
+                tmpPdfFiles.Add(pdfFile);
+            }
+
+            List<string> imgFiles = Filters(filesList, ".jpg");
+            foreach (var img in imgFiles)
+            {
+                int ind = filesList.FindIndex(f => f == img);
+                string pdfFile = ImgToPdf(img);
+                filesList[ind] = pdfFile;
                 tmpPdfFiles.Add(pdfFile);
             }
 
@@ -66,7 +77,7 @@ namespace pearblossom
                 MergePdfs(pdfFiles, target);
             }
 
-            Clean(tmpPdfFiles);
+            //Clean(tmpPdfFiles);
 
             return target;
 
@@ -104,13 +115,28 @@ namespace pearblossom
             return result;
         }
 
+
+        private static List<string> Filters(List<string> filePaths, string extensionWithDot)
+        {
+            List<string> result = new List<string>();
+            foreach (var item in filePaths)
+            {
+                string ext = Path.GetExtension(item);
+                if (ext == extensionWithDot)
+                {
+                    result.Add(item);
+                }
+            }
+            return result;
+        }
+
         private static List<string> FilterPdf(List<string> filepaths)
         {
             List<string> result = new List<string>();
             foreach (var item in filepaths)
             {
                 string ext = Path.GetExtension(item);
-                if (ext == ".pdf")
+                if (ext == ".pdf" || ext == ".jpg")
                 {
                     result.Add(item);
                 }
@@ -122,6 +148,28 @@ namespace pearblossom
             string newFile = Path.GetFileNameWithoutExtension(filePath) + ".pdf";
             string dest = Path.GetDirectoryName(filePath);
             return Path.Combine(dest, newFile);
+        }
+
+
+        private static string ImgToPdf(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("文件" + filePath + "不存在");
+                return null;
+            }
+
+            string dest = GetDestFilename(filePath);
+
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(dest));
+            Image image = new Image(ImageDataFactory.Create(filePath));
+            pdfDoc.AddNewPage(iTextPageSize.A4);
+
+            Document doc = new Document(pdfDoc, iTextPageSize.A4);
+            doc.Add(image);
+
+            doc.Close();
+            return dest;
         }
 
         private static string DocxToPdf(string filePath, bool withBookmark)
